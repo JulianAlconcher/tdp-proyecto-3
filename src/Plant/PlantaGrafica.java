@@ -1,5 +1,5 @@
 package Plant;
 
-public class EntidadPlanta {
+public class PlantaGrafica{
 
 }

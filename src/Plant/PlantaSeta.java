@@ -1,5 +1,5 @@
 package Plant;
 
-public class PlantaSeta extends Planta{
+public class PlantaSeta extends PlantaLanzaguisantes{
 
 }
