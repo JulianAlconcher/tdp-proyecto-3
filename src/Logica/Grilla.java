@@ -30,6 +30,9 @@ public class Grilla {
 	public void setTablero(Celda[][] tablero) {
 		this.tablero = tablero;
 	}
+	public Celda getCelda(int f,int c) {
+		return tablero[f][c];
+	}
 	
 	
 }

@@ -1,6 +1,8 @@
 package Zombie;
 
-public class ClassicZombie{
+import Logica.Visitor;
+
+public class ClassicZombie implements EntidadZombie{
 	protected int vida;
 	protected int velocidad;
 	//Conocen su ubicacion?
@@ -36,6 +38,18 @@ public class ClassicZombie{
 
 	public void setVelocidad(int velocidad) {
 		this.velocidad = velocidad;
+	}
+
+	@Override
+	public void visit(Visitor v) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void accept(Visitor v) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

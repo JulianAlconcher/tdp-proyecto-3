@@ -7,19 +7,28 @@ public class MouseHandler implements MouseListener{
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
+		int code = e.getButton();
+		if(code == MouseEvent.BUTTON1) {
+			System.out.println("Click izquierdo");
+		}
 
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
+		int code = e.getButton();
+		if(code == MouseEvent.BUTTON1) {
+			System.out.println("MANTENGO");
+		}
 
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
+		int code = e.getButton();
+		if(code == MouseEvent.BUTTON1) {
+			System.out.println("solte");
+		}
 
 	}
 

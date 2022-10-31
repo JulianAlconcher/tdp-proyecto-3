@@ -52,5 +52,17 @@ public class Logica {
 	public void gameOver() { //Zombie llega a casa
 		
 	}
+	
+	public boolean chequearZombieEnFila(int fila) {
+		for(int j=0; j<columnas; j++) {
+//			if(miGrilla.getCelda(fila,j))  // Preguntar si tiene un zombie
+				
+		}
+		return true;
+	}
+	
+	public boolean lugarDisponiblePlanta(int f,int c) {
+		return true;
+	}
 
 }

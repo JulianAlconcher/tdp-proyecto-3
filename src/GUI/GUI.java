@@ -1,6 +1,5 @@
 package GUI;
 
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -11,13 +10,13 @@ import javax.swing.JPanel;
 import Logica.Logica;
 
 import java.awt.Color;
+import java.awt.Dimension;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.GridLayout;
-import javax.swing.JLabel;
 
-public class GUI{
+public class GUI implements Runnable{
 
 	protected JFrame frame;
 	protected JPanel panelMenu;
@@ -26,6 +25,7 @@ public class GUI{
 	protected Logica miLogica;
 	protected CeldaGrafica matrizGrafica[][];
 	protected ImageIcon imagenBoton;
+	protected MouseHandler miMouse;
 
 	/**
 	 * Create the application.
@@ -62,7 +62,6 @@ public class GUI{
 		frame.getContentPane().add(panelJuego);
 		panelJuego.setLayout(null);
 		panelJuego.setLayout(new GridLayout(miLogica.getFilas(), miLogica.getColumnas(), 0, 0));
-
 		panelJuego.setVisible(false);
 		pintarMatriz();
 
@@ -74,16 +73,29 @@ public class GUI{
 			}
 
 		});
+		panelJuego.setFocusable(true);
+		miMouse = new MouseHandler();
+		panelJuego.addMouseListener(miMouse);
 	}
 
 	private void pintarMatriz() {
 		for(int i = 0; i < miLogica.getFilas(); i++) {
 			for(int j = 0; j < miLogica.getColumnas(); j++) {
 				CeldaGrafica cg = new CeldaGrafica();
-				cg.setIcon(cg.getImagen());
+				if(i%2 == (j%2)) //Esto es una flasheada, no le den bola.
+					cg.setIcon(cg.getImagen());
+				else
+					cg.setIcon(new ImageIcon(this.getClass().getResource("/Images/Fondo2.png")));
 				panelJuego.add(cg);
-
 			}
 		}
+	}
+	
+	
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
 	}
 }
