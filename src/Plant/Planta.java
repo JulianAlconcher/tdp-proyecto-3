@@ -1,13 +1,13 @@
 package Plant;
 
-import Logica.Visitor;
+public abstract class Planta extends Entidad{
 
-public abstract class Planta implements Visitor{
-	
-	protected int fila;
-	protected int columna;
 	protected int vida;
 	protected int costo;
+	
+	public Planta(int x, int y, int anchoRec, int largoRec) {
+		super(x, y, anchoRec, largoRec);
+	}
 	
 	public void morir() {
 		vida = 0;

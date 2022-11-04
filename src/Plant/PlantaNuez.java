@@ -4,8 +4,10 @@ import Logica.Visitor;
 
 public class PlantaNuez extends Planta{
 
-	public PlantaNuez() {
-		vida = 200;
+
+	public PlantaNuez(int x, int y, int anchoRec, int largoRec) {
+		super(x, y, anchoRec, largoRec);
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override

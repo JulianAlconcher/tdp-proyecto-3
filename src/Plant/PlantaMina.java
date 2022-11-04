@@ -4,10 +4,13 @@ import Logica.Visitor;
 
 public class PlantaMina extends Planta{
 	
-	public PlantaMina() {
-		
-	}
+
 	
+	public PlantaMina(int x, int y, int anchoRec, int largoRec) {
+		super(x, y, anchoRec, largoRec);
+		// TODO Auto-generated constructor stub
+	}
+
 	public void morir() {
 		//Explota
 	}

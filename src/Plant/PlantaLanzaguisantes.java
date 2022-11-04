@@ -3,10 +3,13 @@ package Plant;
 import Logica.Visitor;
 
 public class PlantaLanzaguisantes extends Planta{
+
 	protected Proyectil miProyectil;
 	
-	public PlantaLanzaguisantes() {
-		miProyectil = new ProyectilClasico();
+
+	public PlantaLanzaguisantes(int x, int y, int anchoRec, int largoRec) {
+		super(x, y, anchoRec, largoRec);
+		// TODO Auto-generated constructor stub
 	}
 	
 	public void disparar() {
