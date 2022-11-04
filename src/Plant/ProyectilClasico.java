@@ -5,7 +5,7 @@ import Logica.Visitor;
 public class ProyectilClasico extends Proyectil {
 	
 	public ProyectilClasico() {
-		this.cantidadDaño = 2;
+		this.cantidadDanio = 2;
 	}
 
 	@Override

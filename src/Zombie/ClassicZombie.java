@@ -24,7 +24,7 @@ public class ClassicZombie implements EntidadZombie{
 		return vida;
 	}
 	
-	public void recibirDaño(int d) {
+	public void recibirDanio(int d) {
 		this.vida -= d;
 	}
 

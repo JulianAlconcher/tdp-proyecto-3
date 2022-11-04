@@ -22,6 +22,7 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import java.awt.Font;
+import java.awt.FlowLayout;
 
 public class GUI implements Runnable{
 
@@ -37,6 +38,8 @@ public class GUI implements Runnable{
 	private JButton btnNewButton_1;
 	private JButton btnNewButton_2;
 	private JPanel panelJuego;
+	private JPanel panelMapa;
+	private ImageIcon im;
 
 	/**
 	 * Create the application.
@@ -44,6 +47,7 @@ public class GUI implements Runnable{
 	public GUI() {
 		miLogica = new Logica();
 		initialize();
+	    
 	}
 
 	/**
@@ -56,19 +60,19 @@ public class GUI implements Runnable{
 		frame.setVisible(true);
 		frame.setResizable(true);
 		frame.getContentPane().setLayout(new CardLayout(0, 0));
-
+        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		panelPrincipal = new JPanel();
 		panelPrincipal.setBackground(Color.BLACK);
 		frame.getContentPane().add(panelPrincipal);
 		panelPrincipal.setLayout(null);
-		
+		panelPrincipal.setBounds(frame.getBounds());
 
 		btnJugar = new JButton("Jugar");
 		btnJugar.setBounds(391, 409, 182, 77);
 		imagenBoton = new ImageIcon(this.getClass().getResource("/Images/BotonJugarPvZ.jpg"));
 		btnJugar.setIcon(imagenBoton);
 		panelPrincipal.add(btnJugar);
-		imagenPortadaMenu = new ImageIcon(this.getClass().getResource("/Images/portada.png"));
+		imagenPortadaMenu = new ImageIcon(this.getClass().getResource("/Images/PORTADA.jpg"));
 		
 		btnNewButton = new JButton("MODO DIA");
 		btnNewButton.setBounds(583, 409, 110, 35);
@@ -84,17 +88,18 @@ public class GUI implements Runnable{
 		panelPrincipal.add(btnNewButton_2);
 		
 		JLabel lblImagenMenu = new JLabel("");
-		lblImagenMenu.setBounds(0, 0, 947, 510);
+		lblImagenMenu.setBounds(panelPrincipal.getBounds());
 		panelPrincipal.add(lblImagenMenu);
 		lblImagenMenu.setIcon(imagenPortadaMenu);
 		
 		panelJuego = new JPanel();
 		frame.getContentPane().add(panelJuego, "name_843023529105300");
 		panelJuego.setLayout(null);
-		
-		JPanel panel = new JPanel();
-		panel.setBounds(0, 67, 947, 443);
-		panelJuego.add(panel);
+		panelJuego.setBounds(frame.getBounds());
+		panelMapa = new JPanel();
+		panelMapa.setBorder(null);
+		panelJuego.add(panelMapa);
+		panelMapa.setLayout(new GridLayout(1, 0, 0, 0));
 		
 		JButton btnNewButton_3 = new JButton("PLANTA 1");
 		btnNewButton_3.setBounds(10, 10, 85, 47);
@@ -115,8 +120,13 @@ public class GUI implements Runnable{
 		JLabel lblNewLabel = new JLabel("SOLES: 15");
 		lblNewLabel.setBounds(852, 10, 85, 47);
 		panelJuego.add(lblNewLabel);
-		pintarMatriz();
+		
+		JLabel lblNewLabel_1 = new JLabel("NIVEL: MODO:");
+		lblNewLabel_1.setBounds(571, 10, 155, 33);
+		panelJuego.add(lblNewLabel_1);
 
+		im= new ImageIcon(this.getClass().getResource("/Images/fondo.png"));
+		
 		btnJugar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -126,9 +136,21 @@ public class GUI implements Runnable{
 
 		});
 		miMouse = new MouseHandler();
+		 
+		matrizGrafica= new JLabel[miLogica.getFilas()][miLogica.getColumnas()];
+		pintarMatriz();
+		
 	}
 
 	private void pintarMatriz() {
+	  for(int i=0;i<miLogica.getFilas();i++) {
+		  for(int j=0;j<miLogica.getColumnas();j++) {
+			   JLabel jl= new JLabel();
+			   jl.setIcon(im);
+			   matrizGrafica[i][j]=jl;
+			   panelMapa.add(jl);
+		  }
+	  }
 		
 	}
 	

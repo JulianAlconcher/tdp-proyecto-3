@@ -9,13 +9,20 @@ public class Logica {
 	protected PlantsHandler miPlantsHandler;
 	protected int filas;
 	protected int columnas;
+	protected State state;
 	
 	public Logica() {
+		state= new DayState(this);
 		filas = 6;
 		columnas = 9;
 		miGrilla = new Grilla(filas,columnas);
 		miPlantsHandler = new PlantsHandler();
 	}
+	
+	public void setState(State state) {
+		this.state=state;
+	}
+	
 	
 	public Grilla getMiGrilla() {
 		return miGrilla;
