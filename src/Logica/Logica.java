@@ -13,17 +13,23 @@ public class Logica {
 	private int soles;
 	
 	public Logica() {
-		state= new DayState(this);
+	    state= new DayState(this);
 		filas = 6;
 		columnas = 9;
 		miGrilla = new Grilla(filas,columnas);
 		miPlantsHandler = new PlantsHandler();
 	}
 	
+	public void setDayState() {
+		this.state=new DayState(this);
+	}
+	
+	public void setNightState() {
+		this.state=new NightState(this);
+	}
 	public void setState(State state) {
 		this.state=state;
 	}
-	
 	
 	public Grilla getMiGrilla() {
 		return miGrilla;

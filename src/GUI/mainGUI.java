@@ -33,7 +33,7 @@ public class mainGUI extends JFrame implements Runnable {
 	protected JPanel mapPanel;
 
 	public mainGUI() {
-		miLogica = new Logica();
+		miLogica= new Logica();
 		initialize();
 	}
 
@@ -130,8 +130,13 @@ public class mainGUI extends JFrame implements Runnable {
                 }
 			}
 		});
-		btnPruebaAumentarSol.setBounds(566, 26, 85, 40);
+		btnPruebaAumentarSol.setBounds(655, 71, 85, 40);
 		inGamePanel.add(btnPruebaAumentarSol);
+		
+		JLabel lblMododeJuego = new JLabel("MODO:");
+		lblMododeJuego.setBounds(578, 10, 123, 25);
+		inGamePanel.add(lblMododeJuego);
+
 
 		
 	
@@ -150,10 +155,19 @@ public class mainGUI extends JFrame implements Runnable {
 		menuPanel.add(btnJugar);
 		
 		JButton btnModoDia = new JButton("MODO DIA");
+		btnModoDia.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				miLogica.setDayState();			}
+		});
 		btnModoDia.setBounds(689, 526, 158, 52);
 		menuPanel.add(btnModoDia);
 		
 		JButton btnModoNoche = new JButton("MODO NOCHE");
+		btnModoNoche.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				miLogica.setNightState();
+			}
+		});
 		btnModoNoche.setBounds(689, 588, 158, 52);
 		menuPanel.add(btnModoNoche);
 		
@@ -178,7 +192,6 @@ public class mainGUI extends JFrame implements Runnable {
 		});
 		
 		btnJugar.addActionListener(new ActionListener() {
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				menuPanel.setVisible(false);
 				inGamePanel.setVisible(true);

@@ -20,7 +20,6 @@ public class GUI implements Runnable{
 	 * Create the application.
 	 */
 	public GUI() {
-		miLogica = new Logica();
 		initialize();
 	    
 	}
