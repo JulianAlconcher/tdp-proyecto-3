@@ -15,13 +15,16 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import javax.swing.JButton;
 import java.awt.GridLayout;
+import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 @SuppressWarnings("serial")
 public class mainGUI extends JFrame implements Runnable {
 
 	private JPanel contentPane;
 	protected Logica miLogica;
-	protected JLabel matrizGrafica[][];
+	//protected JLabel matrizGrafica[][];
 	protected ImageIcon imagenBoton;
 	protected ImageIcon imagenPortadaMenu;
 	protected MouseHandler miMouse;
@@ -53,6 +56,11 @@ public class mainGUI extends JFrame implements Runnable {
 		inGamePanel.setLayout(null);
 		
 		mapPanel = new JPanel();
+		mapPanel.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+	
+			}
+		});
 		mapPanel.setBackground(new Color(128, 255, 0));
 		mapPanel.setBounds(10, 121, 1046, 552);
 		inGamePanel.add(mapPanel);
@@ -70,29 +78,63 @@ public class mainGUI extends JFrame implements Runnable {
 		btnPlanta1.setBounds(10, 10, 65, 89);
 		inGamePanel.add(btnPlanta1);
 		btnPlanta1.setIcon(new ImageIcon(this.getClass().getResource("/Images/comun.png")));
+		btnPlanta1.setEnabled(false);
 		
 		JButton btnPlanta2 = new JButton("");
 		btnPlanta2.setBounds(105, 10, 65, 89);
 		inGamePanel.add(btnPlanta2);
 		btnPlanta2.setIcon(new ImageIcon(this.getClass().getResource("/Images/girasol.png")));
+		btnPlanta2.setEnabled(false);
 		
 		JButton btnPlanta3 = new JButton("");
 		btnPlanta3.setBounds(200, 10, 65, 89);
 		inGamePanel.add(btnPlanta3);
 		btnPlanta3.setIcon(new ImageIcon(this.getClass().getResource("/Images/Nuez.png")));
+		btnPlanta3.setEnabled(false);
 		
 		JButton btnPlanta4 = new JButton("");
 		btnPlanta4.setBounds(295, 10, 65, 89);
 		inGamePanel.add(btnPlanta4);
 		btnPlanta4.setIcon(new ImageIcon(this.getClass().getResource("/Images/congeladora.png")));
+		btnPlanta4.setEnabled(false);
 		
 		JButton btnVolverMenu = new JButton("MENU");
 		btnVolverMenu.setBounds(953, 10, 103, 101);
 		inGamePanel.add(btnVolverMenu);
 		
-		JLabel lblNewLabel = new JLabel("SOLES:");
-		lblNewLabel.setBounds(803, 10, 140, 101);
-		inGamePanel.add(lblNewLabel);
+		JLabel lblSol = new JLabel("");
+		lblSol.setBounds(750, 0, 80, 89);
+		inGamePanel.add(lblSol);
+		lblSol.setIcon(new ImageIcon(this.getClass().getResource("/Images/sun.png")));
+		
+		JLabel lblCantSoles = new JLabel("0");
+		lblCantSoles.setFont(new Font("Cambria Math", Font.BOLD, 15));
+		lblCantSoles.setBounds(775, 86, 55, 25);
+		inGamePanel.add(lblCantSoles);
+		lblCantSoles.setText("  " + miLogica.getSoles());
+		
+		JButton btnPruebaAumentarSol = new JButton("CLICKEAME");
+		btnPruebaAumentarSol.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				miLogica.aumentarSoles();
+                lblCantSoles.setText("  " + miLogica.getSoles());
+                if(miLogica.getSoles()>=50) {
+                	btnPlanta2.setEnabled(true);
+                	btnPlanta3.setEnabled(true);
+                	if(miLogica.getSoles()>=100) {
+                		btnPlanta1.setEnabled(true);
+                		if(miLogica.getSoles()>=175) {
+                			btnPlanta4.setEnabled(true);       //ESTO ESTA PESIMO, ES SOLO A MODO DE PRUEBA 
+                		}
+                	}
+                }
+			}
+		});
+		btnPruebaAumentarSol.setBounds(566, 26, 85, 40);
+		inGamePanel.add(btnPruebaAumentarSol);
+
+		
+	
 		btnVolverMenu.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -147,9 +189,12 @@ public class mainGUI extends JFrame implements Runnable {
 		miMouse = new MouseHandler();
 		inGamePanel.addMouseListener(miMouse);
 		 
-		matrizGrafica= new JLabel[miLogica.getFilas()][miLogica.getColumnas()];
+		//matrizGrafica= new JLabel[miLogica.getFilas()][miLogica.getColumnas()];
 		pintarMatriz();
 	}
+	
+	
+	
 	
 	private void pintarMatriz() {
 		  for(int i=0;i<miLogica.getFilas();i++) {
@@ -157,12 +202,12 @@ public class mainGUI extends JFrame implements Runnable {
 				   JLabel jl= new JLabel();
 				   ImageIcon im= new ImageIcon(this.getClass().getResource("/Images/fondo.png"));
 				   jl.setIcon(im);
-				   matrizGrafica[i][j]=jl;
 				   mapPanel.add(jl);
 			  }
-		  }
-			
-		}
+			  }
+			  }
+		  
+		
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub

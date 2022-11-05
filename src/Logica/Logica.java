@@ -10,6 +10,7 @@ public class Logica {
 	protected int filas;
 	protected int columnas;
 	protected State state;
+	private int soles;
 	
 	public Logica() {
 		state= new DayState(this);
@@ -70,6 +71,22 @@ public class Logica {
 	
 	public boolean lugarDisponiblePlanta(int f,int c) {
 		return true;
+	}
+
+	public int getSoles() {
+		return soles;
+	}
+
+	public void aumentarSoles() {
+		this.soles=soles+25;
+	}
+	
+	public void restarSoles() {
+		this.soles=soles-100;
+		
+	}
+	public void setSoles(int soles) {
+		this.soles = soles;
 	}
 
 }
