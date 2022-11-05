@@ -1,5 +1,5 @@
 package Logica;
 
-public abstract class AbstractFactory {
-
+public interface AbstractFactory  {
+	
 }

@@ -1,7 +1,5 @@
 package Logica;
 
-import Plant.Planta;
-
 public class Celda {
 	protected int fila;
 	protected int columna;
@@ -36,27 +34,6 @@ public class Celda {
 	}
 
 
-	public Planta getMiPlanta() {
-		return miPlanta;
-	}
 
-
-	public void setMiPlanta(Planta miPlanta) {
-		this.miPlanta = miPlanta;
-	}
-
-
-	protected Planta miPlanta;
-	
-	public Celda() {
-		ocupada = false; 
-	}
-	
-	
-	public void insertarPlanta(Planta nuevaPlanta) {
-		miPlanta = nuevaPlanta;
-		ocupada = true;
-	}
-	
 	
 }

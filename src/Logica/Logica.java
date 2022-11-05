@@ -6,7 +6,6 @@ public class Logica {
 	
 	protected GUI miGUI;
 	protected Grilla miGrilla;
-	protected PlantsHandler miPlantsHandler;
 	protected int filas;
 	protected int columnas;
 	protected State state;
@@ -19,7 +18,7 @@ public class Logica {
 		filas = 6;
 		columnas = 9;
 		miGrilla = new Grilla(filas,columnas);
-		miPlantsHandler = new PlantsHandler();
+		
 	}
 	
 
@@ -43,13 +42,6 @@ public class Logica {
 		this.miGrilla = miGrilla;
 	}
 
-	public PlantsHandler getMiPlantsHandler() {
-		return miPlantsHandler;
-	}
-
-	public void setMiPlantsHandler(PlantsHandler miPlantsHandler) {
-		this.miPlantsHandler = miPlantsHandler;
-	}
 
 	public int getFilas() {
 		return filas;
@@ -112,4 +104,7 @@ public class Logica {
 		return grass;
 	}
 
+	public void crearPlanta() {
+		
+	}
 }

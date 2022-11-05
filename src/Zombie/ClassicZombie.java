@@ -1,8 +1,9 @@
 package Zombie;
 
+import Logica.Entidad;
 import Logica.Visitor;
 
-public class ClassicZombie implements EntidadZombie{
+public class ClassicZombie extends Entidad{
 	protected int vida;
 	protected int velocidad;
 	//Conocen su ubicacion?

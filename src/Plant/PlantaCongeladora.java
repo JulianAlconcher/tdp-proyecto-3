@@ -1,10 +1,21 @@
 package Plant;
 
-public class PlantaCongeladora extends PlantaLanzaguisantes{
+import Logica.Entidad;
+import Logica.Visitor;
 
-	public PlantaCongeladora(int x, int y, int anchoRec, int largoRec) {
-		super(x, y, anchoRec, largoRec);
-		// TODO Auto-generated constructor stub
+public class PlantaCongeladora extends Entidad{
+
+
+	@Override
+	public void visit(Visitor v) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void accept(Visitor v) {
+		// TODO Auto-generated method stub
+		
 	}
 
 

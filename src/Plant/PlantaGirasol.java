@@ -1,17 +1,9 @@
 package Plant;
 
+import Logica.Entidad;
 import Logica.Visitor;
 
-public class PlantaGirasol extends Planta{
-	
-	public PlantaGirasol(int x, int y, int anchoRec, int largoRec) {
-		super(x, y, anchoRec, largoRec);
-		// TODO Auto-generated constructor stub
-	}
-
-	public void generarSol() {
-			
-	}
+public class PlantaGirasol extends Entidad{
 
 	@Override
 	public void visit(Visitor v) {
@@ -24,5 +16,6 @@ public class PlantaGirasol extends Planta{
 		// TODO Auto-generated method stub
 		
 	}
+	
 
 }

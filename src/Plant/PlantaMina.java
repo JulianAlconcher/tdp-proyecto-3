@@ -1,19 +1,9 @@
 package Plant;
 
+import Logica.Entidad;
 import Logica.Visitor;
 
-public class PlantaMina extends Planta{
-	
-
-	
-	public PlantaMina(int x, int y, int anchoRec, int largoRec) {
-		super(x, y, anchoRec, largoRec);
-		// TODO Auto-generated constructor stub
-	}
-
-	public void morir() {
-		//Explota
-	}
+public class PlantaMina extends Entidad{
 
 	@Override
 	public void visit(Visitor v) {
@@ -26,5 +16,8 @@ public class PlantaMina extends Planta{
 		// TODO Auto-generated method stub
 		
 	}
+	
+
+
 
 }

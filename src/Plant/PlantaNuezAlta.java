@@ -1,10 +1,22 @@
 package Plant;
 
-public class PlantaNuezAlta extends PlantaNuez{
+import Logica.Entidad;
+import Logica.Visitor;
 
-	public PlantaNuezAlta(int x, int y, int anchoRec, int largoRec) {
-		super(x, y, anchoRec, largoRec);
-		// TODO Auto-generated constructor stub
+public class PlantaNuezAlta extends Entidad{
+
+	@Override
+	public void visit(Visitor v) {
+		// TODO Auto-generated method stub
+		
 	}
+
+	@Override
+	public void accept(Visitor v) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
 
 }
