@@ -4,7 +4,8 @@ public class VentanaPrincipal {
 
 	public static void main(String[] args) {
 
-		GUI window = new GUI();
+		mainGUI window = new mainGUI();
+		window.setVisible(true);
 		
 
 	}

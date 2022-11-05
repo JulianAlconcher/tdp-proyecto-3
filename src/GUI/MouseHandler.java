@@ -9,7 +9,9 @@ public class MouseHandler implements MouseListener{
 	public void mouseClicked(MouseEvent e) {
 		int code = e.getButton();
 		if(code == MouseEvent.BUTTON1) {
-			System.out.println("Click izquierdo");
+			int x = e.getX();
+			int y = e.getY();
+			System.out.println("Click izquierdo en posicion: x: " + x + ",y: " +  y);
 		}
 
 	}
@@ -18,7 +20,7 @@ public class MouseHandler implements MouseListener{
 	public void mousePressed(MouseEvent e) {
 		int code = e.getButton();
 		if(code == MouseEvent.BUTTON1) {
-			System.out.println("MANTENGO");
+			//System.out.println("MANTENGO");
 		}
 
 	}
@@ -27,7 +29,7 @@ public class MouseHandler implements MouseListener{
 	public void mouseReleased(MouseEvent e) {
 		int code = e.getButton();
 		if(code == MouseEvent.BUTTON1) {
-			System.out.println("solte");
+			//System.out.println("solte");
 		}
 
 	}
