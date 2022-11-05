@@ -12,6 +12,6 @@ public abstract class State {
 
 	public abstract void cambioNoche();
 	public abstract void cambioDia();
-	
+	public abstract String printState();
 
 }

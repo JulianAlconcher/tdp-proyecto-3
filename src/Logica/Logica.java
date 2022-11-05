@@ -11,21 +11,25 @@ public class Logica {
 	protected int columnas;
 	protected State state;
 	private int soles;
+	private String grass;
 	
 	public Logica() {
 	    state= new DayState(this);
+	    grass= "Fondo.png";
 		filas = 6;
 		columnas = 9;
 		miGrilla = new Grilla(filas,columnas);
 		miPlantsHandler = new PlantsHandler();
 	}
 	
+
+	
 	public void setDayState() {
-		this.state=new DayState(this);
+		state.cambioDia();
 	}
 	
 	public void setNightState() {
-		this.state=new NightState(this);
+		state.cambioNoche();
 	}
 	public void setState(State state) {
 		this.state=state;
@@ -93,6 +97,19 @@ public class Logica {
 	}
 	public void setSoles(int soles) {
 		this.soles = soles;
+	}
+
+	public String printGameState() {
+		return state.printState();
+	}
+
+	public void setGrass(String string) {
+		grass = string;
+		
+	}
+	
+	public String getGrass() {
+		return grass;
 	}
 
 }

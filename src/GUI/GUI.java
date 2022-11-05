@@ -34,28 +34,11 @@ public class GUI implements Runnable{
 		frame.setResizable(true);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		imagenBoton = new ImageIcon(this.getClass().getResource("/Images/BotonJugarPvZ.jpg"));
-
-		im= new ImageIcon(this.getClass().getResource("/Images/fondo.png"));
-		miMouse = new MouseHandler();
 		 
 		matrizGrafica= new JLabel[miLogica.getFilas()][miLogica.getColumnas()];
-		pintarMatriz();
-		
-	}
 
-	private void pintarMatriz() {
-	  for(int i=0;i<miLogica.getFilas();i++) {
-		  for(int j=0;j<miLogica.getColumnas();j++) {
-			   JLabel jl= new JLabel();
-			   jl.setIcon(im);
-			   matrizGrafica[i][j]=jl;
-			   //panelMapa.add(jl);
-		  }
-	  }
 		
 	}
-	
-	
 
 	@Override
 	public void run() {

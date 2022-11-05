@@ -7,14 +7,21 @@ public class NightState extends State{
 	}
 
 	@Override
-	public void cambioNoche() {
-
+	public void cambioDia() {
+		juego.setState(new DayState(juego));
+		juego.setGrass("Fondo.png");
+	
 	}
 
 	@Override
-	public void cambioDia() {
+	public String printState() {
+		return "NOCHE";
+	}
+
+	@Override
+	public void cambioNoche() {
 		// TODO Auto-generated method stub
-	
+		
 	}
 
 }
