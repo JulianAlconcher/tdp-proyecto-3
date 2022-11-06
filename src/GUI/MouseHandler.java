@@ -2,8 +2,9 @@ package GUI;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
-public class MouseHandler implements MouseListener{
+public class MouseHandler implements MouseListener,MouseMotionListener{
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
@@ -45,5 +46,18 @@ public class MouseHandler implements MouseListener{
 		// TODO Auto-generated method stub
 
 	}
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		if(e.getModifiersEx() == MouseEvent.BUTTON1_DOWN_MASK)
+			System.out.println("AYAYAYAY ME ESTOY MOVIENDOOOOOOOOOOO");
+		
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent e) {
+
+	}
+	
 
 }

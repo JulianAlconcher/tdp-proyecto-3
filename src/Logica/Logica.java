@@ -1,27 +1,23 @@
 package Logica;
 
-import GUI.GUI;
-
 public class Logica {
 	
-	protected GUI miGUI;
 	protected Grilla miGrilla;
 	protected int filas;
 	protected int columnas;
 	protected State state;
 	private int soles;
 	private String grass;
-	
+	protected AbstractFactory miFactoria;
+
 	public Logica() {
 	    state= new DayState(this);
 	    grass= "Fondo.png";
 		filas = 6;
 		columnas = 9;
 		miGrilla = new Grilla(filas,columnas);
-		
+		miFactoria = new FactoryDay();
 	}
-	
-
 	
 	public void setDayState() {
 		state.cambioDia();
@@ -106,5 +102,14 @@ public class Logica {
 
 	public void crearPlanta() {
 		
+	}
+	
+	
+	public AbstractFactory getMiFactoria() {
+		return miFactoria;
+	}
+
+	public void setMiFactoria(AbstractFactory miFactoria) {
+		this.miFactoria = miFactoria;
 	}
 }
