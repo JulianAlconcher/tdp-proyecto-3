@@ -19,7 +19,7 @@ public class MouseHandler implements MouseListener,MouseMotionListener{
 			miPosX = x;
 			miPosY = y;
 			click = true;
-			System.out.println("Click es :" + click);
+			//System.out.println("Click en : " + miPosX + miPosY);
 		}
 
 	}

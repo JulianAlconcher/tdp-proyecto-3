@@ -46,7 +46,7 @@ public class mainGUI extends JFrame implements Runnable {
 
 	private void initialize() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1080, 720);
+		setBounds(100, 100, 942, 771);
 		contentPane = new JPanel();
 		setContentPane(contentPane);
 		contentPane.setLayout(new CardLayout(0, 0));
@@ -58,19 +58,16 @@ public class mainGUI extends JFrame implements Runnable {
 		contentPane.add(menuPanel);
 		menuPanel.setLayout(null);
 		imagenPortadaMenu = new ImageIcon(this.getClass().getResource("/Images/portada.png"));
-
-
 		inGamePanel = new JPanel();
 		contentPane.add(inGamePanel);
 		inGamePanel.setLayout(null);
-
 		mapPanel = new JPanel();
-
 		mapPanel.setBackground(Color.BLACK);
-		mapPanel.setBounds(10, 121, 1046, 552);
+		mapPanel.setBounds(10, 121, 900, 600);
 		inGamePanel.add(mapPanel);
 		inGamePanel.setVisible(false);
 		mapPanel.setBorder(BorderFactory.createMatteBorder(3, 3, 3, 3, Color.black));
+		//mapPanel.setLayout(null);
 		mapPanel.setLayout(new GridLayout(miLogica.getFilas(), miLogica.getColumnas(), 0, 0));
 
 		//Seteo GUI en el medio de la pantalla.
@@ -111,17 +108,17 @@ public class mainGUI extends JFrame implements Runnable {
 		btnPlanta4.setEnabled(false);
 
 		JButton btnVolverMenu = new JButton("MENU");
-		btnVolverMenu.setBounds(953, 10, 103, 101);
+		btnVolverMenu.setBounds(807, 10, 103, 101);
 		inGamePanel.add(btnVolverMenu);
 
 		JLabel lblSol = new JLabel("");
-		lblSol.setBounds(750, 0, 80, 89);
+		lblSol.setBounds(627, 0, 80, 89);
 		inGamePanel.add(lblSol);
 		lblSol.setIcon(new ImageIcon(this.getClass().getResource("/Images/sun.png")));
 
 		lblCantSoles = new JLabel("0");
 		lblCantSoles.setFont(new Font("Cambria Math", Font.BOLD, 15));
-		lblCantSoles.setBounds(775, 86, 55, 25);
+		lblCantSoles.setBounds(652, 78, 55, 25);
 		inGamePanel.add(lblCantSoles);
 		lblCantSoles.setText("  " + miLogica.getSoles());
 
@@ -142,11 +139,11 @@ public class mainGUI extends JFrame implements Runnable {
 				}
 			}
 		});
-		btnPruebaAumentarSol.setBounds(655, 71, 85, 40);
+		btnPruebaAumentarSol.setBounds(530, 68, 85, 40);
 		inGamePanel.add(btnPruebaAumentarSol);
 
 		JLabel lblMododeJuego = new JLabel("MODO:" + miLogica.printGameState());
-		lblMododeJuego.setBounds(578, 10, 123, 25);
+		lblMododeJuego.setBounds(468, 10, 123, 25);
 		inGamePanel.add(lblMododeJuego);
 
 		btnVolverMenu.addActionListener(new ActionListener() {
@@ -231,6 +228,7 @@ public class mainGUI extends JFrame implements Runnable {
 		mapPanel.addMouseListener(miMouse);
 		mapPanel.addMouseMotionListener(miMouse);
 		pintarMatriz();
+//		moverImage();
 	}
 
 
@@ -264,13 +262,13 @@ public class mainGUI extends JFrame implements Runnable {
         }
     }
 	
-	private void moverImage() {
-		ImageIcon im= new ImageIcon(this.getClass().getResource("/Images/pea.png"));
-		JLabel proyectil = new JLabel();
-		proyectil.setIcon(im);
-		proyectil.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.black));//Para testear
-		mapPanel.add(proyectil);
-	}
+//	private void moverImage() {
+//		ImageIcon im= new ImageIcon(this.getClass().getResource("/Images/pea.png"));
+//		JLabel proyectil = new JLabel();
+//		proyectil.setIcon(im);
+//		proyectil.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.white));//Para testear
+//		mapPanel.add(proyectil);
+//	}
 	/*
 	public void colocarPlanta(MouseEvent e) {
         
