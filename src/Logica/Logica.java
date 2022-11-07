@@ -10,6 +10,9 @@ public class Logica {
 	private String grass;
 	protected AbstractFactory miFactoria;
 	protected Entidad miPlantaSeleccionada;
+	protected Fila[] misFilas;
+
+	
 
 
 	public Logica() {
@@ -20,6 +23,7 @@ public class Logica {
 		miGrilla = new Grilla(filas,columnas);
 		miFactoria = new FactoryDay();
 		miPlantaSeleccionada = null;
+		misFilas = new Fila[5];
 	}
 	
 	public void setDayState() {

@@ -36,7 +36,7 @@ public class mainGUI extends JFrame implements Runnable {
 	protected JLabel lblCantSoles,proyectil;
 	protected JLabel lblSol;
 	public Thread hiloJuego;
-	protected int velocidad = 3;
+	protected int velocidad = 1;
 	protected boolean gameStart = false;
 	protected JButton btnPlanta1;
 	protected JButton btnPlanta2;
@@ -59,6 +59,8 @@ public class mainGUI extends JFrame implements Runnable {
 		contentPane.setLayout(new CardLayout(0, 0));
 		Image imagenPrincipal = Toolkit.getDefaultToolkit().getImage(mainGUI.class.getResource("/Images/logoImage.png"));
 		setIconImage(imagenPrincipal);
+		setTitle("Plants vs Zombies: Beta Version");
+		
 
 		menuPanel = new JPanel();
 		menuPanel.setBackground(new Color(0, 0, 0));
@@ -92,7 +94,7 @@ public class mainGUI extends JFrame implements Runnable {
 		btnPlanta1.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 				miLogica.setMiPlantaSeleccionada(miLogica.getMiFactoria().crearLanzaguisantes());
-
+				
 			}
 		});
 
@@ -103,7 +105,7 @@ public class mainGUI extends JFrame implements Runnable {
 		btnPlanta2.setEnabled(false);
 		btnPlanta2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-					//miLogica.setMiPlantaSeleccionada(miLogica.getMiFactoria().crearPlantaGirasol());
+					miLogica.setMiPlantaSeleccionada(miLogica.getMiFactoria().crearPlantaGirasol());
 					
 				}
 			});
@@ -115,7 +117,7 @@ public class mainGUI extends JFrame implements Runnable {
 		btnPlanta3.setEnabled(false);
 		btnPlanta3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-					miLogica.setMiPlantaSeleccionada(miLogica.getMiFactoria().crearPlantaNuezAlta());
+					miLogica.setMiPlantaSeleccionada(miLogica.getMiFactoria().crearPlantaNuez()); //¡¿?!
 					
 				}
 			});
@@ -129,6 +131,16 @@ public class mainGUI extends JFrame implements Runnable {
 		JButton btnVolverMenu = new JButton("MENU");
 		btnVolverMenu.setBounds(807, 10, 103, 101);
 		inGamePanel.add(btnVolverMenu);
+
+		btnVolverMenu.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				menuPanel.setVisible(true);
+				inGamePanel.setVisible(false);
+			}
+
+		});
+
 
 		lblSol = new JLabel("");
 		lblSol.setBounds(627, 0, 80, 89);
@@ -155,18 +167,9 @@ public class mainGUI extends JFrame implements Runnable {
 		lblMododeJuego.setBounds(468, 10, 123, 25);
 		inGamePanel.add(lblMododeJuego);
 
-		btnVolverMenu.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				menuPanel.setVisible(true);
-				inGamePanel.setVisible(false);
-			}
-
-		});
-
 		//BOTONES DE MENU
 		JButton btnJugar = new JButton("JUGAR");
-		btnJugar.setFont(new Font("Morganite", Font.BOLD, 99));
+		btnJugar.setFont(new Font("Kozuka Gothic Pro R", Font.BOLD, 17));
 		btnJugar.setBounds(338, 529, 253, 114);
 		menuPanel.add(btnJugar);
 		btnJugar.setForeground(Color.black);
@@ -198,7 +201,7 @@ public class mainGUI extends JFrame implements Runnable {
 				lblMododeJuego.setText("MODO: " + miLogica.printGameState());
 				System.out.println(miLogica.getGrass());
 				repintar();
-
+				
 			}
 		});
 		btnModoNoche.setBounds(603, 594, 158, 52);
@@ -214,7 +217,8 @@ public class mainGUI extends JFrame implements Runnable {
 			}
 		});
 
-
+		btnManual.setEnabled(false);
+		
 		JButton btnSalir = new JButton("SALIR");
 		btnSalir.setBounds(168, 591, 158, 52);
 		menuPanel.add(btnSalir);
@@ -247,7 +251,7 @@ public class mainGUI extends JFrame implements Runnable {
 		for(int i=0;i<miLogica.getFilas();i++) {
 			for(int j=0;j<miLogica.getColumnas();j++) {
 				matrizGrafica[i][j] = new JLabel();
-				ImageIcon im= new ImageIcon(this.getClass().getResource("/Images/"+miLogica.getGrass()));	
+				ImageIcon im = new ImageIcon(this.getClass().getResource("/Images/"+miLogica.getGrass()));	
 				matrizGrafica[i][j].addMouseListener(new MouseAdapter() {public void mouseClicked(MouseEvent e) {onMouseClicked(e);}});
 				matrizGrafica[i][j].setIcon(im);
 				mapPanel.add(matrizGrafica[i][j]);
@@ -256,6 +260,15 @@ public class mainGUI extends JFrame implements Runnable {
 			}
 		}
 	}
+	
+	private void repintar() {
+        for(int i=0;i<miLogica.getFilas();i++) {
+            for(int j=0;j<miLogica.getColumnas();j++) {
+                ImageIcon im= new ImageIcon(this.getClass().getResource("/Images/"+miLogica.getGrass()));
+                matrizGrafica[i][j].setIcon(im);
+            }
+        }
+    }
 	
 	private void onMouseClicked(MouseEvent e) {
 		for(int i=0;i<miLogica.getFilas();i++) {
@@ -271,6 +284,7 @@ public class mainGUI extends JFrame implements Runnable {
     				miLogica.disminuirSoles(miLogica.getMiPlantaSeleccionada().getCosto());
     				lblCantSoles.setText(" " + miLogica.getSoles());
     				miLogica.setMiPlantaSeleccionada(null);
+    				
                 }
             }
         }
@@ -306,35 +320,31 @@ public class mainGUI extends JFrame implements Runnable {
 				
 	}
 
-	private void repintar() {
-		for(int i=0;i<miLogica.getFilas();i++) {
-			for(int j=0;j<miLogica.getColumnas();j++) {
-				ImageIcon im= new ImageIcon(this.getClass().getResource("/Images/"+miLogica.getGrass()));
-				matrizGrafica[i][j].setIcon(im);
-			}
-		}
-	}
-	
+
 	private void iniciarNuevoJuegoDia() {
 		miLogica= new Logica();
+	
 		menuPanel.setVisible(false);
 		inGamePanel.setVisible(true);
-		lblCantSoles.setText("0");
+		lblCantSoles.setText("" + miLogica.getSoles());
 		hiloJuego = new Thread (this);
 		hiloJuego.start();
 		gameStart = true;
+
 		
 	}
 	
 	private void iniciarNuevoJuegoNoche() {
 		miLogica= new Logica();
+	
 		miLogica.setNightState();
 		menuPanel.setVisible(false);
 		inGamePanel.setVisible(true);
-		lblCantSoles.setText("0");
+		lblCantSoles.setText("" + miLogica.getSoles());
 		hiloJuego = new Thread (this);
 		hiloJuego.start();
 		gameStart = true;
+
 		
 	}
 	

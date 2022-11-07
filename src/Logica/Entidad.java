@@ -34,6 +34,22 @@ public abstract class Entidad implements Visitor{
 	public void setImgPath(String imgPath) {
 		this.imgPath = imgPath;
 	}
+
+	public int getMiX() {
+		return miX;
+	}
+
+	public void setMiX(int miX) {
+		this.miX = miX;
+	}
+
+	public int getMiY() {
+		return miY;
+	}
+
+	public void setMiY(int miY) {
+		this.miY = miY;
+	}
 	
 		
 }

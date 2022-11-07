@@ -9,6 +9,7 @@ public interface AbstractFactory  {
 	public PlantaCongeladora crearPlantaCongeladora();
 	public PlantaGirasol crearPlantaGirasol();
 	public PlantaNuezAlta crearPlantaNuezAlta();
+	public PlantaNuez crearPlantaNuez();
 	
 	//ZOMBIES
 	public ClassicZombie crearZombieClasico();

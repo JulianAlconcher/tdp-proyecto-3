@@ -3,6 +3,7 @@ package Logica;
 import Plant.PlantaCongeladora;
 import Plant.PlantaGirasol;
 import Plant.PlantaLanzaguisantes;
+import Plant.PlantaNuez;
 import Plant.PlantaNuezAlta;
 import Zombie.ClassicZombie;
 
@@ -36,6 +37,12 @@ public class FactoryNight implements AbstractFactory {
 	public PlantaNuezAlta crearPlantaNuezAlta() {
 		// TODO Auto-generated method stub
 		return new PlantaNuezAlta();
+	}
+
+	@Override
+	public PlantaNuez crearPlantaNuez() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

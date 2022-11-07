@@ -7,7 +7,8 @@ public class PlantaNuez extends Entidad{
 
 	public PlantaNuez() {
 		super(0, 0, 100, 100);
-		// TODO Auto-generated constructor stub
+		costo = 50;
+		imgPath= "nuezpng.gif";
 	}
 
 	@Override

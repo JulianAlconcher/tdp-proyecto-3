@@ -7,6 +7,8 @@ public class PlantaGirasol extends Entidad{
 
 	public PlantaGirasol() {
 		super(0,0,100,100);
+		costo = 50;
+		imgPath = "Girasol.gif";
 		// TODO Auto-generated constructor stub
 	}
 

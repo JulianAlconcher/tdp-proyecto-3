@@ -3,6 +3,7 @@ package Logica;
 import Plant.PlantaCongeladora;
 import Plant.PlantaGirasol;
 import Plant.PlantaLanzaguisantes;
+import Plant.PlantaNuez;
 import Plant.PlantaNuezAlta;
 import Zombie.ClassicZombie;
 
@@ -11,6 +12,7 @@ public class FactoryDay implements AbstractFactory{
 	@Override
 	public PlantaLanzaguisantes crearLanzaguisantes() {
 		System.out.println("Planta Lanzaguisantes CREADA en MODO DIA");
+		
 		return new PlantaLanzaguisantes();
 	}
 
@@ -22,6 +24,7 @@ public class FactoryDay implements AbstractFactory{
 
 	@Override
 	public PlantaGirasol crearPlantaGirasol() {
+		
 		return new PlantaGirasol();
 	}
 
@@ -35,6 +38,14 @@ public class FactoryDay implements AbstractFactory{
 	public PlantaNuezAlta crearPlantaNuezAlta() {
 		return new PlantaNuezAlta();
 	}
+
+	@Override
+	public PlantaNuez crearPlantaNuez() {
+		// TODO Auto-generated method stub
+		return new PlantaNuez();
+	}
+	
+	
 
 	
 	
