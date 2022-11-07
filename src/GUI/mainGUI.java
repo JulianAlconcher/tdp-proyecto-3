@@ -12,14 +12,23 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import Logica.Logica;
+
+import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import javax.swing.JButton;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferStrategy;
+
+import net.miginfocom.swing.MigLayout;
+import javax.swing.SwingConstants;
+import javax.swing.BoxLayout;
 
 @SuppressWarnings("serial")
 public class mainGUI extends JFrame implements Runnable {
@@ -32,21 +41,22 @@ public class mainGUI extends JFrame implements Runnable {
 	protected JPanel menuPanel;
 	protected JPanel inGamePanel;
 	protected JPanel mapPanel;
-	protected JLabel lblCantSoles;
+	protected JLabel lblCantSoles,proyectil;
 	public Thread hiloJuego;
+	protected int velocidad = 3;
+	protected boolean gameStart = false;
+	int Direccion = 300;
 
 	public mainGUI() {
 		miMouse = new MouseHandler();
 		miLogica= new Logica();
 		matrizGrafica = new Celda[miLogica.getFilas()][miLogica.getColumnas()];
-		hiloJuego = new Thread (this);
-		hiloJuego.start();
 		initialize();
 	}
 
 	private void initialize() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 942, 771);
+		setBounds(100, 100, 937, 766);
 		contentPane = new JPanel();
 		setContentPane(contentPane);
 		contentPane.setLayout(new CardLayout(0, 0));
@@ -54,7 +64,7 @@ public class mainGUI extends JFrame implements Runnable {
 		setIconImage(imagenPrincipal);
 
 		menuPanel = new JPanel();
-		menuPanel.setBackground(new Color(255, 0, 0));
+		menuPanel.setBackground(new Color(0, 0, 0));
 		contentPane.add(menuPanel);
 		menuPanel.setLayout(null);
 		imagenPortadaMenu = new ImageIcon(this.getClass().getResource("/Images/portada.png"));
@@ -64,11 +74,11 @@ public class mainGUI extends JFrame implements Runnable {
 		mapPanel = new JPanel();
 		mapPanel.setBackground(Color.BLACK);
 		mapPanel.setBounds(10, 121, 900, 600);
+		mapPanel.setOpaque(false);
 		inGamePanel.add(mapPanel);
 		inGamePanel.setVisible(false);
 		mapPanel.setBorder(BorderFactory.createMatteBorder(3, 3, 3, 3, Color.black));
-		//mapPanel.setLayout(null);
-		mapPanel.setLayout(new GridLayout(miLogica.getFilas(), miLogica.getColumnas(), 0, 0));
+		mapPanel.setLayout(null);
 
 		//Seteo GUI en el medio de la pantalla.
 		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
@@ -158,7 +168,7 @@ public class mainGUI extends JFrame implements Runnable {
 		//BOTONES DE MENU
 		JButton btnJugar = new JButton("JUGAR");
 		btnJugar.setFont(new Font("Morganite", Font.BOLD, 99));
-		btnJugar.setBounds(411, 526, 253, 114);
+		btnJugar.setBounds(338, 529, 253, 114);
 		menuPanel.add(btnJugar);
 		btnJugar.setForeground(Color.black);
 	    btnJugar.setOpaque(false);
@@ -180,7 +190,7 @@ public class mainGUI extends JFrame implements Runnable {
 				repintar();
 			}
 		});
-		btnModoDia.setBounds(676, 526, 158, 52);
+		btnModoDia.setBounds(603, 529, 158, 52);
 		menuPanel.add(btnModoDia);
 
 		JButton btnModoNoche = new JButton("MODO NOCHE");
@@ -194,11 +204,11 @@ public class mainGUI extends JFrame implements Runnable {
 
 			}
 		});
-		btnModoNoche.setBounds(676, 591, 158, 52);
+		btnModoNoche.setBounds(603, 594, 158, 52);
 		menuPanel.add(btnModoNoche);
 
 		JButton btnManual = new JButton("MANUAL");
-		btnManual.setBounds(241, 526, 158, 52);
+		btnManual.setBounds(168, 529, 158, 52);
 		menuPanel.add(btnManual);
 		btnManual.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -209,7 +219,7 @@ public class mainGUI extends JFrame implements Runnable {
 
 
 		JButton btnSalir = new JButton("SALIR");
-		btnSalir.setBounds(241, 588, 158, 52);
+		btnSalir.setBounds(168, 591, 158, 52);
 		menuPanel.add(btnSalir);
 		btnSalir.addActionListener(new ActionListener() {
 			@Override
@@ -220,15 +230,17 @@ public class mainGUI extends JFrame implements Runnable {
 		});
 
 		JLabel lblImageMenu = new JLabel("");
-		lblImageMenu.setBounds(0, 0, 1080, 720);
+		lblImageMenu.setHorizontalAlignment(SwingConstants.CENTER);
+		lblImageMenu.setBounds(0, 0, 921, 727);
 		menuPanel.add(lblImageMenu);
 		lblImageMenu.setIcon(imagenPortadaMenu);
 
 
 		mapPanel.addMouseListener(miMouse);
 		mapPanel.addMouseMotionListener(miMouse);
+
 		pintarMatriz();
-//		moverImage();
+		moverImage();
 	}
 
 
@@ -240,9 +252,11 @@ public class mainGUI extends JFrame implements Runnable {
 				matrizGrafica[i][j] = new Celda(i,j);
 				ImageIcon im= new ImageIcon(this.getClass().getResource("/Images/"+miLogica.getGrass()));	
 				matrizGrafica[i][j].addMouseListener(new MouseAdapter() {public void mouseClicked(MouseEvent e) {onMouseClicked(e);}});
-				matrizGrafica[i][j].setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.black));//Para testear
+//				matrizGrafica[i][j].setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.black));//Para testear
 				matrizGrafica[i][j].setIcon(im);
 				mapPanel.add(matrizGrafica[i][j]);
+				matrizGrafica[i][j].setBounds(j*100, i*100, 100, 100);
+		
 			}
 		}
 	}
@@ -255,36 +269,23 @@ public class mainGUI extends JFrame implements Runnable {
 //					matrizGrafica[i][j].setPosY(j);
 //					matrizGrafica[i][j].setMiEntidad(null);
 					System.out.println("Label x: " + i + " y: " +  j + " fue clickedo");
-					ImageIcon im= new ImageIcon(this.getClass().getResource("/Images/nuez.gif"));
+					ImageIcon im= new ImageIcon(this.getClass().getResource("/Images/nuezCuadrada.gif"));
                 	matrizGrafica[i][j].setIcon(im);
                 }
             }
         }
     }
 	
-//	private void moverImage() {
-//		ImageIcon im= new ImageIcon(this.getClass().getResource("/Images/pea.png"));
-//		JLabel proyectil = new JLabel();
-//		proyectil.setIcon(im);
-//		proyectil.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.white));//Para testear
-//		mapPanel.add(proyectil);
-//	}
-	/*
-	public void colocarPlanta(MouseEvent e) {
-        
-        for(int i=0;i<miLogica.getFilas();i++) {
-			for(int j=0;j<miLogica.getColumnas();j++) {
-				if (e.getSource() == matrizGrafica[i][j]) {
-					matrizGrafica[i][j].setPosX(i);
-					matrizGrafica[i][j].setPosY(j);
-					matrizGrafica[i][j].setMiEntidad( miLogica.getMiFactoria().crearLanzaguisantes());
-					System.out.println("Label x: " + i + " y: " +  j + " fue clickedo");
-					ImageIcon im= new ImageIcon(this.getClass().getResource(matrizGrafica[i][j].getImgPath()));
-                	matrizGrafica[i][j].setIcon(im);
-                }
-            }
-     }}
-	*/
+	private void moverImage() {
+		ImageIcon im= new ImageIcon(this.getClass().getResource("/Images/pea.png"));
+		proyectil = new JLabel();
+		proyectil.setIcon(im);
+		mapPanel.add(proyectil);
+		proyectil.setBounds(300, 500, 100, 100);
+		mapPanel.setComponentZOrder(proyectil, 0);
+
+	}
+
 	private void repintar() {
 		for(int i=0;i<miLogica.getFilas();i++) {
 			for(int j=0;j<miLogica.getColumnas();j++) {
@@ -299,11 +300,28 @@ public class mainGUI extends JFrame implements Runnable {
 		menuPanel.setVisible(false);
 		inGamePanel.setVisible(true);
 		lblCantSoles.setText("0");
+		hiloJuego = new Thread (this);
+		hiloJuego.start();
+		gameStart = true;
+		
 	}
 	
 
 	@Override
 	public void run() {
-		
+		while(gameStart) {
+			update();
+		try {
+			Thread.sleep(velocidad);
+		} catch (InterruptedException e) {e.printStackTrace();}	
+
+		}
+	}
+	
+
+	public void update() {
+		Direccion++;
+		System.out.println("UPDATE");
+		proyectil.setBounds(Direccion, 300, 100, 100);
 	}
 }

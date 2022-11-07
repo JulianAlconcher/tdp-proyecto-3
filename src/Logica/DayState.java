@@ -8,7 +8,7 @@ public class DayState extends State {
 
 	public void cambioNoche() {
 	 juego.setState(new NightState(juego));
-	 juego.setGrass("NightGrass.png");
+	 juego.setGrass("nightGrassCuadrado.png");
 	 juego.setMiFactoria(new FactoryNight());
 	}
 

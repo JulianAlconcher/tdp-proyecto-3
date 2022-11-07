@@ -12,7 +12,7 @@ public class Logica {
 
 	public Logica() {
 	    state= new DayState(this);
-	    grass= "Fondo.png";
+	    grass= "fondoCuadrado.png";
 		filas = 6;
 		columnas = 9;
 		miGrilla = new Grilla(filas,columnas);
