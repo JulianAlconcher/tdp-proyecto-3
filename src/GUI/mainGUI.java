@@ -13,44 +13,41 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import Logica.Logica;
 
-import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import javax.swing.JButton;
-import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.Point;
 import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferStrategy;
-
-import net.miginfocom.swing.MigLayout;
 import javax.swing.SwingConstants;
-import javax.swing.BoxLayout;
 
 @SuppressWarnings("serial")
 public class mainGUI extends JFrame implements Runnable {
 
 	private JPanel contentPane;
 	protected Logica miLogica;
-	protected Celda matrizGrafica[][];
+	protected JLabel matrizGrafica[][];
 	protected ImageIcon imagenPortadaMenu;
 	protected MouseHandler miMouse;
 	protected JPanel menuPanel;
 	protected JPanel inGamePanel;
 	protected JPanel mapPanel;
 	protected JLabel lblCantSoles,proyectil;
+	protected JLabel lblSol;
 	public Thread hiloJuego;
 	protected int velocidad = 3;
 	protected boolean gameStart = false;
-	int Direccion = 300;
+	protected JButton btnPlanta1;
+	protected JButton btnPlanta2;
+	protected JButton btnPlanta3;
+	protected JButton btnPlanta4;
+	protected int Direccion = 300;
 
 	public mainGUI() {
 		miMouse = new MouseHandler();
 		miLogica= new Logica();
-		matrizGrafica = new Celda[miLogica.getFilas()][miLogica.getColumnas()];
+		matrizGrafica = new JLabel[miLogica.getFilas()][miLogica.getColumnas()];
 		initialize();
 	}
 
@@ -72,7 +69,7 @@ public class mainGUI extends JFrame implements Runnable {
 		contentPane.add(inGamePanel);
 		inGamePanel.setLayout(null);
 		mapPanel = new JPanel();
-		mapPanel.setBackground(Color.BLACK);
+		mapPanel.setBackground(new Color(0, 255, 0));
 		mapPanel.setBounds(10, 121, 900, 600);
 		mapPanel.setOpaque(false);
 		inGamePanel.add(mapPanel);
@@ -87,31 +84,43 @@ public class mainGUI extends JFrame implements Runnable {
 		setLocation(x, y);
 		this.setResizable(false);	
 
-		JButton btnPlanta1 = new JButton("");
+		btnPlanta1 = new JButton("");
 		btnPlanta1.setBounds(10, 10, 65, 89);
 		inGamePanel.add(btnPlanta1);
 		btnPlanta1.setIcon(new ImageIcon(this.getClass().getResource("/Images/comun.png")));
 		btnPlanta1.setEnabled(false);
 		btnPlanta1.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
-				miLogica.getMiFactoria().crearLanzaguisantes();
-				
+				miLogica.setMiPlantaSeleccionada(miLogica.getMiFactoria().crearLanzaguisantes());
+
 			}
 		});
 
-		JButton btnPlanta2 = new JButton("");
+		btnPlanta2 = new JButton("");
 		btnPlanta2.setBounds(105, 10, 65, 89);
 		inGamePanel.add(btnPlanta2);
 		btnPlanta2.setIcon(new ImageIcon(this.getClass().getResource("/Images/girasol.png")));
 		btnPlanta2.setEnabled(false);
+		btnPlanta2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+					//miLogica.setMiPlantaSeleccionada(miLogica.getMiFactoria().crearPlantaGirasol());
+					
+				}
+			});
 
-		JButton btnPlanta3 = new JButton("");
+		btnPlanta3 = new JButton("");
 		btnPlanta3.setBounds(200, 10, 65, 89);
 		inGamePanel.add(btnPlanta3);
 		btnPlanta3.setIcon(new ImageIcon(this.getClass().getResource("/Images/Nuez.png")));
 		btnPlanta3.setEnabled(false);
+		btnPlanta3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+					miLogica.setMiPlantaSeleccionada(miLogica.getMiFactoria().crearPlantaNuezAlta());
+					
+				}
+			});
 
-		JButton btnPlanta4 = new JButton("");
+		btnPlanta4 = new JButton("");
 		btnPlanta4.setBounds(295, 10, 65, 89);
 		inGamePanel.add(btnPlanta4);
 		btnPlanta4.setIcon(new ImageIcon(this.getClass().getResource("/Images/congeladora.png")));
@@ -121,7 +130,7 @@ public class mainGUI extends JFrame implements Runnable {
 		btnVolverMenu.setBounds(807, 10, 103, 101);
 		inGamePanel.add(btnVolverMenu);
 
-		JLabel lblSol = new JLabel("");
+		lblSol = new JLabel("");
 		lblSol.setBounds(627, 0, 80, 89);
 		inGamePanel.add(lblSol);
 		lblSol.setIcon(new ImageIcon(this.getClass().getResource("/Images/sun.png")));
@@ -137,16 +146,6 @@ public class mainGUI extends JFrame implements Runnable {
 			public void actionPerformed(ActionEvent e) {
 				miLogica.aumentarSoles();
 				lblCantSoles.setText("  " + miLogica.getSoles());
-				if(miLogica.getSoles()>=50) {
-					btnPlanta2.setEnabled(true);
-					btnPlanta3.setEnabled(true);
-					if(miLogica.getSoles()>=100) {
-						btnPlanta1.setEnabled(true);
-						if(miLogica.getSoles()>=175) {
-							btnPlanta4.setEnabled(true);       //ESTO ESTA PESIMO, ES SOLO A MODO DE PRUEBA 
-						}
-					}
-				}
 			}
 		});
 		btnPruebaAumentarSol.setBounds(530, 68, 85, 40);
@@ -174,7 +173,7 @@ public class mainGUI extends JFrame implements Runnable {
 	    btnJugar.setOpaque(false);
 		btnJugar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				iniciarNuevoJuego();
+				iniciarNuevoJuegoDia();
 			}
 
 		});	
@@ -183,8 +182,7 @@ public class mainGUI extends JFrame implements Runnable {
 		JButton btnModoDia = new JButton("MODO DIA");
 		btnModoDia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				miLogica = new Logica();
-				miLogica.setDayState();		
+				iniciarNuevoJuegoDia();	
 				lblMododeJuego.setText("MODO: " + miLogica.printGameState());
 				System.out.println(miLogica.getGrass());
 				repintar();
@@ -196,8 +194,7 @@ public class mainGUI extends JFrame implements Runnable {
 		JButton btnModoNoche = new JButton("MODO NOCHE");
 		btnModoNoche.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				miLogica= new Logica();
-				miLogica.setNightState();
+				iniciarNuevoJuegoNoche();
 				lblMododeJuego.setText("MODO: " + miLogica.printGameState());
 				System.out.println(miLogica.getGrass());
 				repintar();
@@ -249,10 +246,9 @@ public class mainGUI extends JFrame implements Runnable {
 	private void pintarMatriz() {
 		for(int i=0;i<miLogica.getFilas();i++) {
 			for(int j=0;j<miLogica.getColumnas();j++) {
-				matrizGrafica[i][j] = new Celda(i,j);
+				matrizGrafica[i][j] = new JLabel();
 				ImageIcon im= new ImageIcon(this.getClass().getResource("/Images/"+miLogica.getGrass()));	
 				matrizGrafica[i][j].addMouseListener(new MouseAdapter() {public void mouseClicked(MouseEvent e) {onMouseClicked(e);}});
-//				matrizGrafica[i][j].setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.black));//Para testear
 				matrizGrafica[i][j].setIcon(im);
 				mapPanel.add(matrizGrafica[i][j]);
 				matrizGrafica[i][j].setBounds(j*100, i*100, 100, 100);
@@ -264,13 +260,17 @@ public class mainGUI extends JFrame implements Runnable {
 	private void onMouseClicked(MouseEvent e) {
 		for(int i=0;i<miLogica.getFilas();i++) {
 			for(int j=0;j<miLogica.getColumnas();j++) {
-				if (e.getSource() == matrizGrafica[i][j]) {
-//					matrizGrafica[i][j].setPosX(i);
-//					matrizGrafica[i][j].setPosY(j);
-//					matrizGrafica[i][j].setMiEntidad(null);
+				if (e.getSource() == matrizGrafica[i][j] && miLogica.getMiPlantaSeleccionada()!=null) {
 					System.out.println("Label x: " + i + " y: " +  j + " fue clickedo");
-					ImageIcon im= new ImageIcon(this.getClass().getResource("/Images/nuezCuadrada.gif"));
-                	matrizGrafica[i][j].setIcon(im);
+					JLabel nuevaEntidad = new JLabel();
+					ImageIcon im= new ImageIcon(this.getClass().getResource("/Images/"+miLogica.getMiPlantaSeleccionada().getImgPath()));
+					nuevaEntidad.setIcon(im);
+					mapPanel.add(nuevaEntidad);
+					mapPanel.setComponentZOrder(nuevaEntidad, 0);
+					nuevaEntidad.setBounds(j*100, i*100, 100, 100);
+    				miLogica.disminuirSoles(miLogica.getMiPlantaSeleccionada().getCosto());
+    				lblCantSoles.setText(" " + miLogica.getSoles());
+    				miLogica.setMiPlantaSeleccionada(null);
                 }
             }
         }
@@ -285,6 +285,26 @@ public class mainGUI extends JFrame implements Runnable {
 		mapPanel.setComponentZOrder(proyectil, 0);
 
 	}
+	
+	private void administrarPlantas() {
+		if(miLogica.getSoles()>=50) {
+			btnPlanta2.setEnabled(true);
+			btnPlanta3.setEnabled(true);
+		}
+		else {
+			btnPlanta2.setEnabled(false);
+			btnPlanta3.setEnabled(false);	
+		}
+			if(miLogica.getSoles()>=100) 
+				btnPlanta1.setEnabled(true);
+			else
+				btnPlanta1.setEnabled(false);
+				if(miLogica.getSoles()>=175) 
+					btnPlanta4.setEnabled(true);  
+				else
+					btnPlanta4.setEnabled(false);  
+				
+	}
 
 	private void repintar() {
 		for(int i=0;i<miLogica.getFilas();i++) {
@@ -295,8 +315,20 @@ public class mainGUI extends JFrame implements Runnable {
 		}
 	}
 	
-	private void iniciarNuevoJuego() {
+	private void iniciarNuevoJuegoDia() {
 		miLogica= new Logica();
+		menuPanel.setVisible(false);
+		inGamePanel.setVisible(true);
+		lblCantSoles.setText("0");
+		hiloJuego = new Thread (this);
+		hiloJuego.start();
+		gameStart = true;
+		
+	}
+	
+	private void iniciarNuevoJuegoNoche() {
+		miLogica= new Logica();
+		miLogica.setNightState();
 		menuPanel.setVisible(false);
 		inGamePanel.setVisible(true);
 		lblCantSoles.setText("0");
@@ -320,8 +352,9 @@ public class mainGUI extends JFrame implements Runnable {
 	
 
 	public void update() {
+		administrarPlantas();
 		Direccion++;
-		System.out.println("UPDATE");
+		//System.out.println("UPDATE");
 		proyectil.setBounds(Direccion, 300, 100, 100);
 	}
 }

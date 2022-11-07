@@ -9,6 +9,7 @@ public class ClassicZombie extends Entidad{
 	//Conocen su ubicacion?
 
 	public ClassicZombie() {
+		super(0,0,100,100);
 		this.vida = 10;
 		this.velocidad = 10;
 	}

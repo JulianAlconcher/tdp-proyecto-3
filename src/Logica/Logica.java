@@ -9,6 +9,8 @@ public class Logica {
 	private int soles;
 	private String grass;
 	protected AbstractFactory miFactoria;
+	protected Entidad miPlantaSeleccionada;
+
 
 	public Logica() {
 	    state= new DayState(this);
@@ -17,6 +19,7 @@ public class Logica {
 		columnas = 9;
 		miGrilla = new Grilla(filas,columnas);
 		miFactoria = new FactoryDay();
+		miPlantaSeleccionada = null;
 	}
 	
 	public void setDayState() {
@@ -79,10 +82,12 @@ public class Logica {
 		this.soles=soles+25;
 	}
 	
-	public void restarSoles() {
-		this.soles=soles-100;
-		
+	public void disminuirSoles(int d) {
+		soles -=d;
+		if(soles<0)
+			soles = 0;
 	}
+	
 	public void setSoles(int soles) {
 		this.soles = soles;
 	}
@@ -112,4 +117,15 @@ public class Logica {
 	public void setMiFactoria(AbstractFactory miFactoria) {
 		this.miFactoria = miFactoria;
 	}
+	
+	public Entidad getMiPlantaSeleccionada() {
+		return miPlantaSeleccionada;
+	}
+
+	public void setMiPlantaSeleccionada(Entidad miPlantaSeleccionada) {
+		this.miPlantaSeleccionada = miPlantaSeleccionada;
+	}
+	
+
+
 }
