@@ -26,18 +26,21 @@ public class mainGUI extends JFrame implements Runnable {
 
 	private JPanel contentPane;
 	protected Logica miLogica;
-	protected JLabel matrizGrafica[][];
-	protected ImageIcon imagenBoton;
+	protected Celda matrizGrafica[][];
 	protected ImageIcon imagenPortadaMenu;
 	protected MouseHandler miMouse;
 	protected JPanel menuPanel;
 	protected JPanel inGamePanel;
 	protected JPanel mapPanel;
 	protected JLabel lblCantSoles;
+	public Thread hiloJuego;
 
 	public mainGUI() {
+		miMouse = new MouseHandler();
 		miLogica= new Logica();
-		matrizGrafica = new JLabel[miLogica.getFilas()][miLogica.getColumnas()];
+		matrizGrafica = new Celda[miLogica.getFilas()][miLogica.getColumnas()];
+		hiloJuego = new Thread (this);
+		hiloJuego.start();
 		initialize();
 	}
 
@@ -62,11 +65,7 @@ public class mainGUI extends JFrame implements Runnable {
 		inGamePanel.setLayout(null);
 
 		mapPanel = new JPanel();
-		mapPanel.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
 
-			}
-		});
 		mapPanel.setBackground(Color.BLACK);
 		mapPanel.setBounds(10, 121, 1046, 552);
 		inGamePanel.add(mapPanel);
@@ -87,8 +86,9 @@ public class mainGUI extends JFrame implements Runnable {
 		btnPlanta1.setIcon(new ImageIcon(this.getClass().getResource("/Images/comun.png")));
 		btnPlanta1.setEnabled(false);
 		btnPlanta1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		public void actionPerformed(ActionEvent e) {
 				miLogica.getMiFactoria().crearLanzaguisantes();
+				
 			}
 		});
 
@@ -189,11 +189,12 @@ public class mainGUI extends JFrame implements Runnable {
 		JButton btnModoNoche = new JButton("MODO NOCHE");
 		btnModoNoche.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				miLogica = new Logica();
+				miLogica= new Logica();
 				miLogica.setNightState();
 				lblMododeJuego.setText("MODO: " + miLogica.printGameState());
 				System.out.println(miLogica.getGrass());
 				repintar();
+
 			}
 		});
 		btnModoNoche.setBounds(676, 591, 158, 52);
@@ -226,11 +227,9 @@ public class mainGUI extends JFrame implements Runnable {
 		menuPanel.add(lblImageMenu);
 		lblImageMenu.setIcon(imagenPortadaMenu);
 
-		miMouse = new MouseHandler();
+
 		mapPanel.addMouseListener(miMouse);
 		mapPanel.addMouseMotionListener(miMouse);
-
-		//matrizGrafica= new JLabel[miLogica.getFilas()][miLogica.getColumnas()];
 		pintarMatriz();
 	}
 
@@ -240,14 +239,54 @@ public class mainGUI extends JFrame implements Runnable {
 	private void pintarMatriz() {
 		for(int i=0;i<miLogica.getFilas();i++) {
 			for(int j=0;j<miLogica.getColumnas();j++) {
-				matrizGrafica[i][j] = new JLabel();
-				ImageIcon im= new ImageIcon(this.getClass().getResource("/Images/"+miLogica.getGrass()));
+				matrizGrafica[i][j] = new Celda(i,j);
+				ImageIcon im= new ImageIcon(this.getClass().getResource("/Images/"+miLogica.getGrass()));	
+				matrizGrafica[i][j].addMouseListener(new MouseAdapter() {public void mouseClicked(MouseEvent e) {onMouseClicked(e);}});
+				matrizGrafica[i][j].setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.black));//Para testear
 				matrizGrafica[i][j].setIcon(im);
 				mapPanel.add(matrizGrafica[i][j]);
 			}
 		}
 	}
-
+	
+	private void onMouseClicked(MouseEvent e) {
+		for(int i=0;i<miLogica.getFilas();i++) {
+			for(int j=0;j<miLogica.getColumnas();j++) {
+				if (e.getSource() == matrizGrafica[i][j]) {
+//					matrizGrafica[i][j].setPosX(i);
+//					matrizGrafica[i][j].setPosY(j);
+//					matrizGrafica[i][j].setMiEntidad(null);
+					System.out.println("Label x: " + i + " y: " +  j + " fue clickedo");
+					ImageIcon im= new ImageIcon(this.getClass().getResource("/Images/nuez.gif"));
+                	matrizGrafica[i][j].setIcon(im);
+                }
+            }
+        }
+    }
+	
+	private void moverImage() {
+		ImageIcon im= new ImageIcon(this.getClass().getResource("/Images/pea.png"));
+		JLabel proyectil = new JLabel();
+		proyectil.setIcon(im);
+		proyectil.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.black));//Para testear
+		mapPanel.add(proyectil);
+	}
+	/*
+	public void colocarPlanta(MouseEvent e) {
+        
+        for(int i=0;i<miLogica.getFilas();i++) {
+			for(int j=0;j<miLogica.getColumnas();j++) {
+				if (e.getSource() == matrizGrafica[i][j]) {
+					matrizGrafica[i][j].setPosX(i);
+					matrizGrafica[i][j].setPosY(j);
+					matrizGrafica[i][j].setMiEntidad( miLogica.getMiFactoria().crearLanzaguisantes());
+					System.out.println("Label x: " + i + " y: " +  j + " fue clickedo");
+					ImageIcon im= new ImageIcon(this.getClass().getResource(matrizGrafica[i][j].getImgPath()));
+                	matrizGrafica[i][j].setIcon(im);
+                }
+            }
+     }}
+	*/
 	private void repintar() {
 		for(int i=0;i<miLogica.getFilas();i++) {
 			for(int j=0;j<miLogica.getColumnas();j++) {
@@ -267,6 +306,6 @@ public class mainGUI extends JFrame implements Runnable {
 
 	@Override
 	public void run() {
-
+		
 	}
 }

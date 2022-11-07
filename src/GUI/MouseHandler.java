@@ -5,6 +5,10 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 public class MouseHandler implements MouseListener,MouseMotionListener{
+	
+	protected int miPosX;
+	protected int miPosY;
+	protected boolean click = false;
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
@@ -12,7 +16,10 @@ public class MouseHandler implements MouseListener,MouseMotionListener{
 		if(code == MouseEvent.BUTTON1) {
 			int x = e.getX();
 			int y = e.getY();
-			System.out.println("Click izquierdo en posicion: x: " + x + ",y: " +  y);
+			miPosX = x;
+			miPosY = y;
+			click = true;
+			System.out.println("Click es :" + click);
 		}
 
 	}
@@ -58,6 +65,32 @@ public class MouseHandler implements MouseListener,MouseMotionListener{
 	public void mouseMoved(MouseEvent e) {
 
 	}
+	
+	public int getMiPosX() {
+		return miPosX;
+	}
+
+	public void setMiPosX(int miPosX) {
+		this.miPosX = miPosX;
+	}
+
+	public int getMiPosY() {
+		return miPosY;
+	}
+
+	public void setMiPosY(int miPosY) {
+		this.miPosY = miPosY;
+	}
+	
+	public boolean isClick() {
+		return click;
+	}
+
+	public void setClick(boolean click) {
+		this.click = click;
+	}
+
+	
 	
 
 }
