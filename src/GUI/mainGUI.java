@@ -38,6 +38,8 @@ public class mainGUI extends JFrame implements Runnable {
 	protected JLabel lblCantSoles;
 	protected JLabel lblSol;
 	public Thread hiloJuego;
+	private AudioPlayer ap;
+	private Thread hiloMusica;
 	protected int velocidad = 2;
 	protected boolean gameStart = false;
 	protected JButton btnPlanta1;
@@ -186,6 +188,7 @@ public class mainGUI extends JFrame implements Runnable {
 							,JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE,null,new Object[] { "MODO DIA", "MODO NOCHE"},"opcion1"); 
 				
 				iniciarNuevoJuego(seleccionNivel,seleccionModo);
+				audioOn();
 									
 			}
 			
@@ -272,6 +275,12 @@ public class mainGUI extends JFrame implements Runnable {
             }
         }
     }
+	
+	private void audioOn() {
+		ap= new AudioPlayer("Audio/DayMusic.mp3");
+		hiloMusica= new Thread(ap);
+		hiloMusica.start();
+	}
 	
 	private void movingPea() {
 		ImageIcon im= new ImageIcon(this.getClass().getResource("/Images/pea.png"));
