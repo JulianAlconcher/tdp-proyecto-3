@@ -5,13 +5,19 @@ import Zombie.*;
 
 public interface AbstractFactory  {
 	//PLANTAS
-	public PlantaLanzaguisantes crearLanzaguisantes();
 	public PlantaCongeladora crearPlantaCongeladora();
 	public PlantaGirasol crearPlantaGirasol();
-	public PlantaNuezAlta crearPlantaNuezAlta();
+	public PlantaLanzaguisantes crearLanzaguisantes();
+	public PlantaMina crearPlantaMina();
 	public PlantaNuez crearPlantaNuez();
+	public PlantaNuezAlta crearPlantaNuezAlta();
+	public PlantaSeta crearPlantaSeta();
 	
 	//ZOMBIES
+	public AngryZombie crearAngryZombie();
+	public BucketZombie crearBucketZombie();
 	public ClassicZombie crearZombieClasico();
-	
+	public ConeZombie crearConeZombie();
+	public FlagZombie crearFlagZombie();
+	public HolderZombie crearHolderZombie();
 }

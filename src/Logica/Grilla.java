@@ -1,5 +1,7 @@
 package Logica;
 
+import GUI.Celda;
+
 public class Grilla {
 	protected int filas;
 	protected int columnas;

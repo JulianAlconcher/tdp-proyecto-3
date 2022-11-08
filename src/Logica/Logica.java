@@ -9,21 +9,28 @@ public class Logica {
 	private int soles;
 	private String grass;
 	protected AbstractFactory miFactoria;
-	protected Entidad miPlantaSeleccionada;
 	protected Fila[] misFilas;
 
 	
 
 
-	public Logica() {
+	public Logica(int n,int modo) {
 	    state= new DayState(this);
 	    grass= "fondoCuadrado.png";
 		filas = 6;
 		columnas = 9;
 		miGrilla = new Grilla(filas,columnas);
-		miFactoria = new FactoryDay();
-		miPlantaSeleccionada = null;
 		misFilas = new Fila[5];
+		if(modo == 0) {
+			System.out.println(modo);
+			miFactoria = new FactoryDay();
+			this.setDayState();
+		}
+		else {
+			System.out.println(modo);
+			miFactoria = new FactoryNight();
+			this.setNightState();
+		}
 	}
 	
 	public void setDayState() {
@@ -109,10 +116,72 @@ public class Logica {
 		return grass;
 	}
 
-	public void crearPlanta() {
+	public void crearPlanta(int opcion) {
+		switch(opcion) {
+		case 1:{
+			miFactoria.crearPlantaCongeladora();
+			disminuirSoles(175);
+		}
+		break;
+		case 2:{
+			miFactoria.crearPlantaGirasol();
+			disminuirSoles(50);
+		}
+		break;
+		case 3:{
+			miFactoria.crearLanzaguisantes();
+			disminuirSoles(100);
+		}
+		break;
+		case 4:{
+			miFactoria.crearPlantaMina();
+			disminuirSoles(50);
+		}
+		break;
+		case 5:{
+			miFactoria.crearPlantaNuez();
+			disminuirSoles(50);
+		}
+		break;
+		case 6:{
+			miFactoria.crearPlantaNuezAlta();
+			disminuirSoles(50);
+		}
+		break;
+		case 7:{
+			miFactoria.crearPlantaSeta();
+			disminuirSoles(50);
+		}
+		break;
+		case 8:{
 		
+		}
+		break;
+		}
 	}
 	
+	public String getImgPath(int opcion) {
+		System.out.println("ENTRE");
+		switch(opcion) {
+		case 1:
+			return "";
+		case 2:
+			return "Girasol.gif";
+		case 3:
+			return "plantaComun.gif";
+		case 4:
+			return "";
+		case 5:
+			return "nuezpng.gif";
+		case 6:
+			return "";
+		case 7:
+			return "";
+		case 8:
+			return "";
+		}
+		return null;
+	}
 	
 	public AbstractFactory getMiFactoria() {
 		return miFactoria;
@@ -121,14 +190,7 @@ public class Logica {
 	public void setMiFactoria(AbstractFactory miFactoria) {
 		this.miFactoria = miFactoria;
 	}
-	
-	public Entidad getMiPlantaSeleccionada() {
-		return miPlantaSeleccionada;
-	}
 
-	public void setMiPlantaSeleccionada(Entidad miPlantaSeleccionada) {
-		this.miPlantaSeleccionada = miPlantaSeleccionada;
-	}
 	
 
 

@@ -26,6 +26,8 @@ import javax.swing.SwingConstants;
 public class mainGUI extends JFrame implements Runnable {
 
 	private JPanel contentPane;
+	protected final int cantFilas = 6;
+	protected final int cantColumnas = 9;
 	protected Logica miLogica;
 	protected JLabel matrizGrafica[][];
 	protected ImageIcon imagenPortadaMenu;
@@ -42,14 +44,15 @@ public class mainGUI extends JFrame implements Runnable {
 	protected JButton btnPlanta2;
 	protected JButton btnPlanta3;
 	protected JButton btnPlanta4;
+	protected int seleccionNivel,seleccionModo;
+	protected int opcion = 0;
 	//DE PRUEBA
 	protected int Direccion = 300;
 	protected JLabel proyectil; 
 
 	public mainGUI() {
 		miMouse = new MouseHandler();
-		miLogica= new Logica();
-		matrizGrafica = new JLabel[miLogica.getFilas()][miLogica.getColumnas()];
+		matrizGrafica = new JLabel[cantFilas][cantColumnas];
 		initialize();
 	}
 
@@ -95,8 +98,7 @@ public class mainGUI extends JFrame implements Runnable {
 		btnPlanta1.setEnabled(false);
 		btnPlanta1.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
-				miLogica.setMiPlantaSeleccionada(miLogica.getMiFactoria().crearLanzaguisantes());
-				
+				opcion = 3;
 			}
 		});
 
@@ -107,7 +109,7 @@ public class mainGUI extends JFrame implements Runnable {
 		btnPlanta2.setEnabled(false);
 		btnPlanta2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-					miLogica.setMiPlantaSeleccionada(miLogica.getMiFactoria().crearPlantaGirasol());
+					opcion = 2;
 					
 				}
 			});
@@ -119,7 +121,7 @@ public class mainGUI extends JFrame implements Runnable {
 		btnPlanta3.setEnabled(false);
 		btnPlanta3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-					miLogica.setMiPlantaSeleccionada(miLogica.getMiFactoria().crearPlantaNuez()); //¡¿?!
+					opcion = 5;
 					
 				}
 			});
@@ -153,7 +155,7 @@ public class mainGUI extends JFrame implements Runnable {
 		lblCantSoles.setFont(new Font("Cambria Math", Font.BOLD, 15));
 		lblCantSoles.setBounds(652, 78, 55, 25);
 		inGamePanel.add(lblCantSoles);
-		lblCantSoles.setText("  " + miLogica.getSoles());
+		lblCantSoles.setText("0");
 
 		JButton btnPruebaAumentarSol = new JButton("CLICKEAME");
 		btnPruebaAumentarSol.addActionListener(new ActionListener() {
@@ -164,53 +166,33 @@ public class mainGUI extends JFrame implements Runnable {
 		});
 		btnPruebaAumentarSol.setBounds(530, 68, 85, 40);
 		inGamePanel.add(btnPruebaAumentarSol);
-
-		JLabel lblMododeJuego = new JLabel("MODO:" + miLogica.printGameState());
-		lblMododeJuego.setBounds(468, 10, 123, 25);
-		inGamePanel.add(lblMododeJuego);
+//
+//		JLabel lblMododeJuego = new JLabel("MODO:");
+//		lblMododeJuego.setBounds(468, 10, 123, 25);
+//		inGamePanel.add(lblMododeJuego);
 
 		//BOTONES DE MENU
 		JButton btnJugar = new JButton("JUGAR");
 		btnJugar.setFont(new Font("Kozuka Gothic Pro R", Font.BOLD, 17));
-		btnJugar.setBounds(338, 529, 253, 114);
+		btnJugar.setBounds(339, 510, 250, 114);
 		menuPanel.add(btnJugar);
 		btnJugar.setForeground(Color.black);
 	    btnJugar.setOpaque(false);
 		btnJugar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				iniciarNuevoJuegoDia();
+				seleccionNivel = JOptionPane.showOptionDialog(menuPanel,"Seleccione el nivel de dificultad", ""
+						,JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE,null,new Object[] { "NIVEL 1", "NIVEL 2"},"opcion1"); 
+				seleccionModo = JOptionPane.showOptionDialog(menuPanel,"Seleccione el modo de juego", ""
+							,JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE,null,new Object[] { "MODO DIA", "MODO NOCHE"},"opcion1"); 
+				
+				iniciarNuevoJuego(seleccionNivel,seleccionModo);
+									
 			}
-
+			
 		});	
 
-
-		JButton btnModoDia = new JButton("MODO DIA");
-		btnModoDia.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				iniciarNuevoJuegoDia();	
-				lblMododeJuego.setText("MODO: " + miLogica.printGameState());
-				System.out.println(miLogica.getGrass());
-				repintar();
-			}
-		});
-		btnModoDia.setBounds(603, 529, 158, 52);
-		menuPanel.add(btnModoDia);
-
-		JButton btnModoNoche = new JButton("MODO NOCHE");
-		btnModoNoche.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				iniciarNuevoJuegoNoche();
-				lblMododeJuego.setText("MODO: " + miLogica.printGameState());
-				System.out.println(miLogica.getGrass());
-				repintar();
-				
-			}
-		});
-		btnModoNoche.setBounds(603, 594, 158, 52);
-		menuPanel.add(btnModoNoche);
-
 		JButton btnManual = new JButton("MANUAL");
-		btnManual.setBounds(168, 529, 158, 52);
+		btnManual.setBounds(466, 626, 123, 52);
 		menuPanel.add(btnManual);
 		btnManual.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -222,7 +204,7 @@ public class mainGUI extends JFrame implements Runnable {
 		btnManual.setEnabled(false);
 		
 		JButton btnSalir = new JButton("SALIR");
-		btnSalir.setBounds(168, 591, 158, 52);
+		btnSalir.setBounds(339, 626, 123, 52);
 		menuPanel.add(btnSalir);
 		btnSalir.addActionListener(new ActionListener() {
 			@Override
@@ -242,16 +224,15 @@ public class mainGUI extends JFrame implements Runnable {
 		mapPanel.addMouseListener(miMouse);
 		mapPanel.addMouseMotionListener(miMouse);
 
-		pintarMatriz();
-		movingPea();
+
 	}
 
 
 
 
 	private void pintarMatriz() {
-		for(int i=0;i<miLogica.getFilas();i++) {
-			for(int j=0;j<miLogica.getColumnas();j++) {
+		for(int i=0;i<cantFilas;i++) {
+			for(int j=0;j<cantColumnas;j++) {
 				matrizGrafica[i][j] = new JLabel();
 				ImageIcon im = new ImageIcon(this.getClass().getResource("/Images/"+miLogica.getGrass()));	
 				matrizGrafica[i][j].addMouseListener(new MouseAdapter() {public void mouseClicked(MouseEvent e) {onMouseClicked(e);}});
@@ -264,8 +245,8 @@ public class mainGUI extends JFrame implements Runnable {
 	}
 	
 	private void repintar() {
-        for(int i=0;i<miLogica.getFilas();i++) {
-            for(int j=0;j<miLogica.getColumnas();j++) {
+        for(int i=0;i<cantFilas;i++) {
+            for(int j=0;j<cantColumnas;j++) {
                 ImageIcon im= new ImageIcon(this.getClass().getResource("/Images/"+miLogica.getGrass()));
                 matrizGrafica[i][j].setIcon(im);
             }
@@ -273,19 +254,19 @@ public class mainGUI extends JFrame implements Runnable {
     }
 	
 	private void onMouseClicked(MouseEvent e) {
-		for(int i=0;i<miLogica.getFilas();i++) {
-			for(int j=0;j<miLogica.getColumnas();j++) {
-				if (e.getSource() == matrizGrafica[i][j] && miLogica.getMiPlantaSeleccionada()!=null) {
+		for(int i=0;i<cantFilas;i++) {
+			for(int j=0;j<cantColumnas;j++) {
+				if (e.getSource() == matrizGrafica[i][j] && opcion!=0) {
 					System.out.println("Label x: " + i + " y: " +  j + " fue clickedo");
 					JLabel nuevaEntidad = new JLabel();
-					ImageIcon im= new ImageIcon(this.getClass().getResource("/Images/"+miLogica.getMiPlantaSeleccionada().getImgPath()));
+					miLogica.crearPlanta(opcion);
+					ImageIcon im= new ImageIcon(this.getClass().getResource("/Images/"+miLogica.getImgPath(opcion)));
 					nuevaEntidad.setIcon(im);
 					mapPanel.add(nuevaEntidad);
 					mapPanel.setComponentZOrder(nuevaEntidad, 0);
 					nuevaEntidad.setBounds(j*100, i*100, 100, 100);
-    				miLogica.disminuirSoles(miLogica.getMiPlantaSeleccionada().getCosto());
     				lblCantSoles.setText(" " + miLogica.getSoles());
-    				miLogica.setMiPlantaSeleccionada(null);
+    				opcion = 0;
     				
                 }
             }
@@ -323,8 +304,8 @@ public class mainGUI extends JFrame implements Runnable {
 	}
 
 
-	private void iniciarNuevoJuegoDia() {
-		miLogica= new Logica();
+	private void iniciarNuevoJuego(int nivel, int modo) {
+		miLogica = new Logica(nivel,modo);
 	
 		menuPanel.setVisible(false);
 		inGamePanel.setVisible(true);
@@ -332,24 +313,12 @@ public class mainGUI extends JFrame implements Runnable {
 		hiloJuego = new Thread (this);
 		hiloJuego.start();
 		gameStart = true;
+		pintarMatriz();
 
 		
 	}
 	
-	private void iniciarNuevoJuegoNoche() {
-		miLogica= new Logica();
-	
-		miLogica.setNightState();
-		menuPanel.setVisible(false);
-		inGamePanel.setVisible(true);
-		lblCantSoles.setText("" + miLogica.getSoles());
-		hiloJuego = new Thread (this);
-		hiloJuego.start();
-		gameStart = true;
 
-		
-	}
-	
 
 	@Override
 	public void run() {
@@ -369,6 +338,6 @@ public class mainGUI extends JFrame implements Runnable {
 		if(Direccion == 900) {
 			Direccion = 60;
 		}
-		proyectil.setBounds(Direccion, 280, 100, 100);
+		//proyectil.setBounds(Direccion, 280, 100, 100);
 	}
 }
