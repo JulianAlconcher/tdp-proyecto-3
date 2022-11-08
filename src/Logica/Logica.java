@@ -10,17 +10,16 @@ public class Logica {
 	private String grass;
 	protected AbstractFactory miFactoria;
 	protected Fila[] misFilas;
-
-	
-
+	protected Entidad entidadSeleccionada;
 
 	public Logica(int n,int modo) {
 	    state= new DayState(this);
-	    grass= "fondoCuadrado.png";
+	    grass= "fondoCuadradoActualizado.png";
 		filas = 6;
 		columnas = 9;
 		miGrilla = new Grilla(filas,columnas);
 		misFilas = new Fila[5];
+		entidadSeleccionada = null;
 		if(modo == 0) {
 			System.out.println(modo);
 			miFactoria = new FactoryDay();
@@ -116,41 +115,42 @@ public class Logica {
 		return grass;
 	}
 
+	//TOMAR UNA DESICION CON RESPECTO A ESTO.
 	public void crearPlanta(int opcion) {
 		switch(opcion) {
 		case 1:{
-			miFactoria.crearPlantaCongeladora();
-			disminuirSoles(175);
+			entidadSeleccionada = miFactoria.crearPlantaCongeladora();
+			disminuirSoles(entidadSeleccionada.getCosto()); //-->>>>>>>>>>>>>>>>>>>>>>>>>>>>>> esta ok?
 		}
 		break;
 		case 2:{
-			miFactoria.crearPlantaGirasol();
-			disminuirSoles(50);
+			entidadSeleccionada = miFactoria.crearPlantaGirasol();
+			disminuirSoles(entidadSeleccionada.getCosto());
 		}
 		break;
 		case 3:{
-			miFactoria.crearLanzaguisantes();
-			disminuirSoles(100);
+			entidadSeleccionada = miFactoria.crearLanzaguisantes();
+			disminuirSoles(entidadSeleccionada.getCosto());
 		}
 		break;
 		case 4:{
-			miFactoria.crearPlantaMina();
-			disminuirSoles(50);
+			entidadSeleccionada = miFactoria.crearPlantaMina();
+			disminuirSoles(entidadSeleccionada.getCosto());
 		}
 		break;
 		case 5:{
-			miFactoria.crearPlantaNuez();
-			disminuirSoles(50);
+			entidadSeleccionada = miFactoria.crearPlantaNuez();
+			disminuirSoles(entidadSeleccionada.getCosto());
 		}
 		break;
 		case 6:{
-			miFactoria.crearPlantaNuezAlta();
-			disminuirSoles(50);
+			entidadSeleccionada = miFactoria.crearPlantaNuezAlta();
+			disminuirSoles(entidadSeleccionada.getCosto());
 		}
 		break;
 		case 7:{
-			miFactoria.crearPlantaSeta();
-			disminuirSoles(50);
+			entidadSeleccionada = miFactoria.crearPlantaSeta();
+			disminuirSoles(entidadSeleccionada.getCosto());
 		}
 		break;
 		case 8:{

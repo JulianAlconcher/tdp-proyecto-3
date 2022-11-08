@@ -29,7 +29,7 @@ public class mainGUI extends JFrame implements Runnable {
 	protected final int cantFilas = 6;
 	protected final int cantColumnas = 9;
 	protected Logica miLogica;
-	protected JLabel matrizGrafica[][];
+	protected Celda matrizGrafica[][];
 	protected ImageIcon imagenPortadaMenu;
 	protected MouseHandler miMouse;
 	protected JPanel menuPanel;
@@ -54,13 +54,13 @@ public class mainGUI extends JFrame implements Runnable {
 
 	public mainGUI() {
 		miMouse = new MouseHandler();
-		matrizGrafica = new JLabel[cantFilas][cantColumnas];
+		matrizGrafica = new Celda[cantFilas][cantColumnas];
 		initialize();
 	}
 
 	private void initialize() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 937, 766);
+		setBounds(100, 100, 1300, 930);
 		contentPane = new JPanel();
 		setContentPane(contentPane);
 		contentPane.setLayout(new CardLayout(0, 0));
@@ -77,14 +77,23 @@ public class mainGUI extends JFrame implements Runnable {
 		inGamePanel = new JPanel();
 		contentPane.add(inGamePanel);
 		inGamePanel.setLayout(null);
+		
+		JLabel lblImageMap = new JLabel("");
+		lblImageMap.setBounds(10, 111, 1262, 780);
+		inGamePanel.add(lblImageMap);
+		lblImageMap.setIcon(new ImageIcon(this.getClass().getResource("/Images/Map.png")));
 		mapPanel = new JPanel();
 		mapPanel.setBackground(new Color(0, 255, 0));
-		mapPanel.setBounds(10, 121, 900, 600);
+		mapPanel.setBounds(320, 205, 900, 600);
 		mapPanel.setOpaque(false);
 		inGamePanel.add(mapPanel);
-		inGamePanel.setVisible(false);
-		mapPanel.setBorder(BorderFactory.createMatteBorder(3, 3, 3, 3, Color.black));
+		mapPanel.setBorder(null);
 		mapPanel.setLayout(null);
+		
+		
+		mapPanel.addMouseListener(miMouse);
+		mapPanel.addMouseMotionListener(miMouse);
+		inGamePanel.setVisible(false);
 
 		//Seteo GUI en el medio de la pantalla.
 		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
@@ -111,10 +120,10 @@ public class mainGUI extends JFrame implements Runnable {
 		btnPlanta2.setEnabled(false);
 		btnPlanta2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-					opcion = 2;
+				opcion = 2;
 					
-				}
-			});
+			}
+		});
 
 		btnPlanta3 = new JButton("");
 		btnPlanta3.setBounds(200, 10, 65, 89);
@@ -124,9 +133,8 @@ public class mainGUI extends JFrame implements Runnable {
 		btnPlanta3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 					opcion = 5;
-					
-				}
-			});
+			}
+		});
 
 		btnPlanta4 = new JButton("");
 		btnPlanta4.setBounds(295, 10, 65, 89);
@@ -135,14 +143,14 @@ public class mainGUI extends JFrame implements Runnable {
 		btnPlanta4.setEnabled(false);
 
 		JButton btnVolverMenu = new JButton("MENU");
-		btnVolverMenu.setBounds(807, 10, 103, 101);
+		btnVolverMenu.setBounds(1157, 7, 103, 101);
 		inGamePanel.add(btnVolverMenu);
-
 		btnVolverMenu.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				menuPanel.setVisible(true);
 				inGamePanel.setVisible(false);
+				gameStart = false;
 			}
 
 		});
@@ -168,15 +176,11 @@ public class mainGUI extends JFrame implements Runnable {
 		});
 		btnPruebaAumentarSol.setBounds(530, 68, 85, 40);
 		inGamePanel.add(btnPruebaAumentarSol);
-//
-//		JLabel lblMododeJuego = new JLabel("MODO:");
-//		lblMododeJuego.setBounds(468, 10, 123, 25);
-//		inGamePanel.add(lblMododeJuego);
 
 		//BOTONES DE MENU
 		JButton btnJugar = new JButton("JUGAR");
 		btnJugar.setFont(new Font("Kozuka Gothic Pro R", Font.BOLD, 17));
-		btnJugar.setBounds(339, 510, 250, 114);
+		btnJugar.setBounds(516, 576, 250, 114);
 		menuPanel.add(btnJugar);
 		btnJugar.setForeground(Color.black);
 	    btnJugar.setOpaque(false);
@@ -187,15 +191,13 @@ public class mainGUI extends JFrame implements Runnable {
 				seleccionModo = JOptionPane.showOptionDialog(menuPanel,"Seleccione el modo de juego", ""
 							,JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE,null,new Object[] { "MODO DIA", "MODO NOCHE"},"opcion1"); 
 				
-				iniciarNuevoJuego(seleccionNivel,seleccionModo);
-				audioOn();
-									
+				iniciarNuevoJuego(seleccionNivel,seleccionModo);	
+				//audioOn();
 			}
-			
 		});	
 
 		JButton btnManual = new JButton("MANUAL");
-		btnManual.setBounds(466, 626, 123, 52);
+		btnManual.setBounds(643, 692, 123, 52);
 		menuPanel.add(btnManual);
 		btnManual.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -207,7 +209,7 @@ public class mainGUI extends JFrame implements Runnable {
 		btnManual.setEnabled(false);
 		
 		JButton btnSalir = new JButton("SALIR");
-		btnSalir.setBounds(339, 626, 123, 52);
+		btnSalir.setBounds(516, 692, 123, 52);
 		menuPanel.add(btnSalir);
 		btnSalir.addActionListener(new ActionListener() {
 			@Override
@@ -219,13 +221,9 @@ public class mainGUI extends JFrame implements Runnable {
 
 		JLabel lblImageMenu = new JLabel("");
 		lblImageMenu.setHorizontalAlignment(SwingConstants.CENTER);
-		lblImageMenu.setBounds(0, 0, 921, 727);
+		lblImageMenu.setBounds(0, 0, 1272, 878);
 		menuPanel.add(lblImageMenu);
 		lblImageMenu.setIcon(imagenPortadaMenu);
-
-
-		mapPanel.addMouseListener(miMouse);
-		mapPanel.addMouseMotionListener(miMouse);
 
 
 	}
@@ -236,8 +234,8 @@ public class mainGUI extends JFrame implements Runnable {
 	private void pintarMatriz() {
 		for(int i=0;i<cantFilas;i++) {
 			for(int j=0;j<cantColumnas;j++) {
-				matrizGrafica[i][j] = new JLabel();
-				ImageIcon im = new ImageIcon(this.getClass().getResource("/Images/"+miLogica.getGrass()));	
+				matrizGrafica[i][j] = new Celda();
+				ImageIcon im = new ImageIcon(this.getClass().getResource("/Images/"+miLogica.getGrass()));
 				matrizGrafica[i][j].addMouseListener(new MouseAdapter() {public void mouseClicked(MouseEvent e) {onMouseClicked(e);}});
 				matrizGrafica[i][j].setIcon(im);
 				mapPanel.add(matrizGrafica[i][j]);
@@ -247,19 +245,10 @@ public class mainGUI extends JFrame implements Runnable {
 		}
 	}
 	
-	private void repintar() {
-        for(int i=0;i<cantFilas;i++) {
-            for(int j=0;j<cantColumnas;j++) {
-                ImageIcon im= new ImageIcon(this.getClass().getResource("/Images/"+miLogica.getGrass()));
-                matrizGrafica[i][j].setIcon(im);
-            }
-        }
-    }
-	
 	private void onMouseClicked(MouseEvent e) {
 		for(int i=0;i<cantFilas;i++) {
 			for(int j=0;j<cantColumnas;j++) {
-				if (e.getSource() == matrizGrafica[i][j] && opcion!=0) {
+				if (e.getSource() == matrizGrafica[i][j] && opcion!=0 && !matrizGrafica[i][j].isOcupada()) {
 					System.out.println("Label x: " + i + " y: " +  j + " fue clickedo");
 					JLabel nuevaEntidad = new JLabel();
 					miLogica.crearPlanta(opcion);
@@ -270,6 +259,7 @@ public class mainGUI extends JFrame implements Runnable {
 					nuevaEntidad.setBounds(j*100, i*100, 100, 100);
     				lblCantSoles.setText(" " + miLogica.getSoles());
     				opcion = 0;
+    				matrizGrafica[i][j].setOcupada(true);
     				
                 }
             }
@@ -280,16 +270,6 @@ public class mainGUI extends JFrame implements Runnable {
 		ap= new AudioPlayer("Audio/DayMusic.mp3");
 		hiloMusica= new Thread(ap);
 		hiloMusica.start();
-	}
-	
-	private void movingPea() {
-		ImageIcon im= new ImageIcon(this.getClass().getResource("/Images/pea.png"));
-		proyectil = new JLabel();
-		proyectil.setIcon(im);
-		mapPanel.add(proyectil);
-		proyectil.setBounds(200, 500, 100, 100);
-		mapPanel.setComponentZOrder(proyectil, 0);
-
 	}
 	
 	private void administrarPlantas() {
@@ -315,7 +295,6 @@ public class mainGUI extends JFrame implements Runnable {
 
 	private void iniciarNuevoJuego(int nivel, int modo) {
 		miLogica = new Logica(nivel,modo);
-	
 		menuPanel.setVisible(false);
 		inGamePanel.setVisible(true);
 		lblCantSoles.setText("" + miLogica.getSoles());
@@ -323,11 +302,9 @@ public class mainGUI extends JFrame implements Runnable {
 		hiloJuego.start();
 		gameStart = true;
 		pintarMatriz();
-
-		
 	}
 	
-
+	
 
 	@Override
 	public void run() {
@@ -343,10 +320,5 @@ public class mainGUI extends JFrame implements Runnable {
 
 	public void update() {
 		administrarPlantas();
-		Direccion++;
-		if(Direccion == 900) {
-			Direccion = 60;
-		}
-		//proyectil.setBounds(Direccion, 280, 100, 100);
 	}
 }
