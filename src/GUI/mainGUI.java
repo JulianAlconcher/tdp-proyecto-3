@@ -33,16 +33,18 @@ public class mainGUI extends JFrame implements Runnable {
 	protected JPanel menuPanel;
 	protected JPanel inGamePanel;
 	protected JPanel mapPanel;
-	protected JLabel lblCantSoles,proyectil;
+	protected JLabel lblCantSoles;
 	protected JLabel lblSol;
 	public Thread hiloJuego;
-	protected int velocidad = 1;
+	protected int velocidad = 2;
 	protected boolean gameStart = false;
 	protected JButton btnPlanta1;
 	protected JButton btnPlanta2;
 	protected JButton btnPlanta3;
 	protected JButton btnPlanta4;
+	//DE PRUEBA
 	protected int Direccion = 300;
+	protected JLabel proyectil; 
 
 	public mainGUI() {
 		miMouse = new MouseHandler();
@@ -241,7 +243,7 @@ public class mainGUI extends JFrame implements Runnable {
 		mapPanel.addMouseMotionListener(miMouse);
 
 		pintarMatriz();
-		moverImage();
+		movingPea();
 	}
 
 
@@ -290,12 +292,12 @@ public class mainGUI extends JFrame implements Runnable {
         }
     }
 	
-	private void moverImage() {
+	private void movingPea() {
 		ImageIcon im= new ImageIcon(this.getClass().getResource("/Images/pea.png"));
 		proyectil = new JLabel();
 		proyectil.setIcon(im);
 		mapPanel.add(proyectil);
-		proyectil.setBounds(300, 500, 100, 100);
+		proyectil.setBounds(200, 500, 100, 100);
 		mapPanel.setComponentZOrder(proyectil, 0);
 
 	}
@@ -364,7 +366,9 @@ public class mainGUI extends JFrame implements Runnable {
 	public void update() {
 		administrarPlantas();
 		Direccion++;
-		//System.out.println("UPDATE");
-		proyectil.setBounds(Direccion, 300, 100, 100);
+		if(Direccion == 900) {
+			Direccion = 60;
+		}
+		proyectil.setBounds(Direccion, 280, 100, 100);
 	}
 }

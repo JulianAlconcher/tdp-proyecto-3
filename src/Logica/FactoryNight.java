@@ -23,8 +23,7 @@ public class FactoryNight implements AbstractFactory {
 
 	@Override
 	public PlantaGirasol crearPlantaGirasol() {
-		// TODO Auto-generated method stub
-		return null;
+		return new PlantaGirasol();
 	}
 
 	@Override
@@ -41,8 +40,7 @@ public class FactoryNight implements AbstractFactory {
 
 	@Override
 	public PlantaNuez crearPlantaNuez() {
-		// TODO Auto-generated method stub
-		return null;
+		return new PlantaNuez();
 	}
 
 }
