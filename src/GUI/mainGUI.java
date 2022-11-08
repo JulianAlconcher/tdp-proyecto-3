@@ -37,6 +37,8 @@ public class mainGUI extends JFrame implements Runnable {
 	protected JPanel mapPanel;
 	protected JLabel lblCantSoles;
 	protected JLabel lblSol;
+	protected JLabel lblImageMap;
+	protected ImageIcon nightMap,dayMap;
 	public Thread hiloJuego;
 	private AudioPlayer ap;
 	private Thread hiloMusica;
@@ -78,10 +80,11 @@ public class mainGUI extends JFrame implements Runnable {
 		contentPane.add(inGamePanel);
 		inGamePanel.setLayout(null);
 		
-		JLabel lblImageMap = new JLabel("");
+		lblImageMap = new JLabel("");
 		lblImageMap.setBounds(10, 111, 1262, 780);
 		inGamePanel.add(lblImageMap);
-		lblImageMap.setIcon(new ImageIcon(this.getClass().getResource("/Images/Map.png")));
+		nightMap = new ImageIcon(this.getClass().getResource("/Images/nightMap.png"));
+		dayMap = new ImageIcon(this.getClass().getResource("/Images/Map.png"));
 		mapPanel = new JPanel();
 		mapPanel.setBackground(new Color(0, 255, 0));
 		mapPanel.setBounds(320, 205, 900, 600);
@@ -180,7 +183,7 @@ public class mainGUI extends JFrame implements Runnable {
 		//BOTONES DE MENU
 		JButton btnJugar = new JButton("JUGAR");
 		btnJugar.setFont(new Font("Kozuka Gothic Pro R", Font.BOLD, 17));
-		btnJugar.setBounds(516, 576, 250, 114);
+		btnJugar.setBounds(465, 574, 350, 125);
 		menuPanel.add(btnJugar);
 		btnJugar.setForeground(Color.black);
 	    btnJugar.setOpaque(false);
@@ -190,14 +193,16 @@ public class mainGUI extends JFrame implements Runnable {
 						,JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE,null,new Object[] { "NIVEL 1", "NIVEL 2"},"opcion1"); 
 				seleccionModo = JOptionPane.showOptionDialog(menuPanel,"Seleccione el modo de juego", ""
 							,JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE,null,new Object[] { "MODO DIA", "MODO NOCHE"},"opcion1"); 
-				
-				iniciarNuevoJuego(seleccionNivel,seleccionModo);	
-				//audioOn();
+				if(seleccionNivel != JOptionPane.CLOSED_OPTION && seleccionModo != JOptionPane.CLOSED_OPTION) {
+					iniciarNuevoJuego(seleccionNivel,seleccionModo);	
+					audioOn();
+				}
+
 			}
 		});	
 
 		JButton btnManual = new JButton("MANUAL");
-		btnManual.setBounds(643, 692, 123, 52);
+		btnManual.setBounds(642, 712, 173, 52);
 		menuPanel.add(btnManual);
 		btnManual.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -209,7 +214,7 @@ public class mainGUI extends JFrame implements Runnable {
 		btnManual.setEnabled(false);
 		
 		JButton btnSalir = new JButton("SALIR");
-		btnSalir.setBounds(516, 692, 123, 52);
+		btnSalir.setBounds(465, 712, 173, 52);
 		menuPanel.add(btnSalir);
 		btnSalir.addActionListener(new ActionListener() {
 			@Override
@@ -221,7 +226,7 @@ public class mainGUI extends JFrame implements Runnable {
 
 		JLabel lblImageMenu = new JLabel("");
 		lblImageMenu.setHorizontalAlignment(SwingConstants.CENTER);
-		lblImageMenu.setBounds(0, 0, 1272, 878);
+		lblImageMenu.setBounds(0, 0, 1284, 891);
 		menuPanel.add(lblImageMenu);
 		lblImageMenu.setIcon(imagenPortadaMenu);
 
@@ -302,6 +307,10 @@ public class mainGUI extends JFrame implements Runnable {
 		hiloJuego.start();
 		gameStart = true;
 		pintarMatriz();
+		if(modo == 1)
+			lblImageMap.setIcon(nightMap);
+		else
+			lblImageMap.setIcon(dayMap);
 	}
 	
 	
