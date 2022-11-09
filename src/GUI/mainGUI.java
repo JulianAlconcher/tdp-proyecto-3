@@ -195,7 +195,7 @@ public class mainGUI extends JFrame implements Runnable {
 							,JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE,null,new Object[] { "MODO DIA", "MODO NOCHE"},"opcion1"); 
 				if(seleccionNivel != JOptionPane.CLOSED_OPTION && seleccionModo != JOptionPane.CLOSED_OPTION) {
 					iniciarNuevoJuego(seleccionNivel,seleccionModo);	
-					audioOn();
+					audioOn(seleccionModo);
 				}
 
 			}
@@ -271,8 +271,13 @@ public class mainGUI extends JFrame implements Runnable {
         }
     }
 	
-	private void audioOn() {
+
+	private void audioOn(int modo) {
+		if (modo==0) {
 		ap= new AudioPlayer("Audio/DayMusic.mp3");
+		} else {
+			ap=new AudioPlayer("Audio/NightMusic.mp3");
+		}
 		hiloMusica= new Thread(ap);
 		hiloMusica.start();
 	}
