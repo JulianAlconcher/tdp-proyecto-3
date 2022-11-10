@@ -36,13 +36,13 @@ public class mainGUI extends JFrame implements Runnable {
 	protected JPanel inGamePanel;
 	protected JPanel mapPanel;
 	protected JLabel lblCantSoles;
-	protected JLabel lblSol;
+	protected JLabel lblSol,nuevaEntidad;
 	protected JLabel lblImageMap;
 	protected ImageIcon nightMap,dayMap;
 	public Thread hiloJuego;
 	private AudioPlayer ap;
 	private Thread hiloMusica;
-	protected int velocidad = 150;
+	protected int velocidad = 100;
 	protected boolean gameStart = false;
 	protected JButton btnPlanta1;
 	protected JButton btnPlanta2;
@@ -270,25 +270,41 @@ public class mainGUI extends JFrame implements Runnable {
 	
 	private void graficarProyectil() {
 		proyectil = new JLabel();
-		miLogica.crearEntidad(14, 200 , 0 );
+		miLogica.crearEntidad(14, 200 , nuevaEntidad.getY()/100 );
+		System.out.println(nuevaEntidad.getY()/100 );
 		ImageIcon im= new ImageIcon(this.getClass().getResource("/Images/pea.png"));
 		proyectil.setIcon(im);
 		mapPanel.add(proyectil,SwingConstants.CENTER);
-		proyectil.setBounds(200, 200, 30, 100);
 		proyectil.setBorder(BorderFactory.createLineBorder(Color.black));
 
 		
 	}
 	
-	private void graficarZombie() {
-		miLogica.crearEntidad(10, 800, 0);
-		Zombie = new JLabel();
-		ImageIcon im= new ImageIcon(this.getClass().getResource("/Images/ClassicZombie.gif"));
-		Zombie.setIcon(im);
-		mapPanel.add(Zombie);
-		mapPanel.setComponentZOrder(Zombie, 0);
-		Zombie.setBorder(BorderFactory.createLineBorder(Color.black));
-
+//	private void graficarZombie() {
+//		miLogica.generarRandomZombie();
+//		Zombie = new JLabel();
+//		ImageIcon im= new ImageIcon(this.getClass().getResource("/Images/ZombiePequeño.gif"));
+//		Zombie.setIcon(im);
+//		mapPanel.add(Zombie);
+//		mapPanel.setComponentZOrder(Zombie, 0);
+//		Zombie.setBorder(BorderFactory.createLineBorder(Color.black));
+//
+//	}
+	
+	public void ubicar(int x, int y, String imgPath) {
+		ImageIcon im= new ImageIcon(this.getClass().getResource("/Images/"+ imgPath));
+		nuevaEntidad = new JLabel();
+		nuevaEntidad.setIcon(im);
+		nuevaEntidad.setBounds(x, y, 100, 100);
+		mapPanel.add(nuevaEntidad);
+		mapPanel.setComponentZOrder(nuevaEntidad, 0);
+	}
+	
+	public void moverZombie(JLabel z,int x, int y) {
+		x -=2;
+		z.setBounds(x, y, 100, 100);
+		miLogica.moverZombie();
+//		System.out.println("x: " + x + ",y: " + y);
 	}
 	
 	private void audioOn(int modo) {
@@ -323,12 +339,12 @@ public class mainGUI extends JFrame implements Runnable {
 
 	private void iniciarNuevoJuego(int nivel, int modo) {
 
-		miLogica = new Logica(nivel,modo);
+		miLogica = new Logica(nivel,modo,this);
 		menuPanel.setVisible(false);
 		inGamePanel.setVisible(true);
 		lblCantSoles.setText("" + miLogica.getSoles());
 		pintarMatriz();
-		graficarZombie();
+		miLogica.generarRandomZombie();
 		graficarProyectil();
 		hiloJuego = new Thread (this);
 		hiloJuego.start();
@@ -358,15 +374,12 @@ public class mainGUI extends JFrame implements Runnable {
 		
 		//PROYECTIL
 		Direccion +=10;
-		proyectil.setBounds(Direccion, 0 , 30, 100);
-		miLogica.nuevoProyectil();
+		proyectil.setBounds(Direccion,nuevaEntidad.getY() , 30, 100);
+		miLogica.moverProyectil();
 		//ZOMBIE
-		DireccionZombie -=2;
-		Zombie.setBounds(DireccionZombie, 0, 80, 100);
-		System.out.println("z: " + DireccionZombie);
-		miLogica.moverZombie();
-		if(miLogica.checkCollition(0))
-			System.out.println("------------------->COLISION<-------------------");
+		moverZombie(nuevaEntidad,nuevaEntidad.getX(),nuevaEntidad.getY());
+
+		miLogica.checkCollition(nuevaEntidad.getY()/100);
 		
 	}
 }

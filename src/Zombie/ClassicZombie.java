@@ -15,7 +15,7 @@ public class ClassicZombie extends Entidad{
 
 	public void mover() {
 		velocidad -=2;
-		this.miRectangulo.setBounds(velocidad, miY, 70, 100);
+		this.miRectangulo.setBounds(velocidad, miY, 50, 100);
 		
 		System.out.println(velocidad);
 	}

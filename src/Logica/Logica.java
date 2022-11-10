@@ -1,5 +1,8 @@
 package Logica;
 
+import java.util.concurrent.ThreadLocalRandom;
+
+import GUI.mainGUI;
 import Plant.Planta;
 
 public class Logica {
@@ -13,8 +16,10 @@ public class Logica {
 	protected AbstractFactory miFactoria;
 	protected Fila[] misFilas;
 	protected Planta entidadSeleccionada;
+	protected mainGUI miGUI;
 
-	public Logica(int n,int modo) {
+	public Logica(int n,int modo,mainGUI m) {
+		miGUI = m;
 	    state= new DayState(this);
 	    grass= "fondoCuadradoActualizado.png";
 		filas = 6;
@@ -120,7 +125,7 @@ public class Logica {
 	}
 	
 
-	public void nuevoProyectil() {
+	public void moverProyectil() {
 		misFilas[0].getMisProyectiles().getFirst().moverProyectil();
 	}
 	//TOMAR UNA DESICION CON RESPECTO A ESTO.
@@ -169,11 +174,11 @@ public class Logica {
 		}
 		break;
 		case 8:{
-			miFactoria.crearAngryZombie(x,y);
+			misFilas[y/100].insertarZombie(miFactoria.crearAngryZombie(x,y));
 		}
 		break;
 		case 9:{
-			miFactoria.crearBucketZombie(x,y);
+			misFilas[y/100].insertarZombie(miFactoria.crearBucketZombie(x,y));
 		}
 		break;
 		case 10:{
@@ -198,18 +203,30 @@ public class Logica {
 	}
 	
 	public boolean checkCollition(int fila) {
-		if(misFilas[fila].getMisZombies().size()>0 && misFilas[fila].getMisProyectiles().size()>0) {
+		System.out.println("ENTRO AL METODO CON :" + fila);
+		if(!misFilas[fila].getMisZombies().isEmpty()) {
 			System.out.println("x: " + misFilas[fila].getMisZombies().getFirst().getMiRectangulo().getX() + " y: " + misFilas[fila].getMisZombies().getFirst().getMiRectangulo().getY());
 			System.out.println("x: " + misFilas[fila].getMisProyectiles().getFirst().getMiRectangulo().getX() + " y: " + misFilas[fila].getMisProyectiles().getFirst().getMiRectangulo().getY());
 			if(misFilas[fila].getMisZombies().getFirst().getMiRectangulo().intersects(misFilas[fila].getMisProyectiles().getFirst().getMiRectangulo())) {
-				return true; //ACA IMPLEMENTAR VISITOR
-
+				System.out.println("-------------COLISION-----------");//ACA IMPLEMENTAR VISITOR
+				return true; 
 			}
 		}
 		return false; 
 		
 	}
 	
+	public void generarRandomZombie() {
+		int min_val = 8;
+		int max_val = 13;
+		ThreadLocalRandom tlr = ThreadLocalRandom.current();
+		int randomEntidad = tlr.nextInt(min_val, max_val);
+		int randomPosicion = tlr.nextInt(0, 6);
+		crearEntidad(randomEntidad,910, randomPosicion);
+		miGUI.ubicar(910,randomPosicion*100,getImgPath(randomEntidad));
+		System.out.println("Cree: zombie: " + randomEntidad +"en Fila: " + randomPosicion);
+	}
+		
 	public void moverZombie() {
 		misFilas[0].getMisZombies().getFirst().mover();
 	}
@@ -231,7 +248,21 @@ public class Logica {
 		case 7:
 			return "";
 		case 8:
-			return "";
+			return "ZombiePequeño.gif";
+		case 9:
+			return "ZombiePequeño.gif";
+		case 10:
+			return "ZombiePequeño.gif";
+		case 11:
+			return "ZombiePequeño.gif";
+		case 12:
+			return "ZombiePequeño.gif";
+		case 13:
+			return "ZombiePequeño.gif";
+		case 14:
+			return "ZombiePequeño.gif";
+		case 15:
+			return "ZombiePequeño.gif";
 		}
 		return null;
 	}

@@ -12,7 +12,7 @@ public abstract class Proyectil extends Entidad{
 	int aumento = miX;
 	public void moverProyectil() {
 		aumento +=10;
-		miRectangulo.setBounds(aumento, miY, 100, 100);
+		miRectangulo.setBounds(aumento, miY, 30, 100);
 	}
 
 	protected int cantidadDanio = 2;
