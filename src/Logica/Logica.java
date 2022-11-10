@@ -31,12 +31,10 @@ public class Logica {
 		}
 		entidadSeleccionada = null;
 		if(modo == 0) {
-			System.out.println(modo);
 			miFactoria = new FactoryDay();
 			this.setDayState();
 		}
 		else {
-			System.out.println(modo);
 			miFactoria = new FactoryNight();
 			this.setNightState();
 		}
@@ -125,8 +123,8 @@ public class Logica {
 	}
 	
 
-	public void moverProyectil() {
-		misFilas[0].getMisProyectiles().getFirst().moverProyectil();
+	public void moverProyectil(int fila) {
+		misFilas[fila].getMisProyectiles().getFirst().moverProyectil();
 	}
 	//TOMAR UNA DESICION CON RESPECTO A ESTO.
 	public void crearEntidad(int opcion,int x,int y) {
@@ -134,7 +132,7 @@ public class Logica {
 		case 1:{
 			entidadSeleccionada = miFactoria.crearPlantaCongeladora(x,y);
 			misFilas[y/100].insertarPlanta(entidadSeleccionada);
-			disminuirSoles(entidadSeleccionada.getCosto()); //-->>>>>>>>>>>>>>>>>>>>>>>>>>>>>> esta ok?
+			disminuirSoles(entidadSeleccionada.getCosto());
 		}
 		break;
 		case 2:{
@@ -222,13 +220,13 @@ public class Logica {
 		ThreadLocalRandom tlr = ThreadLocalRandom.current();
 		int randomEntidad = tlr.nextInt(min_val, max_val);
 		int randomPosicion = tlr.nextInt(0, 6);
-		crearEntidad(randomEntidad,910, randomPosicion);
-		miGUI.ubicar(910,randomPosicion*100,getImgPath(randomEntidad));
+		crearEntidad(randomEntidad,910, randomPosicion*100);
+		miGUI.ubicar(910,randomPosicion,getImgPath(randomEntidad));
 		System.out.println("Cree: zombie: " + randomEntidad +"en Fila: " + randomPosicion);
 	}
 		
-	public void moverZombie() {
-		misFilas[0].getMisZombies().getFirst().mover();
+	public void moverZombie(int fila) {
+		misFilas[fila].getMisZombies().getFirst().mover();
 	}
 	
 	public String getImgPath(int opcion) {
@@ -248,13 +246,13 @@ public class Logica {
 		case 7:
 			return "";
 		case 8:
-			return "ZombiePequeño.gif";
+			return "AngryZombie.gif";
 		case 9:
-			return "ZombiePequeño.gif";
+			return "BucketZombie.gif";
 		case 10:
 			return "ZombiePequeño.gif";
 		case 11:
-			return "ZombiePequeño.gif";
+			return "coneZombie.gif";
 		case 12:
 			return "ZombiePequeño.gif";
 		case 13:
