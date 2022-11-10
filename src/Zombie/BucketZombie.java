@@ -2,5 +2,7 @@ package Zombie;
 
 public class BucketZombie extends ClassicZombie{
 
-	public BucketZombie() {}
+	public BucketZombie(int x, int y) {
+		super(x,y);
+	}
 }

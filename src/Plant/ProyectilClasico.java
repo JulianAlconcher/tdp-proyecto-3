@@ -4,9 +4,11 @@ import Logica.Visitor;
 
 public class ProyectilClasico extends Proyectil {
 	
-	public ProyectilClasico() {
+	public ProyectilClasico(int x,int y) {
+		super(x,y);
 		this.cantidadDanio = 2;
 	}
+
 
 	@Override
 	public void visit(Visitor v) {
@@ -19,6 +21,8 @@ public class ProyectilClasico extends Proyectil {
 		// TODO Auto-generated method stub
 		
 	}
+
+	
 
 
 }

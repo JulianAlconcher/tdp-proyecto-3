@@ -7,6 +7,7 @@ import Plant.PlantaMina;
 import Plant.PlantaNuez;
 import Plant.PlantaNuezAlta;
 import Plant.PlantaSeta;
+import Plant.ProyectilClasico;
 import Zombie.AngryZombie;
 import Zombie.BucketZombie;
 import Zombie.ClassicZombie;
@@ -18,78 +19,73 @@ public class FactoryNight implements AbstractFactory {
 
 
 	@Override
-	public PlantaCongeladora crearPlantaCongeladora() {
-		// TODO Auto-generated method stub
-		return null;
+	public PlantaCongeladora crearPlantaCongeladora(int x, int y) {
+		return new PlantaCongeladora(x,y);
 	}
 
 	@Override
-	public PlantaGirasol crearPlantaGirasol() {
-		return new PlantaGirasol();
+	public PlantaGirasol crearPlantaGirasol(int x, int y) {
+		return new PlantaGirasol(x, y);
 	}
 
 	@Override
-	public PlantaLanzaguisantes crearLanzaguisantes() {
-		return new PlantaLanzaguisantes();
+	public PlantaLanzaguisantes crearLanzaguisantes(int x, int y) {
+		return new PlantaLanzaguisantes(x,y);
 	}
 
 	@Override
-	public PlantaMina crearPlantaMina() {
-		// TODO Auto-generated method stub
-		return null;
+	public PlantaMina crearPlantaMina(int x, int y) {
+		return new PlantaMina(x,y);
 	}
 
 	@Override
-	public PlantaNuez crearPlantaNuez() {
-		return new PlantaNuez();
+	public PlantaNuez crearPlantaNuez(int x, int y) {
+		return new PlantaNuez(x,y);
 	}
 
 	@Override
-	public PlantaNuezAlta crearPlantaNuezAlta() {
-		// TODO Auto-generated method stub
-		return null;
+	public PlantaNuezAlta crearPlantaNuezAlta(int x, int y) {
+		return new PlantaNuezAlta(x,y);
 	}
 
 	@Override
-	public PlantaSeta crearPlantaSeta() {
-		// TODO Auto-generated method stub
-		return null;
+	public PlantaSeta crearPlantaSeta(int x, int y) {
+		return new PlantaSeta(x,y);
 	}
 
 	@Override
-	public AngryZombie crearAngryZombie() {
-		// TODO Auto-generated method stub
-		return null;
+	public AngryZombie crearAngryZombie(int x, int y) {
+		return new AngryZombie(x,y);
 	}
 
 	@Override
-	public BucketZombie crearBucketZombie() {
-		// TODO Auto-generated method stub
-		return null;
+	public BucketZombie crearBucketZombie(int x, int y) {
+		return new BucketZombie(x,y);
 	}
 
 	@Override
-	public ClassicZombie crearZombieClasico() {
-		// TODO Auto-generated method stub
-		return null;
+	public ClassicZombie crearClassicZombie(int x, int y) {
+		return new ClassicZombie(x,y);
 	}
 
 	@Override
-	public ConeZombie crearConeZombie() {
-		// TODO Auto-generated method stub
-		return null;
+	public ConeZombie crearConeZombie(int x, int y) {
+		return new ConeZombie(x,y);
 	}
 
 	@Override
-	public FlagZombie crearFlagZombie() {
-		// TODO Auto-generated method stub
-		return null;
+	public FlagZombie crearFlagZombie(int x, int y) {
+		return new FlagZombie(x,y);
 	}
 
 	@Override
-	public HolderZombie crearHolderZombie() {
-		// TODO Auto-generated method stub
-		return null;
+	public HolderZombie crearHolderZombie(int x, int y) {
+		return new HolderZombie(x,y);
+	}
+
+	@Override
+	public ProyectilClasico crearProyectilClasico(int x, int y) {
+		return new ProyectilClasico(x,y);
 	}
 
 }

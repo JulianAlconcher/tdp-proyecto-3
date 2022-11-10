@@ -6,17 +6,14 @@ public abstract class Entidad implements Visitor{
 
 	protected int miX;
 	protected int miY;
-	protected int miAncho;
-	protected int miLargo;
 	protected String imgPath;
 	protected int costo;
 	protected Rectangle miRectangulo;
 
-	public Entidad(int x,int y, int a, int l) {
+	public Entidad(int x,int y) {
 		miX = x;
 		miY = y;
-		miAncho = a;
-		miLargo = l;
+		miRectangulo = new Rectangle(miX,miY,100,100);
 	}
 	
 	public int getCosto() {
@@ -49,6 +46,14 @@ public abstract class Entidad implements Visitor{
 
 	public void setMiY(int miY) {
 		this.miY = miY;
+	}
+	
+	public Rectangle getMiRectangulo() {
+		return miRectangulo;
+	}
+
+	public void setMiRectangulo(Rectangle miRectangulo) {
+		this.miRectangulo = miRectangulo;
 	}
 	
 		

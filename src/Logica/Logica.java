@@ -1,5 +1,7 @@
 package Logica;
 
+import Plant.Planta;
+
 public class Logica {
 	
 	protected Grilla miGrilla;
@@ -10,7 +12,7 @@ public class Logica {
 	private String grass;
 	protected AbstractFactory miFactoria;
 	protected Fila[] misFilas;
-	protected Entidad entidadSeleccionada;
+	protected Planta entidadSeleccionada;
 
 	public Logica(int n,int modo) {
 	    state= new DayState(this);
@@ -18,7 +20,10 @@ public class Logica {
 		filas = 6;
 		columnas = 9;
 		miGrilla = new Grilla(filas,columnas);
-		misFilas = new Fila[5];
+		misFilas = new Fila[6];
+		for(int i=0; i<6; i++) {
+			misFilas[i] = new Fila();
+		}
 		entidadSeleccionada = null;
 		if(modo == 0) {
 			System.out.println(modo);
@@ -31,7 +36,6 @@ public class Logica {
 			this.setNightState();
 		}
 	}
-	
 	public void setDayState() {
 		state.cambioDia();
 	}
@@ -114,54 +118,103 @@ public class Logica {
 	public String getGrass() {
 		return grass;
 	}
+	
 
+	public void nuevoProyectil() {
+		misFilas[0].getMisProyectiles().getFirst().moverProyectil();
+	}
 	//TOMAR UNA DESICION CON RESPECTO A ESTO.
-	public void crearPlanta(int opcion) {
+	public void crearEntidad(int opcion,int x,int y) {
 		switch(opcion) {
 		case 1:{
-			entidadSeleccionada = miFactoria.crearPlantaCongeladora();
+			entidadSeleccionada = miFactoria.crearPlantaCongeladora(x,y);
+			misFilas[y/100].insertarPlanta(entidadSeleccionada);
 			disminuirSoles(entidadSeleccionada.getCosto()); //-->>>>>>>>>>>>>>>>>>>>>>>>>>>>>> esta ok?
 		}
 		break;
 		case 2:{
-			entidadSeleccionada = miFactoria.crearPlantaGirasol();
+			entidadSeleccionada = miFactoria.crearPlantaGirasol(x,y);
+			misFilas[y/100].insertarPlanta(entidadSeleccionada);
 			disminuirSoles(entidadSeleccionada.getCosto());
 		}
 		break;
 		case 3:{
-			entidadSeleccionada = miFactoria.crearLanzaguisantes();
+			entidadSeleccionada = miFactoria.crearLanzaguisantes(x,y);
+			misFilas[y/100].insertarPlanta(entidadSeleccionada);
 			disminuirSoles(entidadSeleccionada.getCosto());
 		}
 		break;
 		case 4:{
-			entidadSeleccionada = miFactoria.crearPlantaMina();
+			entidadSeleccionada = miFactoria.crearPlantaMina(x,y);
+			misFilas[y/100].insertarPlanta(entidadSeleccionada);
 			disminuirSoles(entidadSeleccionada.getCosto());
 		}
 		break;
 		case 5:{
-			entidadSeleccionada = miFactoria.crearPlantaNuez();
+			entidadSeleccionada = miFactoria.crearPlantaNuez(x,y);
+			misFilas[y/100].insertarPlanta(entidadSeleccionada);
 			disminuirSoles(entidadSeleccionada.getCosto());
 		}
 		break;
 		case 6:{
-			entidadSeleccionada = miFactoria.crearPlantaNuezAlta();
+			entidadSeleccionada = miFactoria.crearPlantaNuezAlta(x,y);
+			misFilas[y/100].insertarPlanta(entidadSeleccionada);
 			disminuirSoles(entidadSeleccionada.getCosto());
 		}
 		break;
 		case 7:{
-			entidadSeleccionada = miFactoria.crearPlantaSeta();
+			entidadSeleccionada = miFactoria.crearPlantaSeta(x,y);
+			misFilas[y/100].insertarPlanta(entidadSeleccionada);
 			disminuirSoles(entidadSeleccionada.getCosto());
 		}
 		break;
 		case 8:{
-		
+			miFactoria.crearAngryZombie(x,y);
 		}
 		break;
+		case 9:{
+			miFactoria.crearBucketZombie(x,y);
+		}
+		break;
+		case 10:{
+			misFilas[y/100].insertarZombie(miFactoria.crearClassicZombie(x,y));
+		}
+		case 11:{
+			misFilas[y/100].insertarZombie(miFactoria.crearConeZombie(x,y));
+		}
+		break;
+		case 12:{
+			misFilas[y/100].insertarZombie(miFactoria.crearFlagZombie(x,y));
+		}
+		break;
+		case 13:{
+			misFilas[y/100].insertarZombie(miFactoria.crearHolderZombie(x,y));
+		}
+		break;
+		case 14:{
+			misFilas[y/100].insertarProyectil(miFactoria.crearProyectilClasico(x,y));
+		}
 		}
 	}
 	
+	public boolean checkCollition(int fila) {
+		if(misFilas[fila].getMisZombies().size()>0 && misFilas[fila].getMisProyectiles().size()>0) {
+			System.out.println("x: " + misFilas[fila].getMisZombies().getFirst().getMiRectangulo().getX() + " y: " + misFilas[fila].getMisZombies().getFirst().getMiRectangulo().getY());
+			System.out.println("x: " + misFilas[fila].getMisProyectiles().getFirst().getMiRectangulo().getX() + " y: " + misFilas[fila].getMisProyectiles().getFirst().getMiRectangulo().getY());
+			if(misFilas[fila].getMisZombies().getFirst().getMiRectangulo().intersects(misFilas[fila].getMisProyectiles().getFirst().getMiRectangulo())) {
+				return true; //ACA IMPLEMENTAR VISITOR
+
+			}
+		}
+		return false; 
+		
+	}
+	
+	public void moverZombie() {
+		misFilas[0].getMisZombies().getFirst().mover();
+	}
+	
 	public String getImgPath(int opcion) {
-		System.out.println("ENTRE");
 		switch(opcion) {
 		case 1:
 			return "";

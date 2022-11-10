@@ -42,7 +42,7 @@ public class mainGUI extends JFrame implements Runnable {
 	public Thread hiloJuego;
 	private AudioPlayer ap;
 	private Thread hiloMusica;
-	protected int velocidad = 2;
+	protected int velocidad = 150;
 	protected boolean gameStart = false;
 	protected JButton btnPlanta1;
 	protected JButton btnPlanta2;
@@ -51,8 +51,9 @@ public class mainGUI extends JFrame implements Runnable {
 	protected int seleccionNivel,seleccionModo;
 	protected int opcion = 0;
 	//DE PRUEBA
-	protected int Direccion = 300;
-	protected JLabel proyectil; 
+	protected int Direccion = 200;
+	protected int DireccionZombie = 800;
+	protected JLabel proyectil,Zombie; 
 
 	public mainGUI() {
 		miMouse = new MouseHandler();
@@ -179,7 +180,6 @@ public class mainGUI extends JFrame implements Runnable {
 		});
 		btnPruebaAumentarSol.setBounds(530, 68, 85, 40);
 		inGamePanel.add(btnPruebaAumentarSol);
-
 		//BOTONES DE MENU
 		JButton btnJugar = new JButton("JUGAR");
 		btnJugar.setFont(new Font("Kozuka Gothic Pro R", Font.BOLD, 17));
@@ -195,7 +195,7 @@ public class mainGUI extends JFrame implements Runnable {
 							,JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE,null,new Object[] { "MODO DIA", "MODO NOCHE"},"opcion1"); 
 				if(seleccionNivel != JOptionPane.CLOSED_OPTION && seleccionModo != JOptionPane.CLOSED_OPTION) {
 					iniciarNuevoJuego(seleccionNivel,seleccionModo);	
-					audioOn(seleccionModo);
+//					audioOn(seleccionModo);
 				}
 
 			}
@@ -217,7 +217,6 @@ public class mainGUI extends JFrame implements Runnable {
 		btnSalir.setBounds(465, 712, 173, 52);
 		menuPanel.add(btnSalir);
 		btnSalir.addActionListener(new ActionListener() {
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
 			}
@@ -229,7 +228,6 @@ public class mainGUI extends JFrame implements Runnable {
 		lblImageMenu.setBounds(0, 0, 1284, 891);
 		menuPanel.add(lblImageMenu);
 		lblImageMenu.setIcon(imagenPortadaMenu);
-
 
 	}
 
@@ -254,9 +252,8 @@ public class mainGUI extends JFrame implements Runnable {
 		for(int i=0;i<cantFilas;i++) {
 			for(int j=0;j<cantColumnas;j++) {
 				if (e.getSource() == matrizGrafica[i][j] && opcion!=0 && !matrizGrafica[i][j].isOcupada()) {
-					System.out.println("Label x: " + i + " y: " +  j + " fue clickedo");
 					JLabel nuevaEntidad = new JLabel();
-					miLogica.crearPlanta(opcion);
+					miLogica.crearEntidad(opcion,j*100,i*100);
 					ImageIcon im= new ImageIcon(this.getClass().getResource("/Images/"+miLogica.getImgPath(opcion)));
 					nuevaEntidad.setIcon(im);
 					mapPanel.add(nuevaEntidad);
@@ -271,7 +268,29 @@ public class mainGUI extends JFrame implements Runnable {
         }
     }
 	
+	private void graficarProyectil() {
+		proyectil = new JLabel();
+		miLogica.crearEntidad(14, 200 , 0 );
+		ImageIcon im= new ImageIcon(this.getClass().getResource("/Images/pea.png"));
+		proyectil.setIcon(im);
+		mapPanel.add(proyectil,SwingConstants.CENTER);
+		proyectil.setBounds(200, 200, 30, 100);
+		proyectil.setBorder(BorderFactory.createLineBorder(Color.black));
 
+		
+	}
+	
+	private void graficarZombie() {
+		miLogica.crearEntidad(10, 800, 0);
+		Zombie = new JLabel();
+		ImageIcon im= new ImageIcon(this.getClass().getResource("/Images/ClassicZombie.gif"));
+		Zombie.setIcon(im);
+		mapPanel.add(Zombie);
+		mapPanel.setComponentZOrder(Zombie, 0);
+		Zombie.setBorder(BorderFactory.createLineBorder(Color.black));
+
+	}
+	
 	private void audioOn(int modo) {
 		if (modo==0) {
 		ap= new AudioPlayer("Audio/DayMusic.mp3");
@@ -299,27 +318,30 @@ public class mainGUI extends JFrame implements Runnable {
 					btnPlanta4.setEnabled(true);  
 				else
 					btnPlanta4.setEnabled(false);  
-				
 	}
 
 
 	private void iniciarNuevoJuego(int nivel, int modo) {
+
 		miLogica = new Logica(nivel,modo);
 		menuPanel.setVisible(false);
 		inGamePanel.setVisible(true);
 		lblCantSoles.setText("" + miLogica.getSoles());
+		pintarMatriz();
+		graficarZombie();
+		graficarProyectil();
 		hiloJuego = new Thread (this);
 		hiloJuego.start();
 		gameStart = true;
-		pintarMatriz();
+
 		if(modo == 1)
 			lblImageMap.setIcon(nightMap);
 		else
 			lblImageMap.setIcon(dayMap);
+
+
 	}
 	
-	
-
 	@Override
 	public void run() {
 		while(gameStart) {
@@ -331,8 +353,20 @@ public class mainGUI extends JFrame implements Runnable {
 		}
 	}
 	
-
 	public void update() {
 		administrarPlantas();
+		
+		//PROYECTIL
+		Direccion +=10;
+		proyectil.setBounds(Direccion, 0 , 30, 100);
+		miLogica.nuevoProyectil();
+		//ZOMBIE
+		DireccionZombie -=2;
+		Zombie.setBounds(DireccionZombie, 0, 80, 100);
+		System.out.println("z: " + DireccionZombie);
+		miLogica.moverZombie();
+		if(miLogica.checkCollition(0))
+			System.out.println("------------------->COLISION<-------------------");
+		
 	}
 }

@@ -1,13 +1,12 @@
 package Plant;
 
-import Logica.Entidad;
 import Logica.Visitor;
 
-public class PlantaCongeladora extends Entidad{
+public class PlantaCongeladora extends Planta{
 
 
-	public PlantaCongeladora(int x, int y, int a, int l) {
-		super(x, y, a, l);
+	public PlantaCongeladora(int x, int y) {
+		super(x, y);
 	}
 
 	@Override

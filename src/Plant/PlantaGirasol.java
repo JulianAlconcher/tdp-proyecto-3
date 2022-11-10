@@ -1,15 +1,12 @@
 package Plant;
 
-import Logica.Entidad;
 import Logica.Visitor;
 
-public class PlantaGirasol extends Entidad{
+public class PlantaGirasol extends Planta{
 
-	public PlantaGirasol() {
-		super(0,0,100,100);
+	public PlantaGirasol(int x,int y) {
+		super(x,y);
 		costo = 50;
-		imgPath = "Girasol.gif";
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

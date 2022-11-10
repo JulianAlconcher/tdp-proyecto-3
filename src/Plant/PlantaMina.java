@@ -1,12 +1,11 @@
 package Plant;
 
-import Logica.Entidad;
 import Logica.Visitor;
 
-public class PlantaMina extends Entidad{
+public class PlantaMina extends Planta{
 
-	public PlantaMina(int x, int y, int a, int l) {
-		super(x, y, a, l);
+	public PlantaMina(int x, int y) {
+		super(x, y);
 		// TODO Auto-generated constructor stub
 	}
 

@@ -1,15 +1,12 @@
 package Plant;
 
-import java.awt.Rectangle;
-
-import Logica.Entidad;
 import Logica.Visitor;
 
-public class PlantaLanzaguisantes extends Entidad{
+public class PlantaLanzaguisantes extends Planta{
 
 	
-	public PlantaLanzaguisantes() {
-		super(0,0,50,50);
+	public PlantaLanzaguisantes(int x, int y) {
+		super(x,y);
 		imgPath = "plantaComun.gif";
 		costo = 100;
 	}

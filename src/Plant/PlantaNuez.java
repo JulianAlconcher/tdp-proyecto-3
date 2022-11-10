@@ -1,12 +1,11 @@
 package Plant;
 
-import Logica.Entidad;
 import Logica.Visitor;
 
-public class PlantaNuez extends Entidad{
+public class PlantaNuez extends Planta{
 
-	public PlantaNuez() {
-		super(0, 0, 100, 100);
+	public PlantaNuez(int x,int y) {
+		super(x,y);
 		costo = 50;
 		imgPath= "nuezpng.gif";
 	}

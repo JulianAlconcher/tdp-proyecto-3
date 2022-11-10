@@ -6,16 +6,18 @@ import Logica.Visitor;
 public class ClassicZombie extends Entidad{
 	protected int vida;
 	protected int velocidad;
-	//Conocen su ubicacion?
 
-	public ClassicZombie() {
-		super(0,0,100,100);
+	public ClassicZombie(int x,int y) {
+		super(x,y);
 		this.vida = 10;
-		this.velocidad = 10;
+		this.velocidad = miX;
 	}
 
 	public void mover() {
+		velocidad -=2;
+		this.miRectangulo.setBounds(velocidad, miY, 70, 100);
 		
+		System.out.println(velocidad);
 	}
 
 	public void morir() {
