@@ -245,11 +245,11 @@ public class Logica {
 		case 3:
 			return "plantaComun.gif";
 		case 4:
-			return "";
+			return "mina.gif";
 		case 5:
 			return "nuez.gif";
 		case 6:
-			return "";
+			return "nuezAlta.gif";
 		case 7:
 			return "";
 		case 8:

@@ -47,12 +47,15 @@ public final class mainGUI extends JFrame implements Runnable {
 	protected JButton btnPlanta2;
 	protected JButton btnPlanta3;
 	protected JButton btnPlanta4;
+	protected JButton btnPlanta5;
+	protected JButton btnPlanta6;
 	protected int seleccionNivel,seleccionModo;
 	protected int opcion = 0;
 	//DE PRUEBA
 	protected int Direccion = 200;
 	protected int DireccionZombie = 800;
 	protected JLabel proyectil,Zombie; 
+
 
 	public mainGUI() {
 		miMouse = new MouseHandler();
@@ -79,7 +82,7 @@ public final class mainGUI extends JFrame implements Runnable {
 		inGamePanel = new JPanel();
 		contentPane.add(inGamePanel);
 		inGamePanel.setLayout(null);
-		
+				
 		lblImageMap = new JLabel("");
 		lblImageMap.setBounds(10, 111, 1262, 780);
 		inGamePanel.add(lblImageMap);
@@ -106,7 +109,7 @@ public final class mainGUI extends JFrame implements Runnable {
 		this.setResizable(false);	
 
 		btnPlanta1 = new JButton("");
-		btnPlanta1.setBounds(183, 13, 65, 89);
+		btnPlanta1.setBounds(116, 19, 65, 89);
 		inGamePanel.add(btnPlanta1);
 		btnPlanta1.setIcon(new ImageIcon(this.getClass().getResource("/Images/comun.png")));
 		btnPlanta1.setEnabled(false);
@@ -117,7 +120,7 @@ public final class mainGUI extends JFrame implements Runnable {
 		});
 
 		btnPlanta2 = new JButton("");
-		btnPlanta2.setBounds(258, 13, 65, 89);
+		btnPlanta2.setBounds(191, 19, 65, 89);
 		inGamePanel.add(btnPlanta2);
 		btnPlanta2.setIcon(new ImageIcon(this.getClass().getResource("/Images/girasol.png")));
 		btnPlanta2.setEnabled(false);
@@ -129,7 +132,7 @@ public final class mainGUI extends JFrame implements Runnable {
 		});
 
 		btnPlanta3 = new JButton("");
-		btnPlanta3.setBounds(333, 13, 65, 89);
+		btnPlanta3.setBounds(266, 19, 65, 89);
 		inGamePanel.add(btnPlanta3);
 		btnPlanta3.setIcon(new ImageIcon(this.getClass().getResource("/Images/Nuez.png")));
 		btnPlanta3.setEnabled(false);
@@ -140,7 +143,7 @@ public final class mainGUI extends JFrame implements Runnable {
 		});
 
 		btnPlanta4 = new JButton("");
-		btnPlanta4.setBounds(408, 13, 65, 89);
+		btnPlanta4.setBounds(341, 19, 65, 89);
 		inGamePanel.add(btnPlanta4);
 		btnPlanta4.setIcon(new ImageIcon(this.getClass().getResource("/Images/congeladora.png")));
 		btnPlanta4.setEnabled(false);
@@ -149,7 +152,28 @@ public final class mainGUI extends JFrame implements Runnable {
 					opcion = 1;
 			}
 		});
-
+	
+		btnPlanta5 = new JButton("");
+		btnPlanta5.setBounds(416, 19, 65, 89);
+		inGamePanel.add(btnPlanta5);
+		btnPlanta5.setIcon(new ImageIcon(this.getClass().getResource("/Images/plantaMina.png")));
+		btnPlanta5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+					opcion = 4;
+				}
+			});
+		
+		
+		btnPlanta6 = new JButton("");
+		btnPlanta6.setBounds(491, 19, 65, 89);
+		inGamePanel.add(btnPlanta6);
+		btnPlanta6.setIcon(new ImageIcon(this.getClass().getResource("/Images/nuezAlta.png")));
+		btnPlanta6.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+					opcion = 6;
+				}
+			});
+		
 		JButton btnVolverMenu = new JButton("MENU");
 		btnVolverMenu.setBounds(1157, 7, 103, 101);
 		inGamePanel.add(btnVolverMenu);
@@ -189,9 +213,11 @@ public final class mainGUI extends JFrame implements Runnable {
 		inGamePanel.add(btnPruebaAumentarSol);
 		
 		JLabel lblPlantsHolder = new JLabel("");
-		lblPlantsHolder.setBounds(10, 7, 959, 109);
+		lblPlantsHolder.setBounds(10, 11, 900, 105);
 		inGamePanel.add(lblPlantsHolder);
-		lblPlantsHolder.setIcon(new ImageIcon(this.getClass().getResource("/Images/PlantHandler.png")));
+		lblPlantsHolder.setIcon(new ImageIcon(this.getClass().getResource("/Images/PlantHandler (2).png")));
+		
+		
 		//BOTONES DE MENU
 		JButton btnJugar = new JButton("JUGAR");
 		btnJugar.setFont(new Font("Kozuka Gothic Pro R", Font.BOLD, 17));
@@ -326,10 +352,14 @@ public final class mainGUI extends JFrame implements Runnable {
 			btnPlanta2.setEnabled(false);
 			btnPlanta3.setEnabled(false);	
 		}
-			if(miLogica.getSoles()>=100) 
+			if(miLogica.getSoles()>=100) {
 				btnPlanta1.setEnabled(true);
-			else
+				btnPlanta5.setEnabled(true);
+				btnPlanta6.setEnabled(true);}
+			else {
 				btnPlanta1.setEnabled(false);
+				btnPlanta5.setEnabled(false);
+				btnPlanta6.setEnabled(false);}
 				if(miLogica.getSoles()>=175) 
 					btnPlanta4.setEnabled(true);  
 				else
