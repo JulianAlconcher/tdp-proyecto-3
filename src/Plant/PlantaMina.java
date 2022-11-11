@@ -6,7 +6,7 @@ public class PlantaMina extends Planta{
 
 	public PlantaMina(int x, int y) {
 		super(x, y);
-		// TODO Auto-generated constructor stub
+		costo = 25;
 	}
 
 	@Override

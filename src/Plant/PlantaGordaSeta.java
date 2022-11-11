@@ -2,13 +2,14 @@ package Plant;
 
 import Logica.Visitor;
 
-public class PlantaNuezAlta extends Planta{
+public class PlantaGordaSeta extends Planta {
 
-	public PlantaNuezAlta(int x, int y) {
-		super(x,y);
-		imgPath = "nuezCuadrada.gif";
-		costo = 120;
+	public PlantaGordaSeta(int x, int y) {
+		super(x, y);
+		costo = 75;
+		// TODO Auto-generated constructor stub
 	}
+
 	@Override
 	public void visit(Visitor v) {
 		// TODO Auto-generated method stub
@@ -20,7 +21,5 @@ public class PlantaNuezAlta extends Planta{
 		// TODO Auto-generated method stub
 		
 	}
-
-	
 
 }

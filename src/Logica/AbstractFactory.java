@@ -12,6 +12,7 @@ public interface AbstractFactory  {
 	public PlantaNuez crearPlantaNuez(int x,int y);
 	public PlantaNuezAlta crearPlantaNuezAlta(int x,int y);
 	public PlantaSeta crearPlantaSeta(int x,int y);
+	public PlantaGordaSeta crearPlantaGordaSeta(int x, int y);
 	
 	//ZOMBIES
 	public AngryZombie crearAngryZombie(int x,int y);

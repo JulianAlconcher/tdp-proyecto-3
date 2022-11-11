@@ -2,6 +2,7 @@ package Logica;
 
 import Plant.PlantaCongeladora;
 import Plant.PlantaGirasol;
+import Plant.PlantaGordaSeta;
 import Plant.PlantaLanzaguisantes;
 import Plant.PlantaMina;
 import Plant.PlantaNuez;
@@ -86,6 +87,11 @@ public class FactoryNight implements AbstractFactory {
 	@Override
 	public ProyectilClasico crearProyectilClasico(int x, int y) {
 		return new ProyectilClasico(x,y);
+	}
+
+	@Override
+	public PlantaGordaSeta crearPlantaGordaSeta(int x, int y) {
+		return new PlantaGordaSeta(x,y);
 	}
 
 }

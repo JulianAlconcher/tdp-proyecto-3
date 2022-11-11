@@ -197,6 +197,12 @@ public class Logica {
 		case 14:{
 			misFilas[y/100].insertarProyectil(miFactoria.crearProyectilClasico(x,y));
 		}
+		break;
+		case 16:{
+			entidadSeleccionada = miFactoria.crearPlantaGordaSeta(x,y);
+			misFilas[y/100].insertarPlanta(entidadSeleccionada);
+			disminuirSoles(entidadSeleccionada.getCosto());
+		}
 		}
 	}
 	
@@ -250,7 +256,7 @@ public class Logica {
 		case 6:
 			return "nuezAlta.gif";
 		case 7:
-			return "";
+			return "seta.gif";
 		case 8:
 			return "AngryZombie.gif";
 		case 9:
@@ -267,6 +273,8 @@ public class Logica {
 			return "pea.png";
 		case 15:
 			return "pea.png";
+		case 16:
+			return "GordaSeta.gif";
 		}
 		return null;
 	}

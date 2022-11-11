@@ -51,6 +51,8 @@ public final class mainGUI extends JFrame implements Runnable {
 	protected JButton btnPlanta4;
 	protected JButton btnPlanta5;
 	protected JButton btnPlanta6;
+	protected JButton btnPlanta7;
+	protected JButton btnPlanta8;
 	protected JToggleButton btnAudio;
 	protected int seleccionNivel,seleccionModo;
 	protected int opcion = 0;
@@ -58,6 +60,7 @@ public final class mainGUI extends JFrame implements Runnable {
 	protected int Direccion = 200;
 	protected int DireccionZombie = 800;
 	protected JLabel proyectil,Zombie; 
+
 
 
 	public mainGUI() {
@@ -85,7 +88,7 @@ public final class mainGUI extends JFrame implements Runnable {
 		inGamePanel = new JPanel();
 		contentPane.add(inGamePanel);
 		inGamePanel.setLayout(null);
-				
+						
 		lblImageMap = new JLabel("");
 		lblImageMap.setBounds(10, 111, 1262, 780);
 		inGamePanel.add(lblImageMap);
@@ -177,7 +180,28 @@ public final class mainGUI extends JFrame implements Runnable {
 				}
 			});
 		
+		btnPlanta7 = new JButton("");
+		btnPlanta7.setBounds(566, 19, 65, 89);
+		inGamePanel.add(btnPlanta7);
 		btnAudio = new JToggleButton();
+		btnPlanta7.setIcon(new ImageIcon(this.getClass().getResource("/Images/seta1.png")));
+		btnPlanta7.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+					opcion = 7;
+				}
+			});
+		
+		btnPlanta8 = new JButton("");
+		btnPlanta8.setBounds(641, 19, 65, 89);
+		inGamePanel.add(btnPlanta8);
+		btnPlanta8.setIcon(new ImageIcon(this.getClass().getResource("/Images/GordaSetaC.png")));
+		btnPlanta8.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+					opcion = 16;
+				}
+			});
+		
+		
         btnAudio.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 AudioPulsado();
@@ -375,6 +399,12 @@ public final class mainGUI extends JFrame implements Runnable {
 	}
 	
 	private void administrarPlantas() {
+		if(miLogica.getSoles()>=25) {
+			btnPlanta5.setEnabled(true);
+		}
+		else {
+			btnPlanta5.setEnabled(false);
+		}
 		if(miLogica.getSoles()>=50) {
 			btnPlanta2.setEnabled(true);
 			btnPlanta3.setEnabled(true);
@@ -383,14 +413,24 @@ public final class mainGUI extends JFrame implements Runnable {
 			btnPlanta2.setEnabled(false);
 			btnPlanta3.setEnabled(false);	
 		}
+		if(miLogica.getSoles()>=75) {
+			btnPlanta8.setEnabled(true);
+		}
+		else {
+			btnPlanta8.setEnabled(false);
+		}
 			if(miLogica.getSoles()>=100) {
-				btnPlanta1.setEnabled(true);
-				btnPlanta5.setEnabled(true);
-				btnPlanta6.setEnabled(true);}
+				btnPlanta1.setEnabled(true);}
 			else {
 				btnPlanta1.setEnabled(false);
-				btnPlanta5.setEnabled(false);
-				btnPlanta6.setEnabled(false);}
+}
+			if(miLogica.getSoles()>=125) {
+
+				btnPlanta6.setEnabled(true);
+			}
+			else {
+				btnPlanta6.setEnabled(false);
+			}
 				if(miLogica.getSoles()>=175) 
 					btnPlanta4.setEnabled(true);  
 				else

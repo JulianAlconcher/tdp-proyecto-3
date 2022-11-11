@@ -7,6 +7,7 @@ public class PlantaCongeladora extends Planta{
 
 	public PlantaCongeladora(int x, int y) {
 		super(x, y);
+		costo = 175;
 	}
 
 	@Override
