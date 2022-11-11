@@ -215,11 +215,10 @@ public class Logica {
 	}
 	
 	public void generarRandomZombie() {
-
 		int min_val = 8;
 		int max_val = 13;
 		ThreadLocalRandom tlr = ThreadLocalRandom.current();
-		int randomEntidad = tlr.nextInt(min_val, max_val);
+		int randomEntidad = tlr.nextInt(min_val, max_val+1);
 		int randomPosicion = tlr.nextInt(0, 6);
 		crearEntidad(randomEntidad,910, randomPosicion*100);
 		miGUI.ubicar(910,randomPosicion,getImgPath(randomEntidad));
@@ -257,11 +256,11 @@ public class Logica {
 		case 9:
 			return "BucketZombie.gif";
 		case 10:
-			return "ZombiePequeño.gif";
+			return "ZombieClasico.gif";
 		case 11:
 			return "coneZombie.gif";
 		case 12:
-			return "ZombiePequeño.gif";
+			return "ZombieBandera.gif";
 		case 13:
 			return "HolderZombie.gif";
 		case 14:

@@ -10,6 +10,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JToggleButton;
+
 import Logica.Logica;
 
 import java.awt.CardLayout;
@@ -49,6 +51,7 @@ public final class mainGUI extends JFrame implements Runnable {
 	protected JButton btnPlanta4;
 	protected JButton btnPlanta5;
 	protected JButton btnPlanta6;
+	protected JToggleButton btnAudio;
 	protected int seleccionNivel,seleccionModo;
 	protected int opcion = 0;
 	//DE PRUEBA
@@ -174,6 +177,16 @@ public final class mainGUI extends JFrame implements Runnable {
 				}
 			});
 		
+		btnAudio = new JToggleButton();
+        btnAudio.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                AudioPulsado();
+            }
+        });
+        btnAudio.setIcon(new ImageIcon(this.getClass().getResource("/Images/btnAudioOn.png")));
+        btnAudio.setBounds(1080, 19, 50, 50);
+        inGamePanel.add(btnAudio);
+		
 		JButton btnVolverMenu = new JButton("MENU");
 		btnVolverMenu.setBounds(1157, 7, 103, 101);
 		inGamePanel.add(btnVolverMenu);
@@ -183,6 +196,7 @@ public final class mainGUI extends JFrame implements Runnable {
 				menuPanel.setVisible(true);
 				inGamePanel.setVisible(false);
 				gameStart = false;
+				audioOff();
 			}
 
 		});
@@ -233,7 +247,6 @@ public final class mainGUI extends JFrame implements Runnable {
 							,JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE,null,new Object[] { "MODO DIA", "MODO NOCHE"},"opcion1"); 
 				if(seleccionNivel != JOptionPane.CLOSED_OPTION && seleccionModo != JOptionPane.CLOSED_OPTION) {
 					iniciarNuevoJuego(seleccionNivel,seleccionModo);	
-//					audioOn(seleccionModo);
 				}
 
 			}
@@ -303,6 +316,33 @@ public final class mainGUI extends JFrame implements Runnable {
         }
     }
 	
+	public void AudioPulsado() {
+        if (this.btnAudio.isSelected()) {
+            audioOff();
+        } else {
+            audioOn(seleccionModo);
+        }
+    }
+    
+    private void audioOn(int modo) {
+        btnAudio.setIcon(new ImageIcon(this.getClass().getResource("/Images/btnAudioOn.png")));
+        if (modo==0) {
+        ap= new AudioPlayer("Audio/DayMusic.mp3");
+        } else {
+            ap=new AudioPlayer("Audio/NightMusic.mp3");
+        }
+        hiloMusica= new Thread(ap);
+        hiloMusica.start();
+    }
+    
+    private void audioOff() {
+        btnAudio.setIcon(new ImageIcon(this.getClass().getResource("/Images/btnAudioOff.png")));
+        ap=null;
+        hiloMusica.stop();
+        hiloMusica= null;
+    
+    }
+	
 	private void graficarProyectil() {
 		proyectil = new JLabel();
 		miLogica.crearEntidad(14, 200 , nuevaEntidad.getY() );
@@ -314,7 +354,8 @@ public final class mainGUI extends JFrame implements Runnable {
 
 	public void ubicar(int x, int y, String imgPath) {
 		ImageIcon im= new ImageIcon(this.getClass().getResource("/Images/"+ imgPath));
-		nuevaEntidad = new JLabel();
+		JLabel aux = new JLabel();
+		nuevaEntidad = aux;
 		nuevaEntidad.setIcon(im);
 		nuevaEntidad.setBounds(x, y*100, 100, 100);
 		mapPanel.add(nuevaEntidad);
@@ -331,16 +372,6 @@ public final class mainGUI extends JFrame implements Runnable {
 		Direccion +=15;
 		proyectil.setBounds(Direccion,y, 30, 100);
 		miLogica.moverProyectil(y/100);
-	}
-	
-	private void audioOn(int modo) {
-		if (modo==0) {
-		ap= new AudioPlayer("Audio/DayMusic.mp3");
-		} else {
-			ap=new AudioPlayer("Audio/NightMusic.mp3");
-		}
-		hiloMusica= new Thread(ap);
-		hiloMusica.start();
 	}
 	
 	private void administrarPlantas() {
@@ -379,7 +410,7 @@ public final class mainGUI extends JFrame implements Runnable {
 		hiloJuego = new Thread (this);
 		hiloJuego.start();
 		gameStart = true;
-
+		audioOn(modo);
 		if(modo == 1)
 			lblImageMap.setIcon(nightMap);
 		else
@@ -403,14 +434,12 @@ public final class mainGUI extends JFrame implements Runnable {
 		administrarPlantas();
 		
 		//PROYECTIL
-		System.out.println(nuevaEntidad.getY());
-		moverProyectil(nuevaEntidad.getY());
+		//moverProyectil(nuevaEntidad.getY());
 
 		//ZOMBIE
 		moverZombie(nuevaEntidad,nuevaEntidad.getX(),nuevaEntidad.getY());
 
 		if(miLogica.checkCollition(nuevaEntidad.getY()/100)) {
-//			miLogica.generarRandomZombie();
 			proyectil.setVisible(false);
 		}
 	}
