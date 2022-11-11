@@ -106,7 +106,7 @@ public final class mainGUI extends JFrame implements Runnable {
 		this.setResizable(false);	
 
 		btnPlanta1 = new JButton("");
-		btnPlanta1.setBounds(10, 10, 65, 89);
+		btnPlanta1.setBounds(183, 13, 65, 89);
 		inGamePanel.add(btnPlanta1);
 		btnPlanta1.setIcon(new ImageIcon(this.getClass().getResource("/Images/comun.png")));
 		btnPlanta1.setEnabled(false);
@@ -117,7 +117,7 @@ public final class mainGUI extends JFrame implements Runnable {
 		});
 
 		btnPlanta2 = new JButton("");
-		btnPlanta2.setBounds(105, 10, 65, 89);
+		btnPlanta2.setBounds(258, 13, 65, 89);
 		inGamePanel.add(btnPlanta2);
 		btnPlanta2.setIcon(new ImageIcon(this.getClass().getResource("/Images/girasol.png")));
 		btnPlanta2.setEnabled(false);
@@ -129,7 +129,7 @@ public final class mainGUI extends JFrame implements Runnable {
 		});
 
 		btnPlanta3 = new JButton("");
-		btnPlanta3.setBounds(200, 10, 65, 89);
+		btnPlanta3.setBounds(333, 13, 65, 89);
 		inGamePanel.add(btnPlanta3);
 		btnPlanta3.setIcon(new ImageIcon(this.getClass().getResource("/Images/Nuez.png")));
 		btnPlanta3.setEnabled(false);
@@ -140,10 +140,15 @@ public final class mainGUI extends JFrame implements Runnable {
 		});
 
 		btnPlanta4 = new JButton("");
-		btnPlanta4.setBounds(295, 10, 65, 89);
+		btnPlanta4.setBounds(408, 13, 65, 89);
 		inGamePanel.add(btnPlanta4);
 		btnPlanta4.setIcon(new ImageIcon(this.getClass().getResource("/Images/congeladora.png")));
 		btnPlanta4.setEnabled(false);
+		btnPlanta4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+					opcion = 1;
+			}
+		});
 
 		JButton btnVolverMenu = new JButton("MENU");
 		btnVolverMenu.setBounds(1157, 7, 103, 101);
@@ -160,13 +165,16 @@ public final class mainGUI extends JFrame implements Runnable {
 
 
 		lblSol = new JLabel("");
-		lblSol.setBounds(627, 0, 80, 89);
+		lblSol.setHorizontalAlignment(SwingConstants.CENTER);
+		lblSol.setBounds(10, 11, 96, 80);
 		inGamePanel.add(lblSol);
 		lblSol.setIcon(new ImageIcon(this.getClass().getResource("/Images/sun.png")));
 
 		lblCantSoles = new JLabel("0");
+		lblCantSoles.setForeground(new Color(255, 255, 255));
+		lblCantSoles.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCantSoles.setFont(new Font("Cambria Math", Font.BOLD, 15));
-		lblCantSoles.setBounds(652, 78, 55, 25);
+		lblCantSoles.setBounds(10, 85, 96, 18);
 		inGamePanel.add(lblCantSoles);
 		lblCantSoles.setText("0");
 
@@ -177,8 +185,13 @@ public final class mainGUI extends JFrame implements Runnable {
 				lblCantSoles.setText("  " + miLogica.getSoles());
 			}
 		});
-		btnPruebaAumentarSol.setBounds(530, 68, 85, 40);
+		btnPruebaAumentarSol.setBounds(979, 37, 85, 40);
 		inGamePanel.add(btnPruebaAumentarSol);
+		
+		JLabel lblPlantsHolder = new JLabel("");
+		lblPlantsHolder.setBounds(10, 7, 959, 109);
+		inGamePanel.add(lblPlantsHolder);
+		lblPlantsHolder.setIcon(new ImageIcon(this.getClass().getResource("/Images/PlantHandler.png")));
 		//BOTONES DE MENU
 		JButton btnJugar = new JButton("JUGAR");
 		btnJugar.setFont(new Font("Kozuka Gothic Pro R", Font.BOLD, 17));
@@ -367,6 +380,7 @@ public final class mainGUI extends JFrame implements Runnable {
 		moverZombie(nuevaEntidad,nuevaEntidad.getX(),nuevaEntidad.getY());
 
 		if(miLogica.checkCollition(nuevaEntidad.getY()/100)) {
+//			miLogica.generarRandomZombie();
 			proyectil.setVisible(false);
 		}
 	}

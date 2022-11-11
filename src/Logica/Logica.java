@@ -215,6 +215,7 @@ public class Logica {
 	}
 	
 	public void generarRandomZombie() {
+
 		int min_val = 8;
 		int max_val = 13;
 		ThreadLocalRandom tlr = ThreadLocalRandom.current();
@@ -222,7 +223,13 @@ public class Logica {
 		int randomPosicion = tlr.nextInt(0, 6);
 		crearEntidad(randomEntidad,910, randomPosicion*100);
 		miGUI.ubicar(910,randomPosicion,getImgPath(randomEntidad));
+		System.out.println(misFilas[randomPosicion].getMisZombies().size());
 		System.out.println("Cree: zombie: " + randomEntidad +"en Fila: " + randomPosicion);
+	}
+	
+	public void aparecerSol() {
+		soles++;
+		
 	}
 		
 	public void moverZombie(int fila) {
@@ -232,7 +239,7 @@ public class Logica {
 	public String getImgPath(int opcion) {
 		switch(opcion) {
 		case 1:
-			return "";
+			return "plantaCongeladora.gif";
 		case 2:
 			return "Girasol.gif";
 		case 3:
@@ -240,7 +247,7 @@ public class Logica {
 		case 4:
 			return "";
 		case 5:
-			return "nuezpng.gif";
+			return "nuez.gif";
 		case 6:
 			return "";
 		case 7:
@@ -256,11 +263,11 @@ public class Logica {
 		case 12:
 			return "ZombiePequeño.gif";
 		case 13:
-			return "ZombiePequeño.gif";
+			return "HolderZombie.gif";
 		case 14:
-			return "ZombiePequeño.gif";
+			return "pea.png";
 		case 15:
-			return "ZombiePequeño.gif";
+			return "pea.png";
 		}
 		return null;
 	}
@@ -273,6 +280,9 @@ public class Logica {
 		this.miFactoria = miFactoria;
 	}
 
+	public void eliminarZombie(int fila) {
+		misFilas[fila].getMisZombies().removeFirst();
+	}
 	
 
 
