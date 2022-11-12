@@ -6,6 +6,7 @@ public class ProyectilClasico extends Proyectil {
 	
 	public ProyectilClasico(int x,int y) {
 		super(x,y);
+		imgPath = "pea.png";
 		this.cantidadDanio = 2;
 	}
 
@@ -26,3 +27,4 @@ public class ProyectilClasico extends Proyectil {
 
 
 }
+;

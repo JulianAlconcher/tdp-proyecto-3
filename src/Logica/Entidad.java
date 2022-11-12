@@ -2,6 +2,8 @@ package Logica;
 
 import java.awt.Rectangle;
 
+import GUI.mainGUI;
+
 public abstract class Entidad implements Visitor{
 
 	protected int miX;
@@ -9,11 +11,14 @@ public abstract class Entidad implements Visitor{
 	protected String imgPath;
 	protected int costo;
 	protected Rectangle miRectangulo;
+	protected mainGUI miGUI;
+	protected EntidadGrafica miEntidadGrafica;
 
 	public Entidad(int x,int y) {
 		miX = x;
 		miY = y;
 		miRectangulo = new Rectangle(miX,miY,100,100);
+		miGUI = mainGUI.getInstancia(null);
 	}
 	
 	public int getCosto() {
@@ -54,6 +59,14 @@ public abstract class Entidad implements Visitor{
 
 	public void setMiRectangulo(Rectangle miRectangulo) {
 		this.miRectangulo = miRectangulo;
+	}
+	
+	public EntidadGrafica getMiEntidadGrafica() {
+		return miEntidadGrafica;
+	}
+
+	public void setMiEntidadGrafica(EntidadGrafica miEntidadGrafica) {
+		this.miEntidadGrafica = miEntidadGrafica;
 	}
 	
 		

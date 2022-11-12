@@ -1,13 +1,15 @@
 package Plant;
 
+import Logica.EntidadGrafica;
 import Logica.Visitor;
 
 public class PlantaNuezAlta extends Planta{
 
 	public PlantaNuezAlta(int x, int y) {
 		super(x,y);
-		imgPath = "nuezCuadrada.gif";
+		imgPath = "nuezAlta.gif";
 		costo = 120;
+		miEntidadGrafica = new EntidadGrafica(imgPath);
 	}
 	@Override
 	public void visit(Visitor v) {
@@ -17,6 +19,11 @@ public class PlantaNuezAlta extends Planta{
 
 	@Override
 	public void accept(Visitor v) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void disparar() {
 		// TODO Auto-generated method stub
 		
 	}

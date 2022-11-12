@@ -1,6 +1,7 @@
 package Zombie;
 
 import Logica.Entidad;
+import Logica.EntidadGrafica;
 import Logica.Visitor;
 
 public class ClassicZombie extends Entidad{
@@ -9,6 +10,8 @@ public class ClassicZombie extends Entidad{
 
 	public ClassicZombie(int x,int y) {
 		super(x,y);
+		imgPath = "ZombieClasico.gif";
+		miEntidadGrafica = new EntidadGrafica(imgPath);
 		this.vida = 10;
 		this.velocidad = miX;
 	}
@@ -16,7 +19,6 @@ public class ClassicZombie extends Entidad{
 	public void mover() {
 		velocidad -=2;
 		this.miRectangulo.setBounds(velocidad, miY, 100, 100);
-		
 		System.out.println(velocidad);
 	}
 

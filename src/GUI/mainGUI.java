@@ -25,7 +25,10 @@ import javax.swing.SwingConstants;
 
 @SuppressWarnings("serial")
 public final class mainGUI extends JFrame implements Runnable {
-
+	
+	private static mainGUI mGUI;
+	public String valor;
+	
 	private JPanel contentPane;
 	protected final int cantFilas = 6;
 	protected final int cantColumnas = 9;
@@ -37,7 +40,7 @@ public final class mainGUI extends JFrame implements Runnable {
 	protected JPanel inGamePanel;
 	protected JPanel mapPanel;
 	protected JLabel lblCantSoles;
-	protected JLabel lblSol,nuevaEntidad;
+	protected JLabel lblSol;
 	protected JLabel lblImageMap;
 	protected ImageIcon nightMap,dayMap;
 	public Thread hiloJuego;
@@ -56,17 +59,19 @@ public final class mainGUI extends JFrame implements Runnable {
 	protected JToggleButton btnAudio;
 	protected int seleccionNivel,seleccionModo;
 	protected int opcion = 0;
-	//DE PRUEBA
-	protected int Direccion = 200;
-	protected int DireccionZombie = 800;
-	protected JLabel proyectil,Zombie; 
-
-
-
-	public mainGUI() {
+	
+	private mainGUI(String valor) {
 		miMouse = new MouseHandler();
 		matrizGrafica = new Celda[cantFilas][cantColumnas];
 		initialize();
+		this.valor = valor;
+	}
+	
+	public static mainGUI getInstancia(String valor) {
+		if(valor == null)
+			mGUI = new mainGUI(valor);
+		
+		return mGUI;
 	}
 
 	private void initialize() {
@@ -200,8 +205,6 @@ public final class mainGUI extends JFrame implements Runnable {
 					opcion = 16;
 				}
 			});
-		
-		
         btnAudio.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 AudioPulsado();
@@ -224,8 +227,6 @@ public final class mainGUI extends JFrame implements Runnable {
 			}
 
 		});
-
-
 		lblSol = new JLabel("");
 		lblSol.setHorizontalAlignment(SwingConstants.CENTER);
 		lblSol.setBounds(10, 11, 96, 80);
@@ -314,8 +315,7 @@ public final class mainGUI extends JFrame implements Runnable {
 				matrizGrafica[i][j].addMouseListener(new MouseAdapter() {public void mouseClicked(MouseEvent e) {onMouseClicked(e);}});
 				matrizGrafica[i][j].setIcon(im);
 				mapPanel.add(matrizGrafica[i][j]);
-				matrizGrafica[i][j].setBounds(j*100, i*100, 100, 100);
-		
+				matrizGrafica[i][j].setBounds(j*100, i*100, 100, 100);		
 			}
 		}
 	}
@@ -324,13 +324,15 @@ public final class mainGUI extends JFrame implements Runnable {
 		for(int i=0;i<cantFilas;i++) {
 			for(int j=0;j<cantColumnas;j++) {
 				if (e.getSource() == matrizGrafica[i][j] && opcion!=0 && !matrizGrafica[i][j].isOcupada()) {
+					miLogica.colocarPlanta(opcion,i,j);
+					// REEMPLAZAR ESTO CON EL UBICAR-------------------
 					JLabel nuevaEntidad = new JLabel();
-					miLogica.crearEntidad(opcion,j*100,i*100);
 					ImageIcon im= new ImageIcon(this.getClass().getResource("/Images/"+miLogica.getImgPath(opcion)));
 					nuevaEntidad.setIcon(im);
 					mapPanel.add(nuevaEntidad);
 					mapPanel.setComponentZOrder(nuevaEntidad, 0);
 					nuevaEntidad.setBounds(j*100, i*100, 100, 100);
+					//--------------------------------------------------
     				lblCantSoles.setText(" " + miLogica.getSoles());
     				opcion = 0;
     				matrizGrafica[i][j].setOcupada(true);
@@ -339,6 +341,8 @@ public final class mainGUI extends JFrame implements Runnable {
             }
         }
     }
+	
+
 	
 	public void AudioPulsado() {
         if (this.btnAudio.isSelected()) {
@@ -359,7 +363,8 @@ public final class mainGUI extends JFrame implements Runnable {
         hiloMusica.start();
     }
     
-    private void audioOff() {
+    @SuppressWarnings("removal")
+	private void audioOff() {
         btnAudio.setIcon(new ImageIcon(this.getClass().getResource("/Images/btnAudioOff.png")));
         ap=null;
         hiloMusica.stop();
@@ -367,24 +372,14 @@ public final class mainGUI extends JFrame implements Runnable {
     
     }
 	
-	private void graficarProyectil() {
-		proyectil = new JLabel();
-		miLogica.crearEntidad(14, 200 , nuevaEntidad.getY() );
-		ImageIcon im= new ImageIcon(this.getClass().getResource("/Images/pea.png"));
-		proyectil.setIcon(im);
-		mapPanel.add(proyectil,SwingConstants.CENTER);		
+	public void ubicar(JLabel miLabel,int x, int y ) {
+		mapPanel.add(miLabel);
+		mapPanel.setComponentZOrder(miLabel, 0);
+		miLabel.setBounds(400, 500, 100, 100);
+		System.out.println("x:: " + x*100 +"  y:: " + y*100);
 	}
-	
-
-	public void ubicar(int x, int y, String imgPath) {
-		ImageIcon im= new ImageIcon(this.getClass().getResource("/Images/"+ imgPath));
-		JLabel aux = new JLabel();
-		nuevaEntidad = aux;
-		nuevaEntidad.setIcon(im);
-		nuevaEntidad.setBounds(x, y*100, 100, 100);
-		mapPanel.add(nuevaEntidad);
-		mapPanel.setComponentZOrder(nuevaEntidad, 0);
-	}
+    
+    
 	
 	public void moverZombie(JLabel z,int x, int y) {
 		x -=2;
@@ -392,13 +387,15 @@ public final class mainGUI extends JFrame implements Runnable {
 		miLogica.moverZombie(y/100);
 	}
 	
-	public void moverProyectil(int y) {
-		Direccion +=15;
-		proyectil.setBounds(Direccion,y, 30, 100);
-		miLogica.moverProyectil(y/100);
+	public void moverProyectil(JLabel proyectil,int x, int y) {
+		proyectil.setBounds(x, y, 30, 100);
 	}
 	
 	private void administrarPlantas() {
+		if(miLogica.printGameState() == "DIA") {
+			btnPlanta8.setEnabled(false);
+			btnPlanta7.setEnabled(false);
+		}
 		if(miLogica.getSoles()>=25) {
 			btnPlanta5.setEnabled(true);
 		}
@@ -414,7 +411,8 @@ public final class mainGUI extends JFrame implements Runnable {
 			btnPlanta3.setEnabled(false);	
 		}
 		if(miLogica.getSoles()>=75) {
-			btnPlanta8.setEnabled(true);
+			if(miLogica.printGameState() == "NOCHE")
+				btnPlanta8.setEnabled(true);
 		}
 		else {
 			btnPlanta8.setEnabled(false);
@@ -440,23 +438,22 @@ public final class mainGUI extends JFrame implements Runnable {
 
 	private void iniciarNuevoJuego(int nivel, int modo) {
 
-		miLogica = new Logica(nivel,modo,this); //-->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Como comunicar la GUI con la Logica?
+		miLogica = Logica.getInstancia(nivel, modo, null);
 		menuPanel.setVisible(false);
 		inGamePanel.setVisible(true);
 		lblCantSoles.setText("" + miLogica.getSoles());
 		pintarMatriz();
-		miLogica.generarRandomZombie();
-		graficarProyectil();
 		hiloJuego = new Thread (this);
 		hiloJuego.start();
 		gameStart = true;
+		
+		miLogica.generarRandomZombie();
+		
 		audioOn(modo);
 		if(modo == 1)
 			lblImageMap.setIcon(nightMap);
 		else
 			lblImageMap.setIcon(dayMap);
-
-
 	}
 	
 	@Override
@@ -472,15 +469,6 @@ public final class mainGUI extends JFrame implements Runnable {
 	
 	public void update() {
 		administrarPlantas();
-		
-		//PROYECTIL
-		//moverProyectil(nuevaEntidad.getY());
-
-		//ZOMBIE
-		moverZombie(nuevaEntidad,nuevaEntidad.getX(),nuevaEntidad.getY());
-
-		if(miLogica.checkCollition(nuevaEntidad.getY()/100)) {
-			proyectil.setVisible(false);
-		}
+		miLogica.controlarPlantas();
 	}
 }

@@ -6,6 +6,7 @@ public class ProyectilCongelante extends Proyectil{
 
 	public ProyectilCongelante(int x, int y) {
 		super(x, y);
+		imgPath = "peaCongelante.png";
 	}
 
 	@Override

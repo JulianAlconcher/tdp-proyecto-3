@@ -1,10 +1,13 @@
 package Zombie;
 
+import Logica.EntidadGrafica;
+
 public class FlagZombie extends ClassicZombie{
 
 	public FlagZombie(int x, int y) {
 		super(x, y);
-		// TODO Auto-generated constructor stub
+		imgPath = "ZombieBandera.gif";
+		miEntidadGrafica = new EntidadGrafica(imgPath);
 	}
 
 }
