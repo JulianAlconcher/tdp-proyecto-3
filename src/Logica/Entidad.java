@@ -18,7 +18,8 @@ public abstract class Entidad implements Visitor{
 		miX = x;
 		miY = y;
 		miRectangulo = new Rectangle(miX,miY,100,100);
-		miGUI = mainGUI.getInstancia(null);
+		miEntidadGrafica = null;
+		miGUI = new mainGUI("");
 	}
 	
 	public int getCosto() {

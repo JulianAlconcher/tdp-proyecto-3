@@ -7,7 +7,7 @@ import Plant.Planta;
 import Zombie.ClassicZombie;
 import Zombie.TimerZombie;
 
-public class Logica {
+public final class Logica {
 	
 	private static Logica miLogica;
 	public String valor;
@@ -24,8 +24,8 @@ public class Logica {
 	protected mainGUI miGUI;
 	protected TimerZombie miGeneradorZombie;
 
-	private Logica(int n,int modo,String valor) {
-		miGUI = mainGUI.getInstancia(null);
+	public Logica(int n,int modo,mainGUI a) {
+		miGUI = a;
 	    state= new DayState(this);
 	    grass= "PastoDia.png";
 		filas = 6;
@@ -45,13 +45,14 @@ public class Logica {
 			this.setNightState();
 		}
 		this.valor = valor;
+		miGeneradorZombie = new TimerZombie(this);
 	}
-	public static Logica getInstancia(int n, int modo,String valor) {
-		if(valor == null)
-			miLogica = new Logica(n,modo,valor);
-		
-		return miLogica;
-	}
+//	public synchronized static Logica getInstancia(int n, int modo,String valor) {
+//		if(valor == null)
+//			miLogica = new Logica(n,modo,valor);
+//		
+//		return miLogica;
+//	}
 	public void setDayState() {
 		state.cambioDia();
 	}
@@ -91,10 +92,6 @@ public class Logica {
 	public void gameOver() { //Zombie llega a casa
 		
 	}
-	
-	public boolean lugarDisponiblePlanta(int f,int c) {
-		return true;
-	}
 
 	public int getSoles() {
 		return soles;
@@ -131,7 +128,7 @@ public class Logica {
 	public void moverProyectil(int fila) {
 		misFilas[fila].getMisProyectiles().getFirst().moverProyectil();
 	}
-	//TOMAR UNA DESICION CON RESPECTO A ESTO.
+	
 	public Entidad crearEntidad(int opcion,int x,int y) {
 		Entidad aux = null;
 		switch(opcion) {
@@ -232,17 +229,26 @@ public class Logica {
 	
 	public boolean checkCollition(int fila) {
 		if(!misFilas[fila].getMisZombies().isEmpty()) {
-			//System.out.println("x: " + misFilas[fila].getMisZombies().getFirst().getMiRectangulo().getX() + " y: " + misFilas[fila].getMisZombies().getFirst().getMiRectangulo().getY());
-			//System.out.println("x: " + misFilas[fila].getMisProyectiles().getFirst().getMiRectangulo().getX() + " y: " + misFilas[fila].getMisProyectiles().getFirst().getMiRectangulo().getY());
-			if(misFilas[fila].getMisZombies().getFirst().getMiRectangulo().intersects(misFilas[fila].getMisProyectiles().getFirst().getMiRectangulo())) {
-				System.out.println("-------------COLISION-----------");//ACA IMPLEMENTAR VISITOR
-				return true; 
-			}
-			if(misFilas[fila].getMisZombies().getFirst().getMiRectangulo().intersects(misFilas[fila].getMisPlantas().getFirst().getMiRectangulo())) {
-				System.out.println("-------------COLISION-----------");//ACA IMPLEMENTAR VISITOR
-				return true;
+			for(ClassicZombie z : misFilas[fila].getMisZombies()) {
+				for(Planta p : misFilas[fila].getMisPlantas()) {
+					if(z.getMiRectangulo().intersects(p.getMiRectangulo())) {
+						System.out.println("-------------COLISION CON PLANTA-----------");//ACA IMPLEMENTAR VISITOR
+						return true;
+					}
+					if(z.getMiRectangulo().intersects(p.getMiProyectil().getMiRectangulo())) {
+						System.out.println("-------------COLISION CON PROYECTIL-----------");//ACA IMPLEMENTAR VISITOR
+						return true;
+					}
+				}
+
 			}
 		}
+			
+//			if(misFilas[fila].getMisZombies().getFirst().getMiRectangulo().intersects(misFilas[fila].getMisPlantas().getFirst().getMiRectangulo())) {
+//				System.out.println("-------------COLISION-----------");//ACA IMPLEMENTAR VISITOR
+//				return true;
+//			}
+//		}
 		return false; 
 		
 	}
@@ -254,14 +260,23 @@ public class Logica {
 		int randomEntidad = tlr.nextInt(min_val, max_val+1);
 		int randomPosicion = tlr.nextInt(0, 6);
 		Entidad nuevoZombie = crearEntidad(randomEntidad,910, randomPosicion*100);
-		miGUI.ubicar(nuevoZombie.getMiEntidadGrafica().getMiLabel(),4,randomPosicion);
+		miGUI.ubicar(nuevoZombie.getMiEntidadGrafica().getMiLabel(),9,randomPosicion);
 		System.out.println("Cree: zombie: " + nuevoZombie.getMiEntidadGrafica().getMiLabel().getIcon() +" en Fila: " + randomPosicion);
 	}
 	
 	public void colocarPlanta(int opcion,int fila, int col) {
-		Entidad nuevaPlanta = crearEntidad(opcion,col*100,fila*100);
-		miGUI.ubicar(nuevaPlanta.getMiEntidadGrafica().getMiLabel(), fila, col);
-		System.out.println("Cree: planta: " + nuevaPlanta.getMiEntidadGrafica().getMiLabel().getIcon() +" en Fila: " + fila);
+		Entidad nuevaPlanta = crearEntidad(opcion,fila*100,col*100) ;
+		miGUI.ubicar(nuevaPlanta.getMiEntidadGrafica().getMiLabel(),fila,col);
+	}
+	
+	public void avanzarZombies() {
+		for(int i=0; i<6; i++) {
+			for(ClassicZombie z : misFilas[i].getMisZombies()) {
+				if(!misFilas[i].getMisZombies().isEmpty()) {
+					z.mover();
+				}
+			}
+		}
 	}
 	
 	public void aparecerSol() {
@@ -273,6 +288,9 @@ public class Logica {
 			for(Planta p : misFilas[i].getMisPlantas()) {
 				if(!misFilas[i].getMisZombies().isEmpty()) {
 					p.disparar();
+					if(checkCollition(i)) {
+						p.recibirDanio();
+					}
 				}
 			}
 		}

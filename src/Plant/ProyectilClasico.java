@@ -1,13 +1,18 @@
 package Plant;
 
+import java.awt.Rectangle;
+
+import Logica.EntidadGrafica;
 import Logica.Visitor;
 
 public class ProyectilClasico extends Proyectil {
 	
 	public ProyectilClasico(int x,int y) {
-		super(x,y);
+		super(x, y);
 		imgPath = "pea.png";
-		this.cantidadDanio = 2;
+		miRectangulo = new Rectangle(x,y,30,100);
+		miEntidadGrafica = new EntidadGrafica(imgPath);
+		miGUI.ubicar(miEntidadGrafica.getMiLabel(), x/100, y/100);
 	}
 
 

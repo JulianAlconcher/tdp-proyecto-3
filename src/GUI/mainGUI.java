@@ -5,6 +5,7 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -25,9 +26,9 @@ import javax.swing.SwingConstants;
 
 @SuppressWarnings("serial")
 public final class mainGUI extends JFrame implements Runnable {
-	
-	private static mainGUI mGUI;
-	public String valor;
+//	
+//	private static mainGUI mGUI;
+//	public String valor;
 	
 	private JPanel contentPane;
 	protected final int cantFilas = 6;
@@ -60,21 +61,19 @@ public final class mainGUI extends JFrame implements Runnable {
 	protected int seleccionNivel,seleccionModo;
 	protected int opcion = 0;
 	
-	private mainGUI(String valor) {
-		miMouse = new MouseHandler();
-		matrizGrafica = new Celda[cantFilas][cantColumnas];
+	public mainGUI(String valor) {
+//		this.valor = valor;
 		initialize();
-		this.valor = valor;
 	}
-	
-	public static mainGUI getInstancia(String valor) {
-		if(valor == null)
-			mGUI = new mainGUI(valor);
-		
-		return mGUI;
-	}
+//	
+//	public synchronized static mainGUI getInstancia(String valor) {
+//		if(valor == null)
+//			mGUI = new mainGUI(valor);
+//		return mGUI;
+//	}
 
 	private void initialize() {
+		miMouse = new MouseHandler();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1300, 930);
 		contentPane = new JPanel();
@@ -104,7 +103,6 @@ public final class mainGUI extends JFrame implements Runnable {
 		mapPanel.setBounds(320, 205, 900, 600);
 		mapPanel.setOpaque(false);
 		inGamePanel.add(mapPanel);
-		mapPanel.setBorder(null);
 		mapPanel.setLayout(null);
 		
 		
@@ -324,14 +322,15 @@ public final class mainGUI extends JFrame implements Runnable {
 		for(int i=0;i<cantFilas;i++) {
 			for(int j=0;j<cantColumnas;j++) {
 				if (e.getSource() == matrizGrafica[i][j] && opcion!=0 && !matrizGrafica[i][j].isOcupada()) {
-					miLogica.colocarPlanta(opcion,i,j);
+					
+					miLogica.colocarPlanta(opcion,j,i);
 					// REEMPLAZAR ESTO CON EL UBICAR-------------------
-					JLabel nuevaEntidad = new JLabel();
-					ImageIcon im= new ImageIcon(this.getClass().getResource("/Images/"+miLogica.getImgPath(opcion)));
-					nuevaEntidad.setIcon(im);
-					mapPanel.add(nuevaEntidad);
-					mapPanel.setComponentZOrder(nuevaEntidad, 0);
-					nuevaEntidad.setBounds(j*100, i*100, 100, 100);
+//					JLabel nuevaEntidad = new JLabel();
+//					ImageIcon im= new ImageIcon(this.getClass().getResource("/Images/"+miLogica.getImgPath(opcion)));
+//					nuevaEntidad.setIcon(im);
+//					mapPanel.add(nuevaEntidad);
+//					mapPanel.setComponentZOrder(nuevaEntidad, 0);
+//					nuevaEntidad.setBounds(j*100, i*100, 100, 100);
 					//--------------------------------------------------
     				lblCantSoles.setText(" " + miLogica.getSoles());
     				opcion = 0;
@@ -369,26 +368,23 @@ public final class mainGUI extends JFrame implements Runnable {
         ap=null;
         hiloMusica.stop();
         hiloMusica= null;
-    
     }
 	
 	public void ubicar(JLabel miLabel,int x, int y ) {
 		mapPanel.add(miLabel);
 		mapPanel.setComponentZOrder(miLabel, 0);
-		miLabel.setBounds(400, 500, 100, 100);
-		System.out.println("x:: " + x*100 +"  y:: " + y*100);
+		miLabel.setBounds(x*100, y*100, 100, 100);
+		System.out.println("Ubique JLabel en x:: "  + x*100 + " y:: " + y*100 + " URL:: " + miLabel.getIcon());
 	}
     
-    
-	
 	public void moverZombie(JLabel z,int x, int y) {
 		x -=2;
 		z.setBounds(x, y, 100, 100);
-		miLogica.moverZombie(y/100);
 	}
 	
 	public void moverProyectil(JLabel proyectil,int x, int y) {
 		proyectil.setBounds(x, y, 30, 100);
+		System.out.println(x);
 	}
 	
 	private void administrarPlantas() {
@@ -437,8 +433,9 @@ public final class mainGUI extends JFrame implements Runnable {
 
 
 	private void iniciarNuevoJuego(int nivel, int modo) {
-
-		miLogica = Logica.getInstancia(nivel, modo, null);
+		matrizGrafica = new Celda[cantFilas][cantColumnas];
+//		miLogica = Logica.getInstancia(nivel, modo, null);
+		miLogica = new Logica(nivel,modo,this);
 		menuPanel.setVisible(false);
 		inGamePanel.setVisible(true);
 		lblCantSoles.setText("" + miLogica.getSoles());
@@ -446,9 +443,7 @@ public final class mainGUI extends JFrame implements Runnable {
 		hiloJuego = new Thread (this);
 		hiloJuego.start();
 		gameStart = true;
-		
-		miLogica.generarRandomZombie();
-		
+//		miLogica.generarRandomZombie();
 		audioOn(modo);
 		if(modo == 1)
 			lblImageMap.setIcon(nightMap);
@@ -470,5 +465,6 @@ public final class mainGUI extends JFrame implements Runnable {
 	public void update() {
 		administrarPlantas();
 		miLogica.controlarPlantas();
+		miLogica.avanzarZombies();
 	}
 }

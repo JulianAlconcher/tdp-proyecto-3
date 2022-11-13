@@ -9,7 +9,7 @@ public class EntidadGrafica{
 	
 	public EntidadGrafica(String imgPath) {
 		miLabel = new JLabel();
-		im= new ImageIcon(this.getClass().getResource("/Images/"+imgPath));
+		im = new ImageIcon(this.getClass().getResource("/Images/"+imgPath));
 		miLabel.setIcon(im);
 	}
 	

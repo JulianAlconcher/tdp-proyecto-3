@@ -10,6 +10,7 @@ public class PlantaCongeladora extends Planta{
 		super(x, y);
 		miProyectil = new ProyectilCongelante(x,y);
 		costo = 175;
+		vida = 200;
 		imgPath = "plantaCongeladora.gif";
 		miEntidadGrafica = new EntidadGrafica(imgPath);
 	}
@@ -31,6 +32,7 @@ public class PlantaCongeladora extends Planta{
 		// TODO Auto-generated method stub
 		
 	}
+
 
 
 	

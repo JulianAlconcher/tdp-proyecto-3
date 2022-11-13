@@ -1,27 +1,49 @@
 package Zombie;
 
-import java.util.TimerTask;
-
 import Logica.Logica;
 
-public class TimerZombie extends TimerTask {
-	public static int i = 1;
+public class TimerZombie implements Runnable {
 	protected Logica miLogica;
+	public Thread hiloZombie;
+	protected boolean gameStart;
+	protected int contadorZombie;
+	protected int velocidadDeAparicion;
 	
-	public TimerZombie(int n,int modo) {
-		miLogica = Logica.getInstancia(n, modo, null);
+	public TimerZombie(Logica a) {
+		miLogica = a;
+		hiloZombie = new Thread (this);
+		hiloZombie.start();
+		gameStart = true;
+		contadorZombie = 0;
+		velocidadDeAparicion = 20000;
 	}
-	@Override
+	
 	public void run() {
-		i++;
-		System.out.println("Tiempo: " + i);
-		
-//		if(i==1000) {
-//			miLogica.generarRandomZombie();
-//			i = 0;
-//		}
-		
+		while(gameStart) {
+			generarZombie();
+			if(contadorZombie == 5) { //--> Cuando llega a 5 zombies empiea la horda
+				horda();
+			}
+		try {
+			Thread.sleep(velocidadDeAparicion);
+		} catch (InterruptedException e) {e.printStackTrace();}	
+
+		}
+
 	}
+	
+	public void generarZombie() {
+		System.out.println("GENERO ZOMBIE");
+		miLogica.generarRandomZombie();
+		contadorZombie++;
+	}
+	
+	public void horda() {
+		velocidadDeAparicion = 2000;
+	}
+		
+	
+
 
 
 }

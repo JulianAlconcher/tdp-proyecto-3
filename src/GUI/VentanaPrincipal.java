@@ -8,7 +8,7 @@ public class VentanaPrincipal {
 		
 		miSplashScreen.initialize();
 
-		mainGUI window = mainGUI.getInstancia(null);
+		mainGUI window = new mainGUI("");
 		window.setVisible(true);
 		
 
