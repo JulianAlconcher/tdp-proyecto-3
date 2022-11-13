@@ -1,4 +1,4 @@
-package Logica;
+vpackage Logica;
 
 import Plant.*;
 import Zombie.*;
