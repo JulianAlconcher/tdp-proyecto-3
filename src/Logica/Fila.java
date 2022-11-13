@@ -23,6 +23,7 @@ public class Fila {
 	}
 	
 	public void insertarProyectil(Proyectil p) {
+		System.out.println("Inserte proyectil en la lista");
 		misProyectiles.add(p);
 	}
 	

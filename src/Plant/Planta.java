@@ -11,7 +11,6 @@ public abstract class Planta extends Entidad{
 
 	public Planta(int x, int y) {
 		super(x, y);
-		miProyectil = new ProyectilClasico(x,y);
 		miRectangulo = new Rectangle(x,y,70,100);
 	}	
 	public Proyectil getMiProyectil() {
@@ -27,7 +26,7 @@ public abstract class Planta extends Entidad{
 	public void setMiProyectil(Proyectil miProyectil) {
 		this.miProyectil = miProyectil;
 	}
-	public abstract void disparar();
+	public abstract Proyectil disparar();
 	
 	public int getVida() {
 		return vida;
@@ -35,5 +34,6 @@ public abstract class Planta extends Entidad{
 	public void setVida(int vida) {
 		this.vida = vida;
 	}
+
 
 }

@@ -25,10 +25,12 @@ public class PlantaMina extends Planta{
 	}
 
 	@Override
-	public void disparar() {
+	public Proyectil disparar() {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
+
+
 	
 
 

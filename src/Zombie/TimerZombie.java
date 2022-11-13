@@ -21,7 +21,7 @@ public class TimerZombie implements Runnable {
 	public void run() {
 		while(gameStart) {
 			generarZombie();
-			if(contadorZombie == 5) { //--> Cuando llega a 5 zombies empiea la horda
+			if(contadorZombie == 5) { //--> Cuando llega a 5 zombies empieza la horda
 				horda();
 			}
 		try {
@@ -40,6 +40,7 @@ public class TimerZombie implements Runnable {
 	
 	public void horda() {
 		velocidadDeAparicion = 2000;
+		
 	}
 		
 	

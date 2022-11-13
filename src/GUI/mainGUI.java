@@ -5,7 +5,6 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -321,17 +320,8 @@ public final class mainGUI extends JFrame implements Runnable {
 	private void onMouseClicked(MouseEvent e) {
 		for(int i=0;i<cantFilas;i++) {
 			for(int j=0;j<cantColumnas;j++) {
-				if (e.getSource() == matrizGrafica[i][j] && opcion!=0 && !matrizGrafica[i][j].isOcupada()) {
-					
+				if (e.getSource() == matrizGrafica[i][j] && opcion!=0 && !matrizGrafica[i][j].isOcupada()) {					
 					miLogica.colocarPlanta(opcion,j,i);
-					// REEMPLAZAR ESTO CON EL UBICAR-------------------
-//					JLabel nuevaEntidad = new JLabel();
-//					ImageIcon im= new ImageIcon(this.getClass().getResource("/Images/"+miLogica.getImgPath(opcion)));
-//					nuevaEntidad.setIcon(im);
-//					mapPanel.add(nuevaEntidad);
-//					mapPanel.setComponentZOrder(nuevaEntidad, 0);
-//					nuevaEntidad.setBounds(j*100, i*100, 100, 100);
-					//--------------------------------------------------
     				lblCantSoles.setText(" " + miLogica.getSoles());
     				opcion = 0;
     				matrizGrafica[i][j].setOcupada(true);
@@ -384,7 +374,7 @@ public final class mainGUI extends JFrame implements Runnable {
 	
 	public void moverProyectil(JLabel proyectil,int x, int y) {
 		proyectil.setBounds(x, y, 30, 100);
-		System.out.println(x);
+
 	}
 	
 	private void administrarPlantas() {
@@ -464,7 +454,8 @@ public final class mainGUI extends JFrame implements Runnable {
 	
 	public void update() {
 		administrarPlantas();
-		miLogica.controlarPlantas();
 		miLogica.avanzarZombies();
+		miLogica.controlDeColisones();
+		miLogica.moverProyectiles();
 	}
 }

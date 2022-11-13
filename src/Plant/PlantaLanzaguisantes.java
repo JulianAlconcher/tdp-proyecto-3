@@ -9,15 +9,16 @@ public class PlantaLanzaguisantes extends Planta{
 	public PlantaLanzaguisantes(int x, int y) {
 		super(x,y);
 		imgPath = "plantaComun.gif";
-		miProyectil = new ProyectilClasico(x,y);
 		costo = 100;
+		miX = x;
+		miY = y;
 		miEntidadGrafica = new EntidadGrafica(imgPath);
+
+
 	}
-	
-	
-	public void disparar() {
+	public Proyectil disparar() {
 		System.out.println("DISPARANDO");
-		miProyectil.moverProyectil();
+		return new ProyectilClasico(miX,miY);
 	}
 	
 	@Override

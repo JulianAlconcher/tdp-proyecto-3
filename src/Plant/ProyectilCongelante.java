@@ -12,9 +12,11 @@ public class ProyectilCongelante extends Proyectil{
 		imgPath = "peaCongelante.png";
 		miRectangulo = new Rectangle(x,y,30,100);
 		miEntidadGrafica = new EntidadGrafica(imgPath);
-		miGUI.ubicar(miEntidadGrafica.getMiLabel(), x/100, y/100);
 	}
 
+	public void crear() {
+		
+	}
 	@Override
 	public void visit(Visitor v) {
 		// TODO Auto-generated method stub
