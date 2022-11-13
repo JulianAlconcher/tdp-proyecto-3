@@ -110,10 +110,10 @@ public final class mainGUI extends JFrame implements Runnable {
 		inGamePanel.setVisible(false);
 
 		//Seteo GUI en el medio de la pantalla.
-		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
-		int x = (int) ((dimension.getWidth() - getWidth()) / 2);
-		int y = (int) ((dimension.getHeight() - getHeight()) / 2);
-		setLocation(x, y);
+//		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+//		int x = (int) ((dimension.getWidth() - getWidth()) / 2);
+//		int y = (int) ((dimension.getHeight() - getHeight()) / 2);
+//		setLocation(x, y);
 		this.setResizable(false);	
 
 		btnPlanta1 = new JButton("");
@@ -368,13 +368,16 @@ public final class mainGUI extends JFrame implements Runnable {
 	}
     
 	public void moverZombie(JLabel z,int x, int y) {
-		x -=2;
 		z.setBounds(x, y, 100, 100);
 	}
 	
 	public void moverProyectil(JLabel proyectil,int x, int y) {
 		proyectil.setBounds(x, y, 30, 100);
 
+	}
+	
+	public void removerLabel(JLabel l) {
+		mapPanel.remove(l);
 	}
 	
 	private void administrarPlantas() {

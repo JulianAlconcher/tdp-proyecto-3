@@ -39,6 +39,11 @@ public class Fila {
 		this.misPlantas = misPlantas;
 	}
 	
+	public void eliminarProyectil(Proyectil p) {
+		System.out.println("elimine");
+		misProyectiles.remove(p);
+		
+	}
 	public LinkedList<ClassicZombie> getMisZombies() {
 		return misZombies;
 	}

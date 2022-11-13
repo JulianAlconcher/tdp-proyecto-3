@@ -16,10 +16,6 @@ public class PlantaLanzaguisantes extends Planta{
 
 
 	}
-	public Proyectil disparar() {
-		System.out.println("DISPARANDO");
-		return new ProyectilClasico(miX,miY);
-	}
 	
 	@Override
 	public void visit(Visitor v) {
@@ -31,6 +27,12 @@ public class PlantaLanzaguisantes extends Planta{
 	public void accept(Visitor v) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public Proyectil disparar() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

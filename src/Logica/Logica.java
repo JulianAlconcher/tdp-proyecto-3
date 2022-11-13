@@ -219,7 +219,10 @@ public final class Logica {
 		}
 		break;
 		case 14:{
-			misFilas[y/100].insertarProyectil(miFactoria.crearProyectilClasico(x,y));
+			aux=miFactoria.crearProyectilClasico(x, y);    //Si nos da el timepo, vamos a acomodar graficamente los proyectiles
+			misFilas[y/100].insertarProyectil((Proyectil) aux);
+			miGUI.ubicar(aux.getMiEntidadGrafica().getMiLabel(), x, y);
+			
 		}
 		break;
 		case 16:{
@@ -241,9 +244,15 @@ public final class Logica {
 						System.out.println("-------------COLISION CON PLANTA-----------");//ACA IMPLEMENTAR VISITOR
 						return true;
 					}
-					if(p.getMiProyectil()!=null) {
-						if(z.getMiRectangulo().intersects(p.getMiProyectil().getMiRectangulo())) {
-							System.out.println("-------------COLISION CON PROYECTIL-----------");//ACA IMPLEMENTAR VISITOR
+					if(!misFilas[fila].getMisProyectiles().isEmpty()) {
+						for(Proyectil pr :misFilas[fila].getMisProyectiles()) {
+							if(z.getMiRectangulo().intersects(pr.getMiRectangulo())) {
+								System.out.println("-------------COLISION CON PROYECTIL-----------");
+								misFilas[fila].eliminarProyectil(pr);
+								miGUI.removerLabel(pr.getMiEntidadGrafica().getMiLabel());
+								break;
+						}
+						
 						}	
 					}
 				}
@@ -251,11 +260,6 @@ public final class Logica {
 			}
 		}
 			
-//			if(misFilas[fila].getMisZombies().getFirst().getMiRectangulo().intersects(misFilas[fila].getMisPlantas().getFirst().getMiRectangulo())) {
-//				System.out.println("-------------COLISION-----------");//ACA IMPLEMENTAR VISITOR
-//				return true;
-//			}
-//		}
 		return false; 
 		
 	}
@@ -293,7 +297,9 @@ public final class Logica {
 		for(int i=0; i<6; i++) {
 			for(Planta p : misFilas[i].getMisPlantas()) {
 				if(!misFilas[i].getMisZombies().isEmpty()) {
-					misFilas[i].insertarProyectil(p.disparar());
+					crearEntidad(14,p.getMiX(),p.getMiY());
+					
+					
 				}
 			}
 		}
@@ -315,7 +321,14 @@ public final class Logica {
 		for(int i=0; i<6; i++) {
 			for(Proyectil p : misFilas[i].getMisProyectiles()) {
 				if(!misFilas[i].getMisProyectiles().isEmpty()) {
+					if(p.getMiX()>=900) {
+						System.out.println("Entre a proyectil mayor que 900");
+						misFilas[i].eliminarProyectil(p);
+						break;
+					}else {
 					p.moverProyectil();
+					}
+					
 				}
 
 			}
