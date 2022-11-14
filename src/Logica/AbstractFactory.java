@@ -24,4 +24,5 @@ public interface AbstractFactory  {
 	
 	//PROYECTIL
 	public ProyectilClasico crearProyectilClasico(int x,int y);
+	public ProyectilCongelante crearProyectilCongelante(int x,int y);
 }

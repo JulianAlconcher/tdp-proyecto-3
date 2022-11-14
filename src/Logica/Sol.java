@@ -15,19 +15,28 @@ public class Sol {
 	protected mainGUI miGUI;
 	protected boolean toco;
 	
-	public Sol() {
-		miGUI = new mainGUI("");
+	public Sol(mainGUI g) {
+		miGUI = g;
 		miLabel = new JLabel();
 		im = new ImageIcon(this.getClass().getResource("/Images/sun.gif"));
 		miLabel.setIcon(im);
 		miLabel.addMouseListener(new MouseAdapter() {public void mouseClicked(MouseEvent e) {tocaronSol(e);}});
 		toco = false;
+		colocarSol();
 	}
 	
 	public void tocaronSol(MouseEvent e) {
-		if(e.getSource() == miLabel)
+		if(e.getSource() == miLabel) {
 			toco = true;
+		}
+
 	}
+	public void removerSol() {
+		miLabel.setVisible(false);
+		miGUI.removerLabel(miLabel);
+
+	}
+		
 	public void colocarSol() {
 		int min_val_fila = 0;
 		int max_val_fila = 5;

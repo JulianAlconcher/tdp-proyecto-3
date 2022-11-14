@@ -13,8 +13,7 @@ public class PlantaLanzaguisantes extends Planta{
 		miX = x;
 		miY = y;
 		miEntidadGrafica = new EntidadGrafica(imgPath);
-
-
+		disparadora = true;
 	}
 	
 	@Override

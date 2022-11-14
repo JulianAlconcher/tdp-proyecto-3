@@ -8,11 +8,11 @@ public class PlantaCongeladora extends Planta{
 
 	public PlantaCongeladora(int x, int y) {
 		super(x, y);
-		miProyectil = new ProyectilCongelante(x,y);
 		costo = 175;
 		vida = 200;
 		imgPath = "plantaCongeladora.gif";
 		miEntidadGrafica = new EntidadGrafica(imgPath);
+		disparadora = true;
 	}
 
 	@Override

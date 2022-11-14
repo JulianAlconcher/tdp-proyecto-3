@@ -2,6 +2,8 @@ package Plant;
 
 import java.awt.Rectangle;
 
+import javax.swing.ImageIcon;
+
 import Logica.Entidad;
 import Logica.EntidadGrafica;
 
@@ -23,6 +25,7 @@ public abstract class Proyectil extends Entidad{
 		miGUI.moverProyectil(miEntidadGrafica.getMiLabel(), miX, miY);
 		System.out.println("Moviendo proyectil en :: " + miX +  " y:: " + miY);
 	}
+	
 
 
 }

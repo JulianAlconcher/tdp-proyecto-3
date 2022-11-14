@@ -110,10 +110,10 @@ public final class mainGUI extends JFrame implements Runnable {
 		inGamePanel.setVisible(false);
 
 		//Seteo GUI en el medio de la pantalla.
-//		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
-//		int x = (int) ((dimension.getWidth() - getWidth()) / 2);
-//		int y = (int) ((dimension.getHeight() - getHeight()) / 2);
-//		setLocation(x, y);
+		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+		int x = (int) ((dimension.getWidth() - getWidth()) / 2);
+		int y = (int) ((dimension.getHeight() - getHeight()) / 2);
+		setLocation(x, y);
 		this.setResizable(false);	
 
 		btnPlanta1 = new JButton("");
@@ -331,7 +331,6 @@ public final class mainGUI extends JFrame implements Runnable {
         }
     }
 	
-
 	
 	public void AudioPulsado() {
         if (this.btnAudio.isSelected()) {
@@ -460,5 +459,6 @@ public final class mainGUI extends JFrame implements Runnable {
 		miLogica.avanzarZombies();
 		miLogica.controlDeColisones();
 		miLogica.moverProyectiles();
+		lblCantSoles.setText(""+miLogica.getSoles());
 	}
 }

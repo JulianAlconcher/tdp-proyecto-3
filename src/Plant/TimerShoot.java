@@ -18,7 +18,6 @@ public class TimerShoot implements Runnable {
 	@Override
 	public void run() {
 		while(gameStart) {
-			System.out.println("Entrando al controlar");
 			miLogica.controlarPlantas();
 			try {
 				Thread.sleep(velocidadDeDisparo);

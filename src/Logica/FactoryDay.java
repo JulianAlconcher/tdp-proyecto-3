@@ -1,20 +1,7 @@
 package Logica;
 
-import Plant.PlantaCongeladora;
-import Plant.PlantaGirasol;
-import Plant.PlantaGordaSeta;
-import Plant.PlantaLanzaguisantes;
-import Plant.PlantaMina;
-import Plant.PlantaNuez;
-import Plant.PlantaNuezAlta;
-import Plant.PlantaSeta;
-import Plant.ProyectilClasico;
-import Zombie.AngryZombie;
-import Zombie.BucketZombie;
-import Zombie.ClassicZombie;
-import Zombie.ConeZombie;
-import Zombie.FlagZombie;
-import Zombie.HolderZombie;
+import Plant.*;
+import Zombie.*;
 
 public class FactoryDay implements AbstractFactory{
 
@@ -91,6 +78,11 @@ public class FactoryDay implements AbstractFactory{
 	@Override
 	public PlantaGordaSeta crearPlantaGordaSeta(int x, int y) {
 		return null;
+	}
+
+	@Override
+	public ProyectilCongelante crearProyectilCongelante(int x, int y) {
+		return new ProyectilCongelante(x,y);
 	}
 
 }

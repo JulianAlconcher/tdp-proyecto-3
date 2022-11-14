@@ -2,6 +2,8 @@ package Logica;
 
 import java.util.concurrent.ThreadLocalRandom;
 
+import javax.swing.ImageIcon;
+
 import GUI.mainGUI;
 import Plant.Planta;
 import Plant.Proyectil;
@@ -43,14 +45,16 @@ public final class Logica {
 		if(modo == 0) {
 			miFactoria = new FactoryDay();
 			this.setDayState();
+			misSoles = new SolGenerator(miGUI,this);
 		}
 		else {
 			miFactoria = new FactoryNight();
 			this.setNightState();
+			misSoles = null;
+			soles = 475;
 		}
 //		this.valor = valor;
 		miGeneradorZombie = new TimerZombie(this);
-		misSoles = new SolGenerator(this);
 		miControladorDeDisparo = new TimerShoot(this);
 	}
 //	public synchronized static Logica getInstancia(int n, int modo,String valor) {
@@ -221,8 +225,14 @@ public final class Logica {
 		case 14:{
 			aux=miFactoria.crearProyectilClasico(x, y);    //Si nos da el timepo, vamos a acomodar graficamente los proyectiles
 			misFilas[y/100].insertarProyectil((Proyectil) aux);
-			miGUI.ubicar(aux.getMiEntidadGrafica().getMiLabel(), x, y);
+			miGUI.ubicar(aux.getMiEntidadGrafica().getMiLabel(), x/100, y/100);
 			
+		}
+		break;
+		case 15:{
+			aux=miFactoria.crearProyectilCongelante(x, y);    //Si nos da el timepo, vamos a acomodar graficamente los proyectiles
+			misFilas[y/100].insertarProyectil((Proyectil) aux);
+			miGUI.ubicar(aux.getMiEntidadGrafica().getMiLabel(), x/100, y/100);
 		}
 		break;
 		case 16:{
@@ -250,6 +260,7 @@ public final class Logica {
 								System.out.println("-------------COLISION CON PROYECTIL-----------");
 								misFilas[fila].eliminarProyectil(pr);
 								miGUI.removerLabel(pr.getMiEntidadGrafica().getMiLabel());
+
 								break;
 						}
 						
@@ -297,9 +308,8 @@ public final class Logica {
 		for(int i=0; i<6; i++) {
 			for(Planta p : misFilas[i].getMisPlantas()) {
 				if(!misFilas[i].getMisZombies().isEmpty()) {
-					crearEntidad(14,p.getMiX(),p.getMiY());
-					
-					
+					if(p.isDisparadora())
+						crearEntidad(14,p.getMiX(),p.getMiY());
 				}
 			}
 		}
@@ -339,43 +349,6 @@ public final class Logica {
 		misFilas[fila].getMisZombies().getFirst().mover();
 	}
 	
-	public String getImgPath(int opcion) {
-		switch(opcion) {
-		case 1:
-			return "plantaCongeladora.gif";
-		case 2:
-			return "Girasol.gif";
-		case 3:
-			return "plantaComun.gif";
-		case 4:
-			return "mina.gif";
-		case 5:
-			return "nuez.gif";
-		case 6:
-			return "nuezAlta.gif";
-		case 7:
-			return "seta.gif";
-		case 8:
-			return "AngryZombie.gif";
-		case 9:
-			return "BucketZombie.gif";
-		case 10:
-			return "ZombieClasico.gif";
-		case 11:
-			return "coneZombie.gif";
-		case 12:
-			return "ZombieBandera.gif";
-		case 13:
-			return "HolderZombie.gif";
-		case 14:
-			return "pea.png";
-		case 15:
-			return "pea.png";
-		case 16:
-			return "GordaSeta.gif";
-		}
-		return null;
-	}
 	
 	public AbstractFactory getMiFactoria() {
 		return miFactoria;

@@ -1,39 +1,53 @@
 package Logica;
 
+import GUI.mainGUI;
+
 public class SolGenerator implements Runnable {
-	protected Logica miLogica;
 	public Thread hiloSol;
 	protected boolean gameStart;
 	protected int velocidadDeAparicion;
 	protected Sol miSol;
+	protected mainGUI miG;
+	protected Logica miL;
+	protected int contador;
+	protected boolean parar;
 	
-	public SolGenerator(Logica a) {
-		miLogica = a;
+	public SolGenerator(mainGUI g,Logica l) {
+		miL = l;
+		miG = g;
+		miSol = new Sol(g);
 		hiloSol = new Thread (this);
 		hiloSol.start();
-		velocidadDeAparicion = 200;
-		miSol = new Sol();
-		miSol.colocarSol();
+		velocidadDeAparicion = 2000;
 		gameStart = true;
+		contador = 0;
 
 	}
-	
+	//ANDA PERO ESTA FEO
 	public void run() {
-		while(gameStart && miSol.getToco()==true) {
-			miSol = new Sol();
-			generarSol();
+		while(gameStart) {
+				System.out.println("Entro");
+				if(miSol.getToco()) {
+					parar = miSol.getToco();
+					miSol.removerSol();
+					miL.aumentarSoles();
+				}
+				miSol.setToco(false);
+				if(parar)
+					contador++;
+				
+				if(contador == 6 && parar) {
+					miSol = new Sol(miG);
+					contador = 0;
+					miSol.setToco(false);
+					parar = false;
+				}
+			try {
+				Thread.sleep(velocidadDeAparicion);
+			} catch (InterruptedException e) {e.printStackTrace();}	
 		}
-		try {
-			Thread.sleep(velocidadDeAparicion);
-		} catch (InterruptedException e) {e.printStackTrace();}	
-
 	}
 
 	
-	public void generarSol() {
-		System.out.println("GENERO SOL");
-		miSol.colocarSol();
-		miLogica.aumentarSoles();
-	}
 	
 }
