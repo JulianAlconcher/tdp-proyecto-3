@@ -97,9 +97,9 @@ public final class Logica {
 		this.columnas = columnas;
 	}
 	
-	public void gameOver() { //Zombie llega a casa
-		miGUI.gameOver();
-	}
+//	public void gameOver() { //Zombie llega a casa
+//		miGUI.gameOver();
+//	}
 
 	public int getSoles() {
 		return soles;
@@ -291,7 +291,7 @@ public final class Logica {
 					z.mover();
 					
 					if(z.getMiX()<-4) {
-						gameOver();
+						miGUI.gameOver();
 					}
 					if(z.getVida()<=0) {
 						miGUI.removerLabel(z.getMiEntidadGrafica().getMiLabel());
@@ -360,6 +360,13 @@ public final class Logica {
 		this.miFactoria = miFactoria;
 	}
 
-
+	public void nuevaHorda() {
+		miGUI.nuevaHorda(); //Con el singleton supongo que mejora
+	}
+	
+	public void eliminarLblHorda() {
+		miGUI.eliminarHorda(); //X AHoRA
+		miGUI.repaint();
+	}
 
 }

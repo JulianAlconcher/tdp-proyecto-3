@@ -21,15 +21,17 @@ public class TimerZombie implements Runnable {
 	public void run() {
 		while(gameStart) {
 			generarZombie();
-			if(contadorZombie == 5) { //--> Cuando llega a 5 zombies empieza la horda
+			if(contadorZombie == 2) { //--> Cuando llega a 5 zombies empieza la horda
 				horda();
 			}
+			if(contadorZombie > 2)
+				miLogica.eliminarLblHorda();
 		try {
 			Thread.sleep(velocidadDeAparicion);
 		} catch (InterruptedException e) {e.printStackTrace();}	
-
+	
 		}
-
+		
 	}
 	
 	public void generarZombie() {
@@ -40,8 +42,11 @@ public class TimerZombie implements Runnable {
 	
 	public void horda() {
 		velocidadDeAparicion = 2000;
-		
+		miLogica.nuevaHorda(); // singleton?
 	}
+	
+	public void eliminarLBLhorda() {}
+	
 		
 	
 
