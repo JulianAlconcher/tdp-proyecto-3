@@ -9099,7 +9099,8 @@
 								"$ref": "AAAAAAGEJaDbKtG7m/o="
 							},
 							"name": "filas int",
-							"visibility": "protected"
+							"visibility": "protected",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -9317,7 +9318,8 @@
 									"_parent": {
 										"$ref": "AAAAAAGEclTOpCDEVFM="
 									},
-									"name": "int fila"
+									"name": "int fila",
+									"type": ""
 								},
 								{
 									"_type": "UMLParameter",
@@ -9641,7 +9643,8 @@
 									"_parent": {
 										"$ref": "AAAAAAGEckjOSR/k32g="
 									},
-									"name": "MouseEvent e"
+									"name": "MouseEvent e",
+									"type": ""
 								}
 							]
 						},
@@ -9733,7 +9736,8 @@
 									"_parent": {
 										"$ref": "AAAAAAGEckqmRSAbbRw="
 									},
-									"name": "JLabel z"
+									"name": "JLabel z",
+									"type": ""
 								},
 								{
 									"_type": "UMLParameter",
@@ -9741,7 +9745,8 @@
 									"_parent": {
 										"$ref": "AAAAAAGEckqmRSAbbRw="
 									},
-									"name": "int x"
+									"name": "int x",
+									"type": ""
 								},
 								{
 									"_type": "UMLParameter",
@@ -9749,7 +9754,8 @@
 									"_parent": {
 										"$ref": "AAAAAAGEckqmRSAbbRw="
 									},
-									"name": "int y"
+									"name": "int y",
+									"type": ""
 								}
 							]
 						},
@@ -10316,7 +10322,8 @@
 									"_parent": {
 										"$ref": "AAAAAAGEcmGkFCJgz+4="
 									},
-									"name": "int x"
+									"name": "int x",
+									"type": ""
 								},
 								{
 									"_type": "UMLParameter",
@@ -10324,7 +10331,8 @@
 									"_parent": {
 										"$ref": "AAAAAAGEcmGkFCJgz+4="
 									},
-									"name": "int y"
+									"name": "int y",
+									"type": ""
 								},
 								{
 									"_type": "UMLParameter",
@@ -10468,7 +10476,8 @@
 									"_parent": {
 										"$ref": "AAAAAAGEcmLl1SKcLKg="
 									},
-									"name": "int x"
+									"name": "int x",
+									"type": ""
 								},
 								{
 									"_type": "UMLParameter",
@@ -10476,7 +10485,8 @@
 									"_parent": {
 										"$ref": "AAAAAAGEcmLl1SKcLKg="
 									},
-									"name": "int y"
+									"name": "int y",
+									"type": ""
 								},
 								{
 									"_type": "UMLParameter",
@@ -10505,7 +10515,8 @@
 									"_parent": {
 										"$ref": "AAAAAAGEcmMhpSKqQlk="
 									},
-									"name": "int x"
+									"name": "int x",
+									"type": ""
 								},
 								{
 									"_type": "UMLParameter",
@@ -10513,7 +10524,8 @@
 									"_parent": {
 										"$ref": "AAAAAAGEcmMhpSKqQlk="
 									},
-									"name": "int y"
+									"name": "int y",
+									"type": ""
 								},
 								{
 									"_type": "UMLParameter",
