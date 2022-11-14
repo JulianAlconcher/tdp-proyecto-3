@@ -22,7 +22,6 @@ public class Sol {
 		miLabel.setIcon(im);
 		miLabel.addMouseListener(new MouseAdapter() {public void mouseClicked(MouseEvent e) {tocaronSol(e);}});
 		toco = false;
-		colocarSol();
 	}
 	
 	public void tocaronSol(MouseEvent e) {

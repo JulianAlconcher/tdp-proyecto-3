@@ -56,6 +56,16 @@ public class ClassicZombie extends Entidad implements VisitorZombie{
 			state.cambioCaminar();
 		}
 	}
+	
+//	public void setGraficaAtacando() {
+//		imgPath="AttackClassic.gif";
+//		miEntidadGrafica= new EntidadGrafica(imgPath);	
+//	}
+//	
+//	public void setGraficaCaminar() {
+//		imgPath="WalkClassic.gif ";
+//		miEntidadGrafica= new EntidadGrafica(imgPath);
+//	}
 
 	@Override
 	public void accept(VisitorZombie v) {

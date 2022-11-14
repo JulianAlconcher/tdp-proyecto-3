@@ -360,10 +360,6 @@ public final class Logica {
 		this.miFactoria = miFactoria;
 	}
 
-	public void eliminarZombie(int fila) {
-		misFilas[fila].getMisZombies().removeFirst();
-	}
-	
 
 
 }

@@ -18,10 +18,10 @@ public class SolGenerator implements Runnable {
 		miSol = new Sol(g);
 		hiloSol = new Thread (this);
 		hiloSol.start();
-		velocidadDeAparicion = 2000;
+		velocidadDeAparicion = 200;
 		gameStart = true;
 		contador = 0;
-
+       miSol.colocarSol();
 	}
 	//ANDA PERO ESTA FEO
 	public void run() {
@@ -35,8 +35,9 @@ public class SolGenerator implements Runnable {
 				if(parar)
 					contador++;
 				
-				if(contador == 6 && parar) {
+				if(contador == 40 && parar) {
 					miSol = new Sol(miG);
+					miSol.colocarSol();
 					contador = 0;
 					miSol.setToco(false);
 					parar = false;

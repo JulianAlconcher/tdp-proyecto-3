@@ -9,4 +9,6 @@ public class BucketZombie extends ClassicZombie{
 		imgPath = "BucketZombie.gif";
 		miEntidadGrafica = new EntidadGrafica(imgPath);
 	}
+	
+	
 }

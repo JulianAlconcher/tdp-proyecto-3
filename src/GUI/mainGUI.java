@@ -113,7 +113,7 @@ public final class mainGUI extends JFrame implements Runnable {
 		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
 		int x = (int) ((dimension.getWidth() - getWidth()) / 2);
 		int y = (int) ((dimension.getHeight() - getHeight()) / 2);
-		//setLocation(x, y);
+		setLocation(x, y);
 		this.setResizable(false);	
 
 		btnPlanta1 = new JButton("");
