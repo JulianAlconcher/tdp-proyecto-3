@@ -283,11 +283,13 @@ public final class Logica {
 		miGUI.ubicar(nuevaPlanta.getMiEntidadGrafica().getMiLabel(),fila,col);
 	}
 	
-	public void avanzarZombies() {
+	public void controlarZombies() {
 		for(int i=0; i<6; i++) {
 			for(ClassicZombie z : misFilas[i].getMisZombies()) {
 				if(!misFilas[i].getMisZombies().isEmpty()) {
+				//if(!z.state==atacando) 
 					z.mover();
+					
 					if(z.getMiX()<-4) {
 						gameOver();
 					}

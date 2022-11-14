@@ -34,7 +34,7 @@ public abstract class Planta extends Entidad{
 	}
 	
 	public void recibirDanio() {
-		vida -=20;
+		vida -=5;
 		System.out.println("ME ESTAN ATACANDO! VIDA:: " + vida);
 		
 	}

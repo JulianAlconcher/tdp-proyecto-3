@@ -3,29 +3,23 @@ package Zombie;
 import Logica.Entidad;
 import Logica.EntidadGrafica;
 import Plant.Planta;
-import Plant.PlantaCongeladora;
-import Plant.PlantaGirasol;
-import Plant.PlantaGordaSeta;
-import Plant.PlantaLanzaguisantes;
-import Plant.PlantaMina;
-import Plant.PlantaNuez;
-import Plant.PlantaNuezAlta;
-import Plant.PlantaSeta;
 
 public class ClassicZombie extends Entidad implements VisitorZombie{
 	protected int vida;
 	protected int velocidad;
+	protected ZombieState state;
 
 	public ClassicZombie(int x,int y) {
 		super(x,y);
 		imgPath = "ZombieClasico.gif";
 		miEntidadGrafica = new EntidadGrafica(imgPath);
+		state= new WalkState(this);
 		this.vida = 75;
-		this.velocidad = miX;
+		this.velocidad = 2;
 	}
 
 	public void mover() {
-		miX -=2;
+		miX -=velocidad;
 		this.miRectangulo.setBounds(miX, miY, 100, 100);
 		miGUI.moverZombie(miEntidadGrafica.getMiLabel(), miX, miY);
 	}
@@ -57,7 +51,10 @@ public class ClassicZombie extends Entidad implements VisitorZombie{
 	@Override
 	public void visit(Planta p) {
 		p.recibirDanio();
-		
+		state.cambioAtacar();
+		if(p.getVida()<=0) {
+			state.cambioCaminar();
+		}
 	}
 
 	@Override
@@ -67,5 +64,8 @@ public class ClassicZombie extends Entidad implements VisitorZombie{
 	}
 
 
+	public void setState(ZombieState s) {
+	   this.state=s;
+	}
 
 }
