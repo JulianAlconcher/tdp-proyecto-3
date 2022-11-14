@@ -1,7 +1,6 @@
 package Plant;
 
 import Logica.EntidadGrafica;
-import Logica.Visitor;
 
 public class PlantaGordaSeta extends Planta {
 
@@ -11,18 +10,6 @@ public class PlantaGordaSeta extends Planta {
 		imgPath = "GordaSeta.gif";
 		miEntidadGrafica = new EntidadGrafica(imgPath);
 		miProyectil = new ProyectilClasico(x,y);
-	}
-
-	@Override
-	public void visit(Visitor v) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void accept(Visitor v) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override

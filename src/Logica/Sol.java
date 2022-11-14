@@ -18,7 +18,7 @@ public class Sol {
 	public Sol(mainGUI g) {
 		miGUI = g;
 		miLabel = new JLabel();
-		im = new ImageIcon(this.getClass().getResource("/Images/sun.gif"));
+		im = new ImageIcon(this.getClass().getResource("/Images/sun.png"));
 		miLabel.setIcon(im);
 		miLabel.addMouseListener(new MouseAdapter() {public void mouseClicked(MouseEvent e) {tocaronSol(e);}});
 		toco = false;
@@ -34,7 +34,6 @@ public class Sol {
 	public void removerSol() {
 		miLabel.setVisible(false);
 		miGUI.removerLabel(miLabel);
-
 	}
 		
 	public void colocarSol() {
@@ -47,6 +46,10 @@ public class Sol {
 		int randomFila = tlr.nextInt(min_val_fila, max_val_fila+1);
 		int randomCol = tlr.nextInt(min_val_col, max_val_col);
 		miGUI.ubicar(miLabel,randomCol,randomFila);
+	}
+	
+	public void colocarSol(int x,int y) {
+		miGUI.ubicar(miLabel,x,y);
 	}
 	
 	public JLabel getMiLabel() {

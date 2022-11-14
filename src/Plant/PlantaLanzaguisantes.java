@@ -1,7 +1,6 @@
 package Plant;
 
 import Logica.EntidadGrafica;
-import Logica.Visitor;
 
 public class PlantaLanzaguisantes extends Planta{
 
@@ -14,18 +13,6 @@ public class PlantaLanzaguisantes extends Planta{
 		miY = y;
 		miEntidadGrafica = new EntidadGrafica(imgPath);
 		disparadora = true;
-	}
-	
-	@Override
-	public void visit(Visitor v) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void accept(Visitor v) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override

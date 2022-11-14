@@ -26,7 +26,6 @@ public class SolGenerator implements Runnable {
 	//ANDA PERO ESTA FEO
 	public void run() {
 		while(gameStart) {
-				System.out.println("Entro");
 				if(miSol.getToco()) {
 					parar = miSol.getToco();
 					miSol.removerSol();

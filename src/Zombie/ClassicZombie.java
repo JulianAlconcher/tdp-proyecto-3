@@ -2,9 +2,17 @@ package Zombie;
 
 import Logica.Entidad;
 import Logica.EntidadGrafica;
-import Logica.Visitor;
+import Plant.Planta;
+import Plant.PlantaCongeladora;
+import Plant.PlantaGirasol;
+import Plant.PlantaGordaSeta;
+import Plant.PlantaLanzaguisantes;
+import Plant.PlantaMina;
+import Plant.PlantaNuez;
+import Plant.PlantaNuezAlta;
+import Plant.PlantaSeta;
 
-public class ClassicZombie extends Entidad{
+public class ClassicZombie extends Entidad implements VisitorZombie{
 	protected int vida;
 	protected int velocidad;
 
@@ -12,14 +20,14 @@ public class ClassicZombie extends Entidad{
 		super(x,y);
 		imgPath = "ZombieClasico.gif";
 		miEntidadGrafica = new EntidadGrafica(imgPath);
-		this.vida = 10;
+		this.vida = 75;
 		this.velocidad = miX;
 	}
 
 	public void mover() {
-		velocidad -=2;
-		this.miRectangulo.setBounds(velocidad, miY, 100, 100);
-		miGUI.moverZombie(miEntidadGrafica.getMiLabel(), velocidad, miY);
+		miX -=2;
+		this.miRectangulo.setBounds(miX, miY, 100, 100);
+		miGUI.moverZombie(miEntidadGrafica.getMiLabel(), miX, miY);
 	}
 
 	public void morir() {
@@ -31,7 +39,7 @@ public class ClassicZombie extends Entidad{
 	}
 	
 	public void recibirDanio(int d) {
-		this.vida -= d;
+		this.vida -= 25;
 	}
 
 	public void setVida(int vida) {
@@ -47,15 +55,17 @@ public class ClassicZombie extends Entidad{
 	}
 
 	@Override
-	public void visit(Visitor v) {
-		// TODO Auto-generated method stub
+	public void visit(Planta p) {
+		p.recibirDanio();
 		
 	}
 
 	@Override
-	public void accept(Visitor v) {
+	public void accept(VisitorZombie v) {
 		// TODO Auto-generated method stub
 		
 	}
+
+
 
 }

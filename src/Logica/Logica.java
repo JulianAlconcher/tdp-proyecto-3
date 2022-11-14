@@ -2,8 +2,6 @@ package Logica;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-import javax.swing.ImageIcon;
-
 import GUI.mainGUI;
 import Plant.Planta;
 import Plant.Proyectil;
@@ -53,9 +51,9 @@ public final class Logica {
 			misSoles = null;
 			soles = 475;
 		}
-//		this.valor = valor;
 		miGeneradorZombie = new TimerZombie(this);
 		miControladorDeDisparo = new TimerShoot(this);
+//		this.valor = valor;
 	}
 //	public synchronized static Logica getInstancia(int n, int modo,String valor) {
 //		if(valor == null)
@@ -100,7 +98,7 @@ public final class Logica {
 	}
 	
 	public void gameOver() { //Zombie llega a casa
-		
+		miGUI.gameOver();
 	}
 
 	public int getSoles() {
@@ -135,10 +133,6 @@ public final class Logica {
 	}
 	
 
-	public void moverProyectil(int fila) {
-		misFilas[fila].getMisProyectiles().getFirst().moverProyectil();
-	}
-	
 	public Entidad crearEntidad(int opcion,int x,int y) {
 		Entidad aux = null;
 		switch(opcion) {
@@ -246,21 +240,23 @@ public final class Logica {
 		return aux;
 	}
 	
-	public boolean checkCollition(int fila) {
+	public void checkCollition(int fila) {
 		if(!misFilas[fila].getMisZombies().isEmpty()) {
 			for(ClassicZombie z : misFilas[fila].getMisZombies()) {
 				for(Planta p : misFilas[fila].getMisPlantas()) {
 					if(z.getMiRectangulo().intersects(p.getMiRectangulo())) {
-						System.out.println("-------------COLISION CON PLANTA-----------");//ACA IMPLEMENTAR VISITOR
-						return true;
+						System.out.println("-------------COLISION CON PLANTA-----------");
+						z.visit(p);
+						
 					}
 					if(!misFilas[fila].getMisProyectiles().isEmpty()) {
 						for(Proyectil pr :misFilas[fila].getMisProyectiles()) {
 							if(z.getMiRectangulo().intersects(pr.getMiRectangulo())) {
 								System.out.println("-------------COLISION CON PROYECTIL-----------");
+								pr.visit(z);
 								misFilas[fila].eliminarProyectil(pr);
 								miGUI.removerLabel(pr.getMiEntidadGrafica().getMiLabel());
-
+								miGUI.repaint();
 								break;
 						}
 						
@@ -269,10 +265,7 @@ public final class Logica {
 				}
 
 			}
-		}
-			
-		return false; 
-		
+		}		
 	}
 	
 	public void generarRandomZombie() {
@@ -295,6 +288,15 @@ public final class Logica {
 			for(ClassicZombie z : misFilas[i].getMisZombies()) {
 				if(!misFilas[i].getMisZombies().isEmpty()) {
 					z.mover();
+					if(z.getMiX()<-4) {
+						gameOver();
+					}
+					if(z.getVida()<=0) {
+						miGUI.removerLabel(z.getMiEntidadGrafica().getMiLabel());
+						miGUI.repaint();
+						misFilas[i].getMisZombies().remove(z);
+						break;
+					}
 				}
 			}
 		}
@@ -310,23 +312,18 @@ public final class Logica {
 				if(!misFilas[i].getMisZombies().isEmpty()) {
 					if(p.isDisparadora())
 						crearEntidad(14,p.getMiX(),p.getMiY());
-				}
-			}
-		}
-	}
-	
-	public void controlDeColisones() {
-		for(int i=0; i<6; i++) {
-			for(Planta p : misFilas[i].getMisPlantas()) {
-				if(!misFilas[i].getMisZombies().isEmpty()) {
-					if(checkCollition(i)) {
-						p.recibirDanio();
+					if(p.getVida()<=0) {
+						miGUI.removerLabel(p.getMiEntidadGrafica().getMiLabel());
+						miGUI.repaint();
+						misFilas[i].getMisPlantas().remove(p);
+						break;
 					}
 				}
 			}
 		}
 	}
-		
+	
+	
 	public void moverProyectiles() {
 		for(int i=0; i<6; i++) {
 			for(Proyectil p : misFilas[i].getMisProyectiles()) {
@@ -345,8 +342,11 @@ public final class Logica {
 		}
 	}
 	
-	public void moverZombie(int fila) {
-		misFilas[fila].getMisZombies().getFirst().mover();
+	public void controlDeColisones() {
+		for(int i=0; i<6; i++) {
+				if(!misFilas[i].getMisZombies().isEmpty()) 
+					checkCollition(i);
+		}		
 	}
 	
 	

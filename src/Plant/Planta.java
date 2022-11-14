@@ -34,11 +34,10 @@ public abstract class Planta extends Entidad{
 	}
 	
 	public void recibirDanio() {
-		vida -=5;
+		vida -=20;
 		System.out.println("ME ESTAN ATACANDO! VIDA:: " + vida);
 		
 	}
-	
 
 	public boolean isDisparadora() {
 		return disparadora;

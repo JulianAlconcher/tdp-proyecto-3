@@ -217,10 +217,7 @@ public final class mainGUI extends JFrame implements Runnable {
 		btnVolverMenu.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				menuPanel.setVisible(true);
-				inGamePanel.setVisible(false);
-				gameStart = false;
-				audioOff();
+				backToMenu();
 			}
 
 		});
@@ -264,7 +261,7 @@ public final class mainGUI extends JFrame implements Runnable {
 		btnJugar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				seleccionNivel = JOptionPane.showOptionDialog(menuPanel,"Seleccione el nivel de dificultad", ""
-						,JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE,null,new Object[] { "NIVEL 1", "NIVEL 2"},"opcion1"); 
+						,JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.INFORMATION_MESSAGE,null,new Object[] { "NIVEL 1", "NIVEL 2"},"opcion1"); 
 				seleccionModo = JOptionPane.showOptionDialog(menuPanel,"Seleccione el modo de juego", ""
 							,JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE,null,new Object[] { "MODO DIA", "MODO NOCHE"},"opcion1"); 
 				if(seleccionNivel != JOptionPane.CLOSED_OPTION && seleccionModo != JOptionPane.CLOSED_OPTION) {
@@ -302,6 +299,13 @@ public final class mainGUI extends JFrame implements Runnable {
 		menuPanel.add(lblImageMenu);
 		lblImageMenu.setIcon(imagenPortadaMenu);
 
+	}
+	
+	public void backToMenu() {
+		menuPanel.setVisible(true);
+		inGamePanel.setVisible(false);
+		gameStart = false;
+		audioOff();
 	}
 
 	private void pintarMatriz() {
@@ -422,6 +426,19 @@ public final class mainGUI extends JFrame implements Runnable {
 				else
 					btnPlanta4.setEnabled(false);  
 	}
+	
+	public void gameOver() {
+		gameStart = false;
+		ImageIcon gameOver = new ImageIcon(this.getClass().getResource("/Images/gameOver.png"));
+		int seleccionPerdiste = JOptionPane.showOptionDialog(menuPanel,"", "Ups, Perdiste"
+				,JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.INFORMATION_MESSAGE,gameOver,new Object[] { "MENU", "SALIR"},"opcion1"); 
+		if(seleccionPerdiste == JOptionPane.CLOSED_OPTION || seleccionPerdiste == 1) {
+			System.exit(0);
+		}
+		if(seleccionPerdiste == 0) {
+			backToMenu();
+		}
+	}
 
 
 	private void iniciarNuevoJuego(int nivel, int modo) {
@@ -435,7 +452,6 @@ public final class mainGUI extends JFrame implements Runnable {
 		hiloJuego = new Thread (this);
 		hiloJuego.start();
 		gameStart = true;
-//		miLogica.generarRandomZombie();
 		audioOn(modo);
 		if(modo == 1)
 			lblImageMap.setIcon(nightMap);
@@ -457,8 +473,8 @@ public final class mainGUI extends JFrame implements Runnable {
 	public void update() {
 		administrarPlantas();
 		miLogica.avanzarZombies();
-		miLogica.controlDeColisones();
 		miLogica.moverProyectiles();
+		miLogica.controlDeColisones();
 		lblCantSoles.setText(""+miLogica.getSoles());
 	}
 }

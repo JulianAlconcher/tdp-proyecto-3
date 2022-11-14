@@ -3,7 +3,7 @@ package Plant;
 import java.awt.Rectangle;
 
 import Logica.EntidadGrafica;
-import Logica.Visitor;
+import Zombie.ClassicZombie;
 
 public class ProyectilCongelante extends Proyectil{
 
@@ -14,17 +14,20 @@ public class ProyectilCongelante extends Proyectil{
 		miEntidadGrafica = new EntidadGrafica(imgPath);
 	}
 
-	public void crear() {
-		
-	}
 	@Override
-	public void visit(Visitor v) {
+	public void visit(ClassicZombie z) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void accept(Visitor v) {
+	public void accept(VisitorProyectil v) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void visit(ProyectilClasico proyectilClasico) {
 		// TODO Auto-generated method stub
 		
 	}

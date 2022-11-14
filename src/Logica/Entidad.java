@@ -4,7 +4,7 @@ import java.awt.Rectangle;
 
 import GUI.mainGUI;
 
-public abstract class Entidad implements Visitor{
+public abstract class Entidad{
 
 	protected int miX;
 	protected int miY;

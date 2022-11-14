@@ -1,25 +1,25 @@
 package Plant;
 
-import java.awt.Rectangle;
-
-import Logica.EntidadGrafica;
-import Logica.Visitor;
+import Zombie.ClassicZombie;
 
 public class ProyectilClasico extends Proyectil {
 	
 	public ProyectilClasico(int x,int y) {
 		super(x, y);
 	}
-	
-	
+
 	@Override
-	public void visit(Visitor v) {
-		// TODO Auto-generated method stub
-		
+	public void visit(ClassicZombie z) {
+		z.recibirDanio(danio);
 	}
 
 	@Override
-	public void accept(Visitor v) {
+	public void accept(VisitorProyectil v) {
+		v.visit(this);
+	}
+
+	@Override
+	public void visit(ProyectilClasico proyectilClasico) {
 		// TODO Auto-generated method stub
 		
 	}
