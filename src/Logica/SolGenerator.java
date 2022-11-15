@@ -35,7 +35,7 @@ public class SolGenerator implements Runnable {
 				if(parar)
 					contador++;
 				
-				if(contador == 40 && parar) {
+				if(contador == 30 && parar) {
 					miSol = new Sol(miG);
 					miSol.colocarSol();
 					contador = 0;

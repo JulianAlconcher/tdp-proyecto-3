@@ -8,6 +8,7 @@ public class TimerZombie implements Runnable {
 	protected boolean gameStart;
 	protected int contadorZombie;
 	protected int velocidadDeAparicion;
+	protected final int limiteHordaZombie = 3;
 	
 	public TimerZombie(Logica a) {
 		miLogica = a;
@@ -21,10 +22,10 @@ public class TimerZombie implements Runnable {
 	public void run() {
 		while(gameStart) {
 			generarZombie();
-			if(contadorZombie == 2) { //--> Cuando llega a 5 zombies empieza la horda
+			if(contadorZombie == limiteHordaZombie) { //--> Cuando llega a 5 zombies empieza la horda
 				horda();
 			}
-			if(contadorZombie > 2)
+			if(contadorZombie > limiteHordaZombie)
 				miLogica.eliminarLblHorda();
 		try {
 			Thread.sleep(velocidadDeAparicion);
