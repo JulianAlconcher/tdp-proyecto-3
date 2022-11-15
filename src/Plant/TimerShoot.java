@@ -8,8 +8,8 @@ public class TimerShoot implements Runnable {
 	protected boolean gameStart;
 	protected int velocidadDeDisparo;
 	
-	public TimerShoot(Logica MiL) {
-		miLogica = MiL;
+	public TimerShoot(int n, int modo,Logica l) {
+		miLogica = l;
 		hiloDisparo = new Thread (this);
 		hiloDisparo.start();
 		gameStart = true;

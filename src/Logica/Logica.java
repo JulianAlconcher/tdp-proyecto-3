@@ -11,8 +11,7 @@ import Zombie.TimerZombie;
 
 public final class Logica {
 	
-//	private static Logica miLogica;
-//	public String valor;
+	private static Logica miLogica;
 	
 	protected int filas;
 	protected int columnas;
@@ -27,8 +26,8 @@ public final class Logica {
 	protected SolGenerator misSoles;
 	protected TimerShoot miControladorDeDisparo;
 
-	public Logica(int n,int modo,mainGUI a) {
-		miGUI = a;
+	private Logica(int n,int modo) {
+		miGUI = mainGUI.getInstancia();
 	    state= new DayState(this);
 	    grass= "PastoDia.png";
 		filas = 6;
@@ -41,7 +40,7 @@ public final class Logica {
 		if(modo == 0) {
 			miFactoria = new FactoryDay();
 			this.setDayState();
-			misSoles = new SolGenerator(miGUI,this);
+			misSoles = new SolGenerator(n,modo,this);
 		}
 		else {
 			miFactoria = new FactoryNight();
@@ -49,16 +48,15 @@ public final class Logica {
 			misSoles = null;
 			soles = 475;
 		}
-		miGeneradorZombie = new TimerZombie(this);
-		miControladorDeDisparo = new TimerShoot(this);
-//		this.valor = valor;
+		miGeneradorZombie = new TimerZombie(n,modo,this);
+		miControladorDeDisparo = new TimerShoot(n,modo,this);
 	}
-//	public synchronized static Logica getInstancia(int n, int modo,String valor) {
-//		if(valor == null)
-//			miLogica = new Logica(n,modo,valor);
-//		
-//		return miLogica;
-//	}
+	
+	public static Logica getInstancia(int n, int modo) {
+		if(miLogica == null)
+			miLogica = new Logica(n,modo);
+		return miLogica;
+	}
 	public void setDayState() {
 		state.cambioDia();
 	}
@@ -87,10 +85,6 @@ public final class Logica {
 		this.columnas = columnas;
 	}
 	
-//	public void gameOver() { //Zombie llega a casa
-//		miGUI.gameOver();
-//	}
-
 	public int getSoles() {
 		return soles;
 	}
@@ -350,13 +344,6 @@ public final class Logica {
 		this.miFactoria = miFactoria;
 	}
 
-	public void nuevaHorda() {
-		miGUI.nuevaHorda(); //Con el singleton supongo que mejora
-	}
-	
-	public void eliminarLblHorda() {
-		miGUI.eliminarHorda(); //X AHoRA
-		miGUI.repaint();
-	}
+
 
 }

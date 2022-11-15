@@ -25,9 +25,8 @@ import javax.swing.SwingConstants;
 
 @SuppressWarnings("serial")
 public final class mainGUI extends JFrame implements Runnable {
-	//	
-	//	private static mainGUI mGUI;
-	//	public String valor;
+		
+	private static mainGUI miGUI;
 
 	private JPanel contentPane;
 	protected final int cantFilas = 6;
@@ -60,16 +59,15 @@ public final class mainGUI extends JFrame implements Runnable {
 	protected int opcion = 0;
 	protected JLabel lblNuevaHorda;
 
-	public mainGUI(String valor) {
-		//		this.valor = valor;
+	private mainGUI() {
 		initialize();
 	}
-	//	
-	//	public synchronized static mainGUI getInstancia(String valor) {
-	//		if(valor == null)
-	//			mGUI = new mainGUI(valor);
-	//		return mGUI;
-	//	}
+		
+	public static mainGUI getInstancia() {
+		if(miGUI == null)
+			miGUI = new mainGUI();
+		return miGUI;
+	}
 
 	private void initialize() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -444,8 +442,7 @@ public final class mainGUI extends JFrame implements Runnable {
 	private void iniciarNuevoJuego() {
 		newMapPanel();
 		matrizGrafica = new Celda[cantFilas][cantColumnas];
-		//		miLogica = Logica.getInstancia(nivel, modo, null);
-		miLogica = new Logica(seleccionNivel,seleccionModo,this);
+		miLogica = Logica.getInstancia(seleccionNivel, seleccionModo);
 		menuPanel.setVisible(false);
 		inGamePanel.setVisible(true);
 		lblCantSoles.setText("" + miLogica.getSoles());

@@ -12,10 +12,11 @@ public class SolGenerator implements Runnable {
 	protected int contador;
 	protected boolean parar;
 	
-	public SolGenerator(mainGUI g,Logica l) {
+	public SolGenerator(int n,int modo,Logica l) {
+
+		miG = mainGUI.getInstancia();
 		miL = l;
-		miG = g;
-		miSol = new Sol(g);
+		miSol = new Sol(miG);
 		hiloSol = new Thread (this);
 		hiloSol.start();
 		velocidadDeAparicion = 200;

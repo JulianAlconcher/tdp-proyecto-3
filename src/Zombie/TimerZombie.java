@@ -1,17 +1,20 @@
 package Zombie;
 
+import GUI.mainGUI;
 import Logica.Logica;
 
 public class TimerZombie implements Runnable {
 	protected Logica miLogica;
+	protected mainGUI miG;
 	public Thread hiloZombie;
 	protected boolean gameStart;
 	protected int contadorZombie;
 	protected int velocidadDeAparicion;
 	protected final int limiteHordaZombie = 3;
 	
-	public TimerZombie(Logica a) {
-		miLogica = a;
+	public TimerZombie(int n,int modo,Logica l) {
+		miG = mainGUI.getInstancia();
+		miLogica = l;
 		hiloZombie = new Thread (this);
 		hiloZombie.start();
 		gameStart = true;
@@ -26,7 +29,7 @@ public class TimerZombie implements Runnable {
 				horda();
 			}
 			if(contadorZombie > limiteHordaZombie)
-				miLogica.eliminarLblHorda();
+				eliminarLblHorda();
 		try {
 			Thread.sleep(velocidadDeAparicion);
 		} catch (InterruptedException e) {e.printStackTrace();}	
@@ -43,11 +46,16 @@ public class TimerZombie implements Runnable {
 	
 	public void horda() {
 		velocidadDeAparicion = 2000;
-		miLogica.nuevaHorda(); // singleton?
+		miG.nuevaHorda(); // singleton?
 	}
 	
-	public void eliminarLBLhorda() {}
+
+	public void eliminarLblHorda() {
+		miG.eliminarHorda(); //X AHoRA
+		miG.repaint();
+	}
 	
+
 		
 	
 

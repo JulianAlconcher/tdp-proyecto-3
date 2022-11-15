@@ -19,7 +19,7 @@ public abstract class Entidad{
 		miY = y;
 		miRectangulo = new Rectangle(miX,miY,100,100);
 		miEntidadGrafica = null;
-		miGUI = new mainGUI("");
+		miGUI = mainGUI.getInstancia();
 	}
 	
 	public int getCosto() {
