@@ -14,7 +14,6 @@ public final class Logica {
 //	private static Logica miLogica;
 //	public String valor;
 	
-	protected Grilla miGrilla;
 	protected int filas;
 	protected int columnas;
 	protected State state;
@@ -34,7 +33,6 @@ public final class Logica {
 	    grass= "PastoDia.png";
 		filas = 6;
 		columnas = 9;
-		miGrilla = new Grilla(filas,columnas);
 		misFilas = new Fila[6];
 		for(int i=0; i<6; i++) {
 			misFilas[i] = new Fila();
@@ -72,14 +70,6 @@ public final class Logica {
 		this.state=state;
 	}
 	
-	public Grilla getMiGrilla() {
-		return miGrilla;
-	}
-
-	public void setMiGrilla(Grilla miGrilla) {
-		this.miGrilla = miGrilla;
-	}
-
 
 	public int getFilas() {
 		return filas;

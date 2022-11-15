@@ -9,7 +9,7 @@ public abstract class Entidad{
 	protected int miX;
 	protected int miY;
 	protected String imgPath;
-	protected int costo;
+	protected int costo; //CAMBIAR
 	protected Rectangle miRectangulo;
 	protected mainGUI miGUI;
 	protected EntidadGrafica miEntidadGrafica;

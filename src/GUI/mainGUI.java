@@ -35,7 +35,6 @@ public final class mainGUI extends JFrame implements Runnable {
 	protected Logica miLogica;
 	protected Celda matrizGrafica[][];
 	protected ImageIcon imagenPortadaMenu;
-	protected MouseHandler miMouse;
 	protected JPanel menuPanel;
 	protected JPanel inGamePanel;
 	protected JPanel mapPanel;
@@ -73,7 +72,6 @@ public final class mainGUI extends JFrame implements Runnable {
 	//	}
 
 	private void initialize() {
-		miMouse = new MouseHandler();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1300, 930);
 		contentPane = new JPanel();
@@ -98,14 +96,6 @@ public final class mainGUI extends JFrame implements Runnable {
 		inGamePanel.add(lblImageMap);
 		nightMap = new ImageIcon(this.getClass().getResource("/Images/nightMap.png"));
 		dayMap = new ImageIcon(this.getClass().getResource("/Images/Map.png"));
-		//		mapPanel = new JPanel();
-		//		mapPanel.setBackground(new Color(0, 255, 0));
-		//		mapPanel.setBounds(320, 205, 900, 600);
-		//		mapPanel.setOpaque(false);
-		//		inGamePanel.add(mapPanel);
-		//		mapPanel.setLayout(null);
-		//		mapPanel.addMouseListener(miMouse);
-
 		inGamePanel.setVisible(false);
 
 		//Seteo GUI en el medio de la pantalla.
@@ -308,7 +298,6 @@ public final class mainGUI extends JFrame implements Runnable {
 		mapPanel.setOpaque(false);
 		inGamePanel.add(mapPanel);
 		mapPanel.setLayout(null);
-		mapPanel.addMouseListener(miMouse);
 	}
 
 	public void backToMenu() {
