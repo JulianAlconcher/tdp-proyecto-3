@@ -3,6 +3,7 @@ package Zombie;
 import Logica.Entidad;
 import Logica.EntidadGrafica;
 import Plant.Planta;
+import Plant.PlantaMina;
 
 public class ClassicZombie extends Entidad implements VisitorZombie{
 	protected int vida;

@@ -1,7 +1,11 @@
 package Logica;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.concurrent.ThreadLocalRandom;
 
+import GUI.Celda;
 import GUI.mainGUI;
 import Plant.Planta;
 import Plant.Proyectil;
@@ -18,6 +22,7 @@ public final class Logica {
 	protected State state;
 	private int soles;
 	private String grass;
+	private final String obstaculo = "sand.png";
 	protected AbstractFactory miFactoria;
 	protected Fila[] misFilas;
 	protected Planta entidadSeleccionada;
@@ -25,13 +30,19 @@ public final class Logica {
 	protected TimerZombie miGeneradorZombie;
 	protected SolGenerator misSoles;
 	protected TimerShoot miControladorDeDisparo;
+	private String nivelActual;
+	private int mapaCeldasNumeros[][];
+	private Celda tablero[][];
 
 	private Logica(int n,int modo) {
 		miGUI = mainGUI.getInstancia();
+		nivelActual = getNivel(n);
 	    state= new DayState(this);
 	    grass= "PastoDia.png";
 		filas = 6;
 		columnas = 9;
+		mapaCeldasNumeros = new int[filas][columnas];
+		tablero = new Celda [filas][columnas];
 		misFilas = new Fila[6];
 		for(int i=0; i<6; i++) {
 			misFilas[i] = new Fila();
@@ -50,6 +61,7 @@ public final class Logica {
 		}
 		miGeneradorZombie = new TimerZombie(n,modo,this);
 		miControladorDeDisparo = new TimerShoot(n,modo,this);
+		cargarMapa();
 	}
 	
 	public static Logica getInstancia(int n, int modo) {
@@ -59,6 +71,10 @@ public final class Logica {
 	}
 	public void setDayState() {
 		state.cambioDia();
+	}
+	
+	public Celda getCelda(int i,int j) {
+		return tablero[i][j];
 	}
 	
 	public void setNightState() {
@@ -73,6 +89,16 @@ public final class Logica {
 		return filas;
 	}
 
+	public String getNivel(int i) {
+		int eleccion = i;
+		switch(eleccion){
+		case 0: 
+			return "nivel1.txt";
+		case 1:
+			return "nivel2.txt";
+		}
+		return null;
+	}
 	public void setFilas(int filas) {
 		this.filas = filas;
 	}
@@ -230,8 +256,7 @@ public final class Logica {
 				for(Planta p : misFilas[fila].getMisPlantas()) {
 					if(z.getMiRectangulo().intersects(p.getMiRectangulo())) {
 						System.out.println("-------------COLISION CON PLANTA-----------");
-						z.visit(p);
-						
+						z.visit(p);						
 					}
 					if(!misFilas[fila].getMisProyectiles().isEmpty()) {
 						for(Proyectil pr :misFilas[fila].getMisProyectiles()) {
@@ -271,9 +296,7 @@ public final class Logica {
 		for(int i=0; i<6; i++) {
 			for(ClassicZombie z : misFilas[i].getMisZombies()) {
 				if(!misFilas[i].getMisZombies().isEmpty()) {
-				//if(!z.state==atacando) 
 					z.mover();
-					
 					if(z.getMiX()<-4) {
 						miGUI.gameOver();
 					}
@@ -296,13 +319,15 @@ public final class Logica {
 		for(int i=0; i<6; i++) {
 			for(Planta p : misFilas[i].getMisPlantas()) {
 				if(!misFilas[i].getMisZombies().isEmpty()) {
-					if(p.isDisparadora())
-						crearEntidad(14,p.getMiX(),p.getMiY());
-					if(p.getVida()<=0) {
-						miGUI.removerLabel(p.getMiEntidadGrafica().getMiLabel());
-						miGUI.repaint();
-						misFilas[i].getMisPlantas().remove(p);
-						break;
+					for(ClassicZombie z : misFilas[i].getMisZombies()) {
+						if(p.isDisparadora())//-------------------------------------> Chequear que dispare solo si lo tiene enfrente
+							crearEntidad(14,p.getMiX(),p.getMiY());
+						if(p.getVida()<=0) {
+							miGUI.removerLabel(p.getMiEntidadGrafica().getMiLabel());
+							miGUI.repaint();
+							misFilas[i].getMisPlantas().remove(p);
+							break;
+						}
 					}
 				}
 			}
@@ -343,7 +368,52 @@ public final class Logica {
 	public void setMiFactoria(AbstractFactory miFactoria) {
 		this.miFactoria = miFactoria;
 	}
+	
+	public void cargarMapa() {
 
+		try {
+			InputStream is = Logica.class.getClassLoader().getResourceAsStream("Niveles/" + nivelActual);
+			BufferedReader br = new BufferedReader(new InputStreamReader(is));
+			int columna = 0;
+			int fila = 0;
+			while(columna < columnas && fila < filas) {
+				String line = br.readLine();
 
+					while(columna < columnas) {
+						String numeros[] = line.split(" ");
+						int n = Integer.parseInt(numeros[columna]);
+						mapaCeldasNumeros[fila][columna] = n;
+						switch(n) {
+						case 0 :
+							tablero[fila][columna] = new Celda(grass);
+							tablero[fila][columna].setOcupada(false);
+							break;
+	
+						case 1 : {
+							tablero[fila][columna] = new Celda(obstaculo);
+							tablero[fila][columna].setOcupada(true);
+	
+						}
+						break;						
+					}
+						columna++;
+					}
+					if(columna == columnas) {
+						columna = 0;
+						fila++;
+					
+				}
+			}
+			br.close();
 
+		} catch(Exception e) {e.printStackTrace();}
+
+	}
+	
+	public void nuevoNivel() {
+		nivelActual = "Nivel2.txt";
+		cargarMapa();
+		miGUI.nuevoNivel();
+	}
+	
 }

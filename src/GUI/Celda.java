@@ -6,9 +6,11 @@ import javax.swing.JLabel;
 public class Celda extends JLabel{
 	
 	protected boolean ocupada;
+	protected String imgPath;
 
-	public Celda() {
+	public Celda(String image) {
 		ocupada = false;
+		imgPath = image;
 	}
 	
 	public boolean isOcupada() {
@@ -17,6 +19,10 @@ public class Celda extends JLabel{
 
 	public void setOcupada(boolean ocupada) {
 		this.ocupada = ocupada;
+	}
+	
+	public String getImgPath() {
+		return imgPath;
 	}
 
 }

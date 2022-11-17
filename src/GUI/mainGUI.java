@@ -58,6 +58,7 @@ public final class mainGUI extends JFrame implements Runnable {
 	protected int seleccionNivel,seleccionModo;
 	protected int opcion = 0;
 	protected JLabel lblNuevaHorda;
+	protected JLabel lblNuevoNivel;
 
 	private mainGUI() {
 		initialize();
@@ -299,18 +300,19 @@ public final class mainGUI extends JFrame implements Runnable {
 	}
 
 	public void backToMenu() {
+		audioOff();
 		menuPanel.setVisible(true);
 		inGamePanel.setVisible(false);
 		gameStart = false;
 
-		audioOff();
+
 	}
 
 	private void pintarMatriz() {
 		for(int i=0;i<cantFilas;i++) {
 			for(int j=0;j<cantColumnas;j++) {
-				matrizGrafica[i][j] = new Celda();
-				ImageIcon im = new ImageIcon(this.getClass().getResource("/Images/"+miLogica.getGrass()));
+				matrizGrafica[i][j] = miLogica.getCelda(i, j);
+				ImageIcon im = new ImageIcon(this.getClass().getResource("/Images/"+matrizGrafica[i][j].getImgPath()));
 				matrizGrafica[i][j].addMouseListener(new MouseAdapter() {public void mouseClicked(MouseEvent e) {onMouseClicked(e);}});
 				matrizGrafica[i][j].setIcon(im);
 				mapPanel.add(matrizGrafica[i][j]);
@@ -357,8 +359,10 @@ public final class mainGUI extends JFrame implements Runnable {
 	private void audioOff() {
 		btnAudio.setIcon(new ImageIcon(this.getClass().getResource("/Images/btnAudioOff.png")));
 		ap=null;
-		hiloMusica.stop();
-		hiloMusica= null;
+		if(hiloMusica != null) {
+			hiloMusica.stop();
+			hiloMusica= null;
+		}
 	}
 
 	public void ubicar(JLabel miLabel,int x, int y ) {
@@ -456,6 +460,18 @@ public final class mainGUI extends JFrame implements Runnable {
 			lblImageMap.setIcon(dayMap);
 		pintarMatriz();
 		mapPanel.repaint();
+	}
+	
+	public void nuevoNivel() {
+		ImageIcon imgNuevoNivel = new ImageIcon(this.getClass().getResource("/Images/CambioNivel.png"));
+		lblNuevoNivel = new JLabel();
+		lblNuevoNivel.setIcon(imgNuevoNivel);
+		
+		mapPanel.add(lblNuevoNivel);
+		mapPanel.setComponentZOrder(lblNuevoNivel, 0);
+		lblNuevoNivel.setBounds(75, 200, 742, 130);
+		gameStart = false;
+//		iniciarNuevoJuego();
 	}
 
 	@Override
