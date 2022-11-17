@@ -17,7 +17,6 @@ public class PlantaMina extends Planta{
 		return null;
 	}
 
-
 	
 
 

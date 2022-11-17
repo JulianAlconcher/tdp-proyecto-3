@@ -21,8 +21,5 @@ public interface AbstractFactory  {
 	public ConeZombie crearConeZombie(int x,int y);
 	public FlagZombie crearFlagZombie(int x,int y);
 	public HolderZombie crearHolderZombie(int x,int y);
-	
-	//PROYECTIL
-	public ProyectilClasico crearProyectilClasico(int x,int y);
-	public ProyectilCongelante crearProyectilCongelante(int x,int y);
+
 }

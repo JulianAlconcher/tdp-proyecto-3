@@ -20,6 +20,4 @@ public class PlantaGirasol extends Planta{
 	}
 
 
-	
-
 }

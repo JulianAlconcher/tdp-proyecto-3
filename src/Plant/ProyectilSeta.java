@@ -3,18 +3,18 @@ package Plant;
 import Logica.EntidadGrafica;
 import Zombie.ClassicZombie;
 
-public class ProyectilCongelante extends Proyectil{
+public class ProyectilSeta extends Proyectil{
 
-	public ProyectilCongelante(int x, int y) {
+	public ProyectilSeta(int x, int y) {
 		super(x, y);
-		imgPath = "peaCongelante.png";
+		imgPath = "ProyectilSeta.gif";
 		miEntidadGrafica = new EntidadGrafica(imgPath);
 	}
 
 	@Override
 	public void visit(ClassicZombie z) {
 		z.recibirDanio(danio);
-		z.setVelocidad(1);
+		
 	}
 
 	@Override

@@ -11,9 +11,7 @@ public abstract class Proyectil extends Entidad implements VisitorProyectil{
 	
 	public Proyectil(int x, int y) {
 		super(x, y);
-		imgPath = "pea.png";
 		miRectangulo = new Rectangle(x,y,30,100);
-		miEntidadGrafica = new EntidadGrafica(imgPath);
 		danio = 25;
 	}
 

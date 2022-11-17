@@ -6,22 +6,19 @@ import Logica.Entidad;
 
 public abstract class Planta extends Entidad{
 
-	protected Proyectil miProyectil;
 	protected int vida = 100;
 	protected boolean disparadora;
-
+	protected int alcance;
 
 	public Planta(int x, int y) {
 		super(x, y);
 		miRectangulo = new Rectangle(x,y,70,100);
 		disparadora = false;
+		alcance = 400;
 	}	
-
-	public void setMiProyectil(Proyectil miProyectil) {
-		this.miProyectil = miProyectil;
-	}
-	public abstract Proyectil disparar();
 	
+	public abstract Proyectil disparar();
+
 	public int getVida() {
 		return vida;
 	}
@@ -29,10 +26,6 @@ public abstract class Planta extends Entidad{
 		this.vida = vida;
 	}
 
-	public Proyectil getMiProyectil() {
-		return miProyectil;
-	}
-	
 	public void recibirDanio() {
 		vida -=5;
 		System.out.println("ME ESTAN ATACANDO! VIDA:: " + vida);
@@ -46,5 +39,14 @@ public abstract class Planta extends Entidad{
 	public void setDisparadora(boolean disparadora) {
 		this.disparadora = disparadora;
 	}
+	
+	public int getAlcance() {
+		return alcance;
+	}
+
+	public void setAlcance(int alcance) {
+		this.alcance = alcance;
+	}
+
 
 }

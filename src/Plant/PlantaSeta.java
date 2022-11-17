@@ -10,15 +10,13 @@ public class PlantaSeta extends Planta{
 		super(x,y);
 		imgPath = "seta.gif";
 		costo = 0;
+		disparadora = true;
 		miRectangulo = new Rectangle(x,y,20,100);
 		miEntidadGrafica = new EntidadGrafica(imgPath);
-		miProyectil = new ProyectilClasico(x,y);
 	}
 
-	@Override
-	public Proyectil disparar() {
-		// TODO Auto-generated method stub
-		return null;
+	public ProyectilSeta disparar() {
+		return new ProyectilSeta(miX,miY);
 	}
 
 

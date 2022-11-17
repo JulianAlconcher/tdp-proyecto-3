@@ -226,19 +226,6 @@ public final class Logica {
 			misFilas[y/100].insertarZombie((ClassicZombie) aux);
 		}
 		break;
-		case 14:{
-			aux=miFactoria.crearProyectilClasico(x, y);    //Si nos da el timepo, vamos a acomodar graficamente los proyectiles
-			misFilas[y/100].insertarProyectil((Proyectil) aux);
-			miGUI.ubicar(aux.getMiEntidadGrafica().getMiLabel(), x/100, y/100);
-			
-		}
-		break;
-		case 15:{
-			aux=miFactoria.crearProyectilCongelante(x, y);    //Si nos da el timepo, vamos a acomodar graficamente los proyectiles
-			misFilas[y/100].insertarProyectil((Proyectil) aux);
-			miGUI.ubicar(aux.getMiEntidadGrafica().getMiLabel(), x/100, y/100);
-		}
-		break;
 		case 16:{
 			entidadSeleccionada = miFactoria.crearPlantaGordaSeta(x,y);
 			misFilas[y/100].insertarPlanta(entidadSeleccionada);
@@ -320,8 +307,15 @@ public final class Logica {
 			for(Planta p : misFilas[i].getMisPlantas()) {
 				if(!misFilas[i].getMisZombies().isEmpty()) {
 					for(ClassicZombie z : misFilas[i].getMisZombies()) {
-						if(p.isDisparadora())//-------------------------------------> Chequear que dispare solo si lo tiene enfrente
-							crearEntidad(14,p.getMiX(),p.getMiY());
+						if(p.isDisparadora()){
+							double distanciaZ = z.getMiRectangulo().getX();
+							double distanciaP = p.getMiRectangulo().getX();
+							if( distanciaZ< (distanciaP + p.getAlcance()) && distanciaZ > distanciaP) {
+								Entidad aux = p.disparar();
+								misFilas[p.getMiY()/100].insertarProyectil((Proyectil) aux);
+								miGUI.ubicar(aux.getMiEntidadGrafica().getMiLabel(), p.getMiX()/100, p.getMiY()/100);
+							}
+						}
 						if(p.getVida()<=0) {
 							miGUI.removerLabel(p.getMiEntidadGrafica().getMiLabel());
 							miGUI.repaint();
@@ -340,7 +334,6 @@ public final class Logica {
 			for(Proyectil p : misFilas[i].getMisProyectiles()) {
 				if(!misFilas[i].getMisProyectiles().isEmpty()) {
 					if(p.getMiX()>=900) {
-						System.out.println("Entre a proyectil mayor que 900");
 						misFilas[i].eliminarProyectil(p);
 						break;
 					}else {

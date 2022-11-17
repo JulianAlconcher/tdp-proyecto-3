@@ -79,4 +79,10 @@ public class ClassicZombie extends Entidad implements VisitorZombie{
 	   this.state=s;
 	}
 
+	@Override
+	public void visit(PlantaMina pm) {
+		System.out.println("VISIT DE PLANTA MINA");
+		
+	}
+
 }

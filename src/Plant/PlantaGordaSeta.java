@@ -9,14 +9,12 @@ public class PlantaGordaSeta extends Planta {
 		costo = 75;
 		vida = 1000;
 		imgPath = "GordaSeta.gif";
+		disparadora = true;
 		miEntidadGrafica = new EntidadGrafica(imgPath);
-		miProyectil = new ProyectilClasico(x,y);
 	}
 
-	@Override
-	public Proyectil disparar() {
-		// TODO Auto-generated method stub
-		return null;
+	public ProyectilSeta disparar() {
+		return new ProyectilSeta(miX,miY);
 	}
 
 

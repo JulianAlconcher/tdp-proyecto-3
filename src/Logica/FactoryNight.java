@@ -72,18 +72,9 @@ public class FactoryNight implements AbstractFactory {
 	}
 
 	@Override
-	public ProyectilClasico crearProyectilClasico(int x, int y) {
-		return new ProyectilClasico(x,y);
-	}
-
-	@Override
 	public PlantaGordaSeta crearPlantaGordaSeta(int x, int y) {
 		return new PlantaGordaSeta(x,y);
 	}
 
-	@Override
-	public ProyectilCongelante crearProyectilCongelante(int x, int y) {
-		return new ProyectilCongelante(x,y);
-	}
 
 }

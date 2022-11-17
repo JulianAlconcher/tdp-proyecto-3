@@ -11,11 +11,13 @@ public class PlantaNuezAlta extends Planta{
 		costo = 120;
 		miEntidadGrafica = new EntidadGrafica(imgPath);
 	}
+
 	@Override
 	public Proyectil disparar() {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 
 
 	

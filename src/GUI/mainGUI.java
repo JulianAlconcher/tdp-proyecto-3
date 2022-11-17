@@ -497,7 +497,6 @@ public final class mainGUI extends JFrame implements Runnable {
 		ImageIcon imgNuevaHorda = new ImageIcon(this.getClass().getResource("/Images/HordaEnCamino.png"));
 		lblNuevaHorda = new JLabel();
 		lblNuevaHorda.setIcon(imgNuevaHorda);
-		System.out.println("HORDA NUEVA!!!");
 		
 		mapPanel.add(lblNuevaHorda);
 		mapPanel.setComponentZOrder(lblNuevaHorda, 0);
