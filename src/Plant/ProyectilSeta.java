@@ -35,4 +35,6 @@ public class ProyectilSeta extends Proyectil{
 		
 	}
 
+
+
 }

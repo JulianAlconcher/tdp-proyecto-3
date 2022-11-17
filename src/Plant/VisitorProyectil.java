@@ -10,4 +10,5 @@ public interface VisitorProyectil {
 	public void visit(ProyectilClasico proyectilClasico);
 	
 	public void visit(ProyectilCongelante proyectilCongelante);
+	
 }

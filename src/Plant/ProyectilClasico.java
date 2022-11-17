@@ -33,6 +33,8 @@ public class ProyectilClasico extends Proyectil {
 		
 	}
 
+
+
 	
 
 
