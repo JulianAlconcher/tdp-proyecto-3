@@ -3,20 +3,14 @@ package Plant;
 import Logica.EntidadGrafica;
 import Zombie.ClassicZombie;
 
-public class PlantaCongeladora extends Planta{
+public class PlantaCactus extends Planta{
 
-
-	public PlantaCongeladora(int x, int y) {
+	public PlantaCactus(int x, int y) {
 		super(x, y);
-		costo = 175;
-		vida = 200;
-		imgPath = "plantaCongeladora.gif";
+		imgPath = "Cactus.gif";
+		alcance = 900;
 		miEntidadGrafica = new EntidadGrafica(imgPath);
 		disparadora = true;
-	}
-
-	public ProyectilCongelante disparar() {
-		return new ProyectilCongelante(miX,miY);
 	}
 
 	@Override
@@ -25,8 +19,9 @@ public class PlantaCongeladora extends Planta{
 		
 	}
 
+	@Override
+	public ProyectilDardo disparar() {
+		return new ProyectilDardo(miX,miY);
+	}
 
-
-
-	
 }

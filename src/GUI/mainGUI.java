@@ -91,7 +91,7 @@ public final class mainGUI extends JFrame implements Runnable {
 		inGamePanel.setLayout(null);
 
 		lblImageMap = new JLabel("");
-		lblImageMap.setBounds(10, 111, 1262, 780);
+		lblImageMap.setBounds(10, 111, 1264, 780);
 		inGamePanel.add(lblImageMap);
 		nightMap = new ImageIcon(this.getClass().getResource("/Images/nightMap.png"));
 		dayMap = new ImageIcon(this.getClass().getResource("/Images/Map.png"));
@@ -152,7 +152,7 @@ public final class mainGUI extends JFrame implements Runnable {
 		btnPlanta5 = new JButton("");
 		btnPlanta5.setBounds(416, 19, 65, 89);
 		inGamePanel.add(btnPlanta5);
-		btnPlanta5.setIcon(new ImageIcon(this.getClass().getResource("/Images/plantaMina.png")));
+		btnPlanta5.setIcon(new ImageIcon(this.getClass().getResource("/Images/CardCatcus.png")));
 		btnPlanta5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				opcion = 4;
@@ -196,11 +196,12 @@ public final class mainGUI extends JFrame implements Runnable {
 			}
 		});
 		btnAudio.setIcon(new ImageIcon(this.getClass().getResource("/Images/btnAudioOn.png")));
-		btnAudio.setBounds(1080, 19, 50, 50);
+		btnAudio.setBounds(1097, 7, 50, 50);
 		inGamePanel.add(btnAudio);
 
-		JButton btnVolverMenu = new JButton("MENU");
-		btnVolverMenu.setBounds(1157, 7, 103, 101);
+		JButton btnVolverMenu = new JButton("");
+		btnVolverMenu.setBounds(1157, 7, 103, 103);
+		btnVolverMenu.setIcon(new ImageIcon(this.getClass().getResource("/Images/MenuBoton.png")));
 		inGamePanel.add(btnVolverMenu);
 		btnVolverMenu.addActionListener(new ActionListener() {
 			@Override
@@ -230,7 +231,7 @@ public final class mainGUI extends JFrame implements Runnable {
 				lblCantSoles.setText("  " + miLogica.getSoles());
 			}
 		});
-		btnPruebaAumentarSol.setBounds(979, 37, 85, 40);
+		btnPruebaAumentarSol.setBounds(1097, 60, 50, 48);
 		inGamePanel.add(btnPruebaAumentarSol);
 
 		JLabel lblPlantsHolder = new JLabel("");
@@ -240,10 +241,11 @@ public final class mainGUI extends JFrame implements Runnable {
 
 
 		//BOTONES DE MENU
-		JButton btnJugar = new JButton("JUGAR");
+		JButton btnJugar = new JButton("");
 		btnJugar.setFont(new Font("Kozuka Gothic Pro R", Font.BOLD, 17));
 		btnJugar.setBounds(465, 574, 350, 125);
 		menuPanel.add(btnJugar);
+		btnJugar.setIcon(new ImageIcon(this.getClass().getResource("/Images/JugarBoton.png")));
 		btnJugar.setForeground(Color.black);
 		btnJugar.setOpaque(false);
 		btnJugar.addActionListener(new ActionListener() {
@@ -260,8 +262,9 @@ public final class mainGUI extends JFrame implements Runnable {
 			}
 		});	
 
-		JButton btnManual = new JButton("MANUAL");
+		JButton btnManual = new JButton("");
 		btnManual.setBounds(642, 712, 173, 52);
+		btnManual.setIcon(new ImageIcon(this.getClass().getResource("/Images/ManualBoton.png")));
 		menuPanel.add(btnManual);
 		btnManual.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -270,10 +273,10 @@ public final class mainGUI extends JFrame implements Runnable {
 			}
 		});
 
-		btnManual.setEnabled(false);
 
-		JButton btnSalir = new JButton("SALIR");
+		JButton btnSalir = new JButton("");
 		btnSalir.setBounds(465, 712, 173, 52);
+		btnSalir.setIcon(new ImageIcon(this.getClass().getResource("/Images/SalirBoton.png")));
 		menuPanel.add(btnSalir);
 		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -345,7 +348,7 @@ public final class mainGUI extends JFrame implements Runnable {
 	}
 
 	private void audioOn(int modo) {
-		btnAudio.setIcon(new ImageIcon(this.getClass().getResource("/Images/btnAudioOn.png")));
+		btnAudio.setIcon(new ImageIcon(this.getClass().getResource("/Images/btnAudioOn2.png")));
 		if (modo==0) {
 			ap= new AudioPlayer("Audio/DayMusic.mp3");
 		} else {
@@ -357,7 +360,7 @@ public final class mainGUI extends JFrame implements Runnable {
 
 	@SuppressWarnings("removal")
 	private void audioOff() {
-		btnAudio.setIcon(new ImageIcon(this.getClass().getResource("/Images/btnAudioOff.png")));
+		btnAudio.setIcon(new ImageIcon(this.getClass().getResource("/Images/btnAudioOff2.png")));
 		ap=null;
 		if(hiloMusica != null) {
 			hiloMusica.stop();
@@ -390,12 +393,6 @@ public final class mainGUI extends JFrame implements Runnable {
 			btnPlanta8.setEnabled(false);
 			btnPlanta7.setEnabled(false);
 		}
-		if(miLogica.getSoles()>=25) {
-			btnPlanta5.setEnabled(true);
-		}
-		else {
-			btnPlanta5.setEnabled(false);
-		}
 		if(miLogica.getSoles()>=50) {
 			btnPlanta2.setEnabled(true);
 			btnPlanta3.setEnabled(true);
@@ -417,10 +414,11 @@ public final class mainGUI extends JFrame implements Runnable {
 			btnPlanta1.setEnabled(false);
 		}
 		if(miLogica.getSoles()>=125) {
-
+			btnPlanta5.setEnabled(true);
 			btnPlanta6.setEnabled(true);
 		}
 		else {
+			btnPlanta5.setEnabled(false);
 			btnPlanta6.setEnabled(false);
 		}
 		if(miLogica.getSoles()>=175) 

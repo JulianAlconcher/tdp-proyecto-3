@@ -3,6 +3,7 @@ package Logica;
 import GUI.mainGUI;
 
 public class SolGenerator implements Runnable {
+	
 	public Thread hiloSol;
 	protected boolean gameStart;
 	protected int velocidadDeRefresco;

@@ -10,9 +10,9 @@ public class AttackState extends ZombieState {
 	}
 
 	public void cambioCaminar() {
-		System.out.println("Entro en caminar");
 		z.setState(new WalkState(z));
 		z.setVelocidad(2);
+		z.getMiEntidadGrafica().getMiLabel().repaint();
 	}
 
 	public String printState() {

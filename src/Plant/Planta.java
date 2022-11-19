@@ -4,7 +4,7 @@ import java.awt.Rectangle;
 
 import Logica.Entidad;
 
-public abstract class Planta extends Entidad{
+public abstract class Planta extends Entidad implements VisitorPlantaMina{
 
 	protected int vida = 100;
 	protected boolean disparadora;
@@ -27,9 +27,7 @@ public abstract class Planta extends Entidad{
 	}
 
 	public void recibirDanio() {
-		vida -=5;
-		System.out.println("ME ESTAN ATACANDO! VIDA:: " + vida);
-		
+		vida -=5;		
 	}
 
 	public boolean isDisparadora() {

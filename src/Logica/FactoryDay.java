@@ -75,5 +75,10 @@ public class FactoryDay implements AbstractFactory{
 		return null;
 	}
 
+	@Override
+	public PlantaCactus crearPlantaCactus(int x, int y) {
+		return new PlantaCactus(x,y);
+	}
+
 
 }

@@ -168,7 +168,8 @@ public final class Logica {
 		}
 		break;
 		case 4:{
-			entidadSeleccionada = miFactoria.crearPlantaMina(x,y);
+//			entidadSeleccionada = miFactoria.crearPlantaMina(x,y);
+			entidadSeleccionada = miFactoria.crearPlantaCactus(x,y);
 			misFilas[y/100].insertarPlanta(entidadSeleccionada);
 			disminuirSoles(entidadSeleccionada.getCosto());
 			aux = entidadSeleccionada;
@@ -242,17 +243,16 @@ public final class Logica {
 			for(ClassicZombie z : misFilas[fila].getMisZombies()) {
 				for(Planta p : misFilas[fila].getMisPlantas()) {
 					if(z.getMiRectangulo().intersects(p.getMiRectangulo())) {
-						System.out.println("-------------COLISION CON PLANTA-----------");
-						z.visit(p);						
+						z.visit(p);	
+						p.visit(z);
 					}
 					if(!misFilas[fila].getMisProyectiles().isEmpty()) {
 						for(Proyectil pr :misFilas[fila].getMisProyectiles()) {
 							if(z.getMiRectangulo().intersects(pr.getMiRectangulo())) {
-								System.out.println("-------------COLISION CON PROYECTIL-----------");
 								pr.visit(z);
 								misFilas[fila].eliminarProyectil(pr);
 								miGUI.removerLabel(pr.getMiEntidadGrafica().getMiLabel());
-								miGUI.repaint();
+								pr.getMiEntidadGrafica().getMiLabel().repaint();
 								break;
 						}
 						
@@ -289,7 +289,7 @@ public final class Logica {
 					}
 					if(z.getVida()<=0) {
 						miGUI.removerLabel(z.getMiEntidadGrafica().getMiLabel());
-						miGUI.repaint();
+						z.getMiEntidadGrafica().getMiLabel().repaint();
 						misFilas[i].getMisZombies().remove(z);
 						break;
 					}
@@ -313,12 +313,12 @@ public final class Logica {
 							if( distanciaZ< (distanciaP + p.getAlcance()) && distanciaZ > distanciaP) {
 								Entidad aux = p.disparar();
 								misFilas[p.getMiY()/100].insertarProyectil((Proyectil) aux);
-								miGUI.ubicar(aux.getMiEntidadGrafica().getMiLabel(), p.getMiX()/100, p.getMiY()/100);
+								miGUI.ubicar(aux.getMiEntidadGrafica().getMiLabel(),p.getMiX()/100, p.getMiY()/100);
 							}
 						}
 						if(p.getVida()<=0) {
 							miGUI.removerLabel(p.getMiEntidadGrafica().getMiLabel());
-							miGUI.repaint();
+							p.getMiEntidadGrafica().getMiLabel().repaint();
 							misFilas[i].getMisPlantas().remove(p);
 							break;
 						}
@@ -337,7 +337,7 @@ public final class Logica {
 						misFilas[i].eliminarProyectil(p);
 						break;
 					}else {
-					p.moverProyectil();
+						p.moverProyectil();
 					}
 					
 				}

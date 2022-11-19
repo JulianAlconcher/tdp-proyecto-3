@@ -58,22 +58,24 @@ public class ClassicZombie extends Entidad implements VisitorZombie{
 		}
 	}
 	
-//	public void setGraficaAtacando() {
-//		imgPath="AttackClassic.gif";
-//		miEntidadGrafica= new EntidadGrafica(imgPath);	
-//	}
-//	
-//	public void setGraficaCaminar() {
-//		imgPath="WalkClassic.gif ";
-//		miEntidadGrafica= new EntidadGrafica(imgPath);
-//	}
-
 	@Override
 	public void accept(VisitorZombie v) {
 		// TODO Auto-generated method stub
 		
 	}
 
+	
+	public void setGraficaAtacando() {
+		System.out.println("CAMBIE");
+		imgPath="pea.png";
+		miEntidadGrafica.setImgPath(imgPath);
+	}
+	
+	public void setGraficaCaminar() {
+		imgPath="WalkClassic.gif ";
+		miEntidadGrafica= new EntidadGrafica(imgPath);
+		miEntidadGrafica.getMiLabel().repaint();
+	}
 
 	public void setState(ZombieState s) {
 	   this.state=s;
@@ -81,7 +83,6 @@ public class ClassicZombie extends Entidad implements VisitorZombie{
 
 	@Override
 	public void visit(PlantaMina pm) {
-		System.out.println("VISIT DE PLANTA MINA");
 		
 	}
 

@@ -3,6 +3,7 @@ package Plant;
 import java.awt.Rectangle;
 
 import Logica.EntidadGrafica;
+import Zombie.ClassicZombie;
 
 public class PlantaSeta extends Planta{
 
@@ -17,6 +18,12 @@ public class PlantaSeta extends Planta{
 
 	public ProyectilSeta disparar() {
 		return new ProyectilSeta(miX,miY);
+	}
+
+	@Override
+	public void visit(ClassicZombie z) {
+		// TODO Auto-generated method stub
+		
 	}
 
 
