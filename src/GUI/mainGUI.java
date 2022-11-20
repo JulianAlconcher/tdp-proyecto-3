@@ -85,7 +85,7 @@ public final class mainGUI extends JFrame implements Runnable {
 		menuPanel.setBackground(new Color(0, 0, 0));
 		contentPane.add(menuPanel);
 		menuPanel.setLayout(null);
-		imagenPortadaMenu = new ImageIcon(this.getClass().getResource("/Images/portada.png"));
+		imagenPortadaMenu = new ImageIcon(this.getClass().getResource("/Images/portada2.png"));
 		inGamePanel = new JPanel();
 		contentPane.add(inGamePanel);
 		inGamePanel.setLayout(null);
@@ -196,11 +196,11 @@ public final class mainGUI extends JFrame implements Runnable {
 			}
 		});
 		btnAudio.setIcon(new ImageIcon(this.getClass().getResource("/Images/btnAudioOn.png")));
-		btnAudio.setBounds(1097, 7, 50, 50);
+		btnAudio.setBounds(1097, 11, 50, 50);
 		inGamePanel.add(btnAudio);
 
 		JButton btnVolverMenu = new JButton("");
-		btnVolverMenu.setBounds(1157, 7, 103, 103);
+		btnVolverMenu.setBounds(1157, 11, 103, 105);
 		btnVolverMenu.setIcon(new ImageIcon(this.getClass().getResource("/Images/MenuBoton.png")));
 		inGamePanel.add(btnVolverMenu);
 		btnVolverMenu.addActionListener(new ActionListener() {
@@ -231,13 +231,13 @@ public final class mainGUI extends JFrame implements Runnable {
 				lblCantSoles.setText("  " + miLogica.getSoles());
 			}
 		});
-		btnPruebaAumentarSol.setBounds(1097, 60, 50, 48);
+		btnPruebaAumentarSol.setBounds(1097, 68, 50, 48);
 		inGamePanel.add(btnPruebaAumentarSol);
 
 		JLabel lblPlantsHolder = new JLabel("");
 		lblPlantsHolder.setBounds(10, 11, 900, 105);
 		inGamePanel.add(lblPlantsHolder);
-		lblPlantsHolder.setIcon(new ImageIcon(this.getClass().getResource("/Images/PlantHandler (2).png")));
+		lblPlantsHolder.setIcon(new ImageIcon(this.getClass().getResource("/Images/PlantHandler.png")));
 
 
 		//BOTONES DE MENU
@@ -252,9 +252,9 @@ public final class mainGUI extends JFrame implements Runnable {
 			public void actionPerformed(ActionEvent e) {
 
 				seleccionNivel = JOptionPane.showOptionDialog(menuPanel,"Seleccione el nivel de dificultad", ""
-						,JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.INFORMATION_MESSAGE,null,new Object[] { "NIVEL 1", "NIVEL 2"},"opcion1"); 
+						,JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.PLAIN_MESSAGE,null,new Object[] { "NIVEL 1", "NIVEL 2"},"opcion1"); 
 				seleccionModo = JOptionPane.showOptionDialog(menuPanel,"Seleccione el modo de juego", ""
-						,JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE,null,new Object[] { "MODO DIA", "MODO NOCHE"},"opcion1"); 
+						,JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.PLAIN_MESSAGE,null,new Object[] { "MODO DIA", "MODO NOCHE"},"opcion1"); 
 				if(seleccionNivel != JOptionPane.CLOSED_OPTION && seleccionModo != JOptionPane.CLOSED_OPTION) {
 					iniciarNuevoJuego();	
 				}
@@ -268,8 +268,9 @@ public final class mainGUI extends JFrame implements Runnable {
 		menuPanel.add(btnManual);
 		btnManual.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String message = "MANUAL EN CONSTRUCCION";
-				JOptionPane.showMessageDialog(null, message, "Manual", JOptionPane.INFORMATION_MESSAGE,null);
+				ImageIcon Manual = new ImageIcon(this.getClass().getResource("/Images/Manual.png"));
+				JOptionPane.showOptionDialog(menuPanel,"", "Informate antes de seguir!"
+						,JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.INFORMATION_MESSAGE,Manual,new Object[] { "ENTENDIDO!"},"opcion1"); 
 			}
 		});
 
@@ -348,7 +349,7 @@ public final class mainGUI extends JFrame implements Runnable {
 	}
 
 	private void audioOn(int modo) {
-		btnAudio.setIcon(new ImageIcon(this.getClass().getResource("/Images/btnAudioOn2.png")));
+		btnAudio.setIcon(new ImageIcon(this.getClass().getResource("/Images/btnAudioOn.png")));
 		if (modo==0) {
 			ap= new AudioPlayer("Audio/DayMusic.mp3");
 		} else {
@@ -360,7 +361,7 @@ public final class mainGUI extends JFrame implements Runnable {
 
 	@SuppressWarnings("removal")
 	private void audioOff() {
-		btnAudio.setIcon(new ImageIcon(this.getClass().getResource("/Images/btnAudioOff2.png")));
+		btnAudio.setIcon(new ImageIcon(this.getClass().getResource("/Images/btnAudioOff.png")));
 		ap=null;
 		if(hiloMusica != null) {
 			hiloMusica.stop();
@@ -469,7 +470,6 @@ public final class mainGUI extends JFrame implements Runnable {
 		mapPanel.setComponentZOrder(lblNuevoNivel, 0);
 		lblNuevoNivel.setBounds(75, 200, 742, 130);
 		gameStart = false;
-//		iniciarNuevoJuego();
 	}
 
 	@Override

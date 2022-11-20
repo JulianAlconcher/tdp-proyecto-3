@@ -25,6 +25,12 @@ public class PlantaCongeladora extends Planta{
 		
 	}
 
+	@Override
+	public void morir() {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 
 

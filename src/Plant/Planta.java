@@ -18,6 +18,8 @@ public abstract class Planta extends Entidad implements VisitorPlantaMina{
 	}	
 	
 	public abstract Proyectil disparar();
+	
+	public abstract void morir();
 
 	public int getVida() {
 		return vida;

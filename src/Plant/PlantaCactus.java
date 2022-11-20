@@ -9,6 +9,7 @@ public class PlantaCactus extends Planta{
 		super(x, y);
 		imgPath = "Cactus.gif";
 		alcance = 900;
+		costo = 125;
 		miEntidadGrafica = new EntidadGrafica(imgPath);
 		disparadora = true;
 	}
@@ -22,6 +23,12 @@ public class PlantaCactus extends Planta{
 	@Override
 	public ProyectilDardo disparar() {
 		return new ProyectilDardo(miX,miY);
+	}
+
+	@Override
+	public void morir() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

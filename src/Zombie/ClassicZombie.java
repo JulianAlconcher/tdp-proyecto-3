@@ -12,7 +12,7 @@ public class ClassicZombie extends Entidad implements VisitorZombie{
 
 	public ClassicZombie(int x,int y) {
 		super(x,y);
-		imgPath = "ZombieClasico.gif";
+		imgPath = "Zombie_Normal.gif";
 		miEntidadGrafica = new EntidadGrafica(imgPath);
 		state= new WalkState(this);
 		this.vida = 75;

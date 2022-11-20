@@ -2,7 +2,6 @@ package Logica;
 
 public abstract class State {
 	
-	@SuppressWarnings("unused")
 	protected Logica juego;
 	
 	public State(Logica juego) {

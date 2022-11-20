@@ -22,6 +22,8 @@ public final class Logica {
 	protected State state;
 	private int soles;
 	private String grass;
+	private String grassVariante;
+
 	private final String obstaculo = "sand.png";
 	protected AbstractFactory miFactoria;
 	protected Fila[] misFilas;
@@ -39,6 +41,7 @@ public final class Logica {
 		nivelActual = getNivel(n);
 	    state= new DayState(this);
 	    grass= "PastoDia.png";
+	    grassVariante = "PastoDiaOsc.png";
 		filas = 6;
 		columnas = 9;
 		mapaCeldasNumeros = new int[filas][columnas];
@@ -142,6 +145,14 @@ public final class Logica {
 		return grass;
 	}
 	
+	public String getGrassVariante() {
+		return grassVariante;
+	}
+
+	public void setGrassVariante(String grassVariante) {
+		this.grassVariante = grassVariante;
+	}
+	
 
 	public Entidad crearEntidad(int opcion,int x,int y) {
 		Entidad aux = null;
@@ -168,7 +179,6 @@ public final class Logica {
 		}
 		break;
 		case 4:{
-//			entidadSeleccionada = miFactoria.crearPlantaMina(x,y);
 			entidadSeleccionada = miFactoria.crearPlantaCactus(x,y);
 			misFilas[y/100].insertarPlanta(entidadSeleccionada);
 			disminuirSoles(entidadSeleccionada.getCosto());
@@ -276,7 +286,8 @@ public final class Logica {
 	
 	public void colocarPlanta(int opcion,int fila, int col) {
 		Entidad nuevaPlanta = crearEntidad(opcion,fila*100,col*100) ;
-		miGUI.ubicar(nuevaPlanta.getMiEntidadGrafica().getMiLabel(),fila,col);
+		if(nuevaPlanta !=null)
+			miGUI.ubicar(nuevaPlanta.getMiEntidadGrafica().getMiLabel(),fila,col);
 	}
 	
 	public void controlarZombies() {
@@ -317,6 +328,7 @@ public final class Logica {
 							}
 						}
 						if(p.getVida()<=0) {
+							p.morir();
 							miGUI.removerLabel(p.getMiEntidadGrafica().getMiLabel());
 							p.getMiEntidadGrafica().getMiLabel().repaint();
 							misFilas[i].getMisPlantas().remove(p);
@@ -378,7 +390,10 @@ public final class Logica {
 						mapaCeldasNumeros[fila][columna] = n;
 						switch(n) {
 						case 0 :
-							tablero[fila][columna] = new Celda(grass);
+							if(fila%2 == (columna%2))
+								tablero[fila][columna] = new Celda(grass);
+							else
+								tablero[fila][columna] = new Celda(grassVariante);
 							tablero[fila][columna].setOcupada(false);
 							break;
 	
@@ -407,6 +422,14 @@ public final class Logica {
 		nivelActual = "Nivel2.txt";
 		cargarMapa();
 		miGUI.nuevoNivel();
+	}
+	
+	public void aumentarVelocidadDeAparicion() {
+		misSoles.aumentarVelocidadDeAparicion();
+	}
+	
+	public void normalizarVelocidadAparicion() {
+		misSoles.normalizar();
 	}
 	
 }

@@ -78,8 +78,7 @@ public class FactoryNight implements AbstractFactory {
 
 	@Override
 	public PlantaCactus crearPlantaCactus(int x, int y) {
-		// TODO Auto-generated method stub
-		return null;
+		return new PlantaCactus(x,y);
 	}
 
 

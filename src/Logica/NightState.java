@@ -9,7 +9,8 @@ public class NightState extends State{
 	@Override
 	public void cambioDia() {
 		juego.setState(new DayState(juego));
-		juego.setGrass("Fondo.png");
+		juego.setGrass("PastoDia.png");
+		juego.setGrassVariante("PastoDiaOsc.png");
 		 juego.setMiFactoria(new FactoryDay());
 	}
 

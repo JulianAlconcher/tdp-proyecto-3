@@ -30,6 +30,12 @@ public class PlantaLanzaguisantes extends Planta{
 		
 	}
 
+	@Override
+	public void morir() {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 
 

@@ -36,7 +36,7 @@ public class SplashScreen {
 		int y = (int) ((dimension.getHeight() - frame.getHeight()) / 2);
 		frame.setLocation(x, y);
 		JLabel lblNewLabel = new JLabel("New label");
-		lblNewLabel.setBounds(0, 0, 844, 611);
+		lblNewLabel.setBounds(0, 0, 900, 600);
 		frame.getContentPane().add(lblNewLabel);
 		ImageIcon icon= new ImageIcon(this.getClass().getResource("/Images/SplashScreen.png"));
 		lblNewLabel.setIcon(icon);

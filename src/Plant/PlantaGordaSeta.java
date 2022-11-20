@@ -24,5 +24,11 @@ public class PlantaGordaSeta extends Planta {
 		
 	}
 
+	@Override
+	public void morir() {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }

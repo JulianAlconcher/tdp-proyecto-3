@@ -4,7 +4,7 @@ public class VentanaPrincipal {
 
 	public static void main(String[] args) {
 		
-        SplashScreen miSplashScreen = new SplashScreen(1);
+        SplashScreen miSplashScreen = new SplashScreen(1000);
 		
 		miSplashScreen.initialize();
 
