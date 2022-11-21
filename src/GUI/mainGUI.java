@@ -224,11 +224,13 @@ public final class mainGUI extends JFrame implements Runnable {
 		inGamePanel.add(lblCantSoles);
 		lblCantSoles.setText("0");
 
-		JButton btnPruebaAumentarSol = new JButton("CLICKEAME");
+		JButton btnPruebaAumentarSol = new JButton("");
+		btnPruebaAumentarSol.setToolTipText("PARTY MODE: Dale alegria a tu juego!");
 		btnPruebaAumentarSol.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				miLogica.aumentarSoles();
 				lblCantSoles.setText("  " + miLogica.getSoles());
+				changeMusic(seleccionModo);
 			}
 		});
 		btnPruebaAumentarSol.setBounds(1097, 68, 50, 48);
@@ -269,8 +271,21 @@ public final class mainGUI extends JFrame implements Runnable {
 		btnManual.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ImageIcon Manual = new ImageIcon(this.getClass().getResource("/Images/Manual.png"));
-				JOptionPane.showOptionDialog(menuPanel,"", "Informate antes de seguir!"
-						,JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.INFORMATION_MESSAGE,Manual,new Object[] { "ENTENDIDO!"},"opcion1"); 
+				ImageIcon Plantas = new ImageIcon(this.getClass().getResource("/Images/Plantas.png"));
+				ImageIcon Zombies = new ImageIcon(this.getClass().getResource("/Images/zombies.png"));
+				int eleccion;
+				do {
+					eleccion = JOptionPane.showOptionDialog(menuPanel,"", "Informate antes de seguir!"
+							,JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.INFORMATION_MESSAGE,Manual,new Object[] { "ENTENDIDO!","PLANTAS","ZOMBIES"},"opcion1"); 
+					if(eleccion == 1) {
+						JOptionPane.showOptionDialog(menuPanel,"", "Plantas"
+								,JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.INFORMATION_MESSAGE,Plantas,new Object[] { "ENTENDIDO!"},"opcion1"); 
+						}
+					else if(eleccion == 2) {
+						JOptionPane.showOptionDialog(menuPanel,"", "Zombies"
+								,JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.INFORMATION_MESSAGE,Zombies,new Object[] { "ENTENDIDO!"},"opcion1"); 
+					}
+				}while(eleccion != 0 && eleccion != JOptionPane.CLOSED_OPTION);
 			}
 		});
 
@@ -358,6 +373,18 @@ public final class mainGUI extends JFrame implements Runnable {
 		hiloMusica= new Thread(ap);
 		hiloMusica.start();
 	}
+	
+	private void changeMusic(int modo) {
+		audioOff();
+		btnAudio.setIcon(new ImageIcon(this.getClass().getResource("/Images/btnAudioOn.png")));
+		if (modo==0) {
+			ap= new AudioPlayer("Audio/PapuMusic.mp3");
+		} else {
+			ap=new AudioPlayer("Audio/Jeites - Voce.mp3");
+		}
+		hiloMusica= new Thread(ap);
+		hiloMusica.start();
+	}
 
 	@SuppressWarnings("removal")
 	private void audioOff() {
@@ -427,6 +454,20 @@ public final class mainGUI extends JFrame implements Runnable {
 		else
 			btnPlanta4.setEnabled(false);  
 	}
+	
+	public void nuevaHorda() {
+		ImageIcon imgNuevaHorda = new ImageIcon(this.getClass().getResource("/Images/HordaEnCamino.png"));
+		lblNuevaHorda = new JLabel();
+		lblNuevaHorda.setIcon(imgNuevaHorda);
+		
+		mapPanel.add(lblNuevaHorda);
+		mapPanel.setComponentZOrder(lblNuevaHorda, 0);
+		lblNuevaHorda.setBounds(75, 200, 742, 130);
+	}
+	
+	public void eliminarHorda() {
+		removerLabel(lblNuevaHorda);
+	}
 
 	public void gameOver() {
 		gameStart = false;
@@ -491,17 +532,5 @@ public final class mainGUI extends JFrame implements Runnable {
 		lblCantSoles.setText(""+miLogica.getSoles());
 	}
 
-	public void nuevaHorda() {
-		ImageIcon imgNuevaHorda = new ImageIcon(this.getClass().getResource("/Images/HordaEnCamino.png"));
-		lblNuevaHorda = new JLabel();
-		lblNuevaHorda.setIcon(imgNuevaHorda);
-		
-		mapPanel.add(lblNuevaHorda);
-		mapPanel.setComponentZOrder(lblNuevaHorda, 0);
-		lblNuevaHorda.setBounds(75, 200, 742, 130);
-	}
-	
-	public void eliminarHorda() {
-		removerLabel(lblNuevaHorda);
-	}
+
 }

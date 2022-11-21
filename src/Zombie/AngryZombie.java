@@ -8,6 +8,7 @@ public class AngryZombie extends ClassicZombie{
 		super(x,y);
 		imgPath = "AngryZombie.gif";
 		miEntidadGrafica = new EntidadGrafica(imgPath);
+		velocidad = 4;
 	}
 
 }
