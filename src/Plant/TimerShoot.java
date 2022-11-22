@@ -24,4 +24,8 @@ public class TimerShoot implements Runnable {
 			} catch (InterruptedException e) {e.printStackTrace();}	
 		}
 	}
+	
+	public void detener() {
+		gameStart = false;
+	}
 }

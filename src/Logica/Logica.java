@@ -68,12 +68,30 @@ public final class Logica {
 	}
 	
 	public static Logica getInstancia(int n, int modo) {
-		if(miLogica == null)
+		if(miLogica == null) {
 			miLogica = new Logica(n,modo);
+		}
+
 		return miLogica;
 	}
 	public void setDayState() {
 		state.cambioDia();
+	}
+	
+	public void resetLogica() {
+		if(misSoles !=null) {
+			misSoles.detener();
+			misSoles = null;
+		}
+		if(miGeneradorZombie != null) {
+			miGeneradorZombie.detener();
+			miGeneradorZombie = null;
+		}
+		if(miControladorDeDisparo != null) {
+			miControladorDeDisparo.detener();
+			miControladorDeDisparo = null;
+		}
+		mapaCeldasNumeros = null;
 	}
 	
 	public Celda getCelda(int i,int j) {

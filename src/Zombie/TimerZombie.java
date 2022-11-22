@@ -60,6 +60,10 @@ public class TimerZombie implements Runnable {
 		miG.repaint();
 	}
 	
+	public void detener() {
+		gameStart = false;
+	}
+	
 
 		
 	

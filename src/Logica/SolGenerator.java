@@ -28,7 +28,7 @@ public class SolGenerator implements Runnable {
 		contador = 0;
 		miSol.colocarSol();
 	}
-	//ANDA PERO ESTA FEO
+	
 	public void run() {
 
 		while(gameStart) {
@@ -59,11 +59,15 @@ public class SolGenerator implements Runnable {
 		return velocidadDeAparicion;
 	}
 	public void aumentarVelocidadDeAparicion() {
-		velocidadDeAparicion = velocidadDeAparicion-5;
+		velocidadDeAparicion = 10;
 	}
 	
 	public void normalizar() {
 		velocidadDeAparicion = velocidadDeAparicion+5;
+	}
+	
+	public void detener() {
+		gameStart = false;
 	}
 
 	

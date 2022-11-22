@@ -224,17 +224,16 @@ public final class mainGUI extends JFrame implements Runnable {
 		inGamePanel.add(lblCantSoles);
 		lblCantSoles.setText("0");
 
-		JButton btnPruebaAumentarSol = new JButton("");
-		btnPruebaAumentarSol.setToolTipText("PARTY MODE: Dale alegria a tu juego!");
-		btnPruebaAumentarSol.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				miLogica.aumentarSoles();
-				lblCantSoles.setText("  " + miLogica.getSoles());
-				changeMusic(seleccionModo);
-			}
-		});
-		btnPruebaAumentarSol.setBounds(1097, 68, 50, 48);
-		inGamePanel.add(btnPruebaAumentarSol);
+//		JButton btnPruebaAumentarSol = new JButton("");
+//		btnPruebaAumentarSol.setToolTipText("PARTY MODE: Dale alegria a tu juego!");
+//		btnPruebaAumentarSol.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				miLogica.aumentarSoles();
+//				lblCantSoles.setText("  " + miLogica.getSoles());
+//			}
+//		});
+//		btnPruebaAumentarSol.setBounds(1097, 68, 50, 48);
+//		inGamePanel.add(btnPruebaAumentarSol);
 
 		JLabel lblPlantsHolder = new JLabel("");
 		lblPlantsHolder.setBounds(10, 11, 900, 105);
@@ -276,14 +275,14 @@ public final class mainGUI extends JFrame implements Runnable {
 				int eleccion;
 				do {
 					eleccion = JOptionPane.showOptionDialog(menuPanel,"", "Informate antes de seguir!"
-							,JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.INFORMATION_MESSAGE,Manual,new Object[] { "ENTENDIDO!","PLANTAS","ZOMBIES"},"opcion1"); 
+							,JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.PLAIN_MESSAGE,Manual,new Object[] { "ENTENDIDO!","PLANTAS","ZOMBIES"},"opcion1"); 
 					if(eleccion == 1) {
 						JOptionPane.showOptionDialog(menuPanel,"", "Plantas"
-								,JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.INFORMATION_MESSAGE,Plantas,new Object[] { "ENTENDIDO!"},"opcion1"); 
+								,JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.PLAIN_MESSAGE,Plantas,new Object[] { "ENTENDIDO!"},"opcion1"); 
 						}
 					else if(eleccion == 2) {
 						JOptionPane.showOptionDialog(menuPanel,"", "Zombies"
-								,JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.INFORMATION_MESSAGE,Zombies,new Object[] { "ENTENDIDO!"},"opcion1"); 
+								,JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.PLAIN_MESSAGE,Zombies,new Object[] { "ENTENDIDO!"},"opcion1"); 
 					}
 				}while(eleccion != 0 && eleccion != JOptionPane.CLOSED_OPTION);
 			}
@@ -369,18 +368,6 @@ public final class mainGUI extends JFrame implements Runnable {
 			ap= new AudioPlayer("Audio/DayMusic.mp3");
 		} else {
 			ap=new AudioPlayer("Audio/NightMusic.mp3");
-		}
-		hiloMusica= new Thread(ap);
-		hiloMusica.start();
-	}
-	
-	private void changeMusic(int modo) {
-		audioOff();
-		btnAudio.setIcon(new ImageIcon(this.getClass().getResource("/Images/btnAudioOn.png")));
-		if (modo==0) {
-			ap= new AudioPlayer("Audio/PapuMusic.mp3");
-		} else {
-			ap=new AudioPlayer("Audio/Jeites - Voce.mp3");
 		}
 		hiloMusica= new Thread(ap);
 		hiloMusica.start();
@@ -473,7 +460,7 @@ public final class mainGUI extends JFrame implements Runnable {
 		gameStart = false;
 		ImageIcon gameOver = new ImageIcon(this.getClass().getResource("/Images/gameOver.png"));
 		int seleccionPerdiste = JOptionPane.showOptionDialog(menuPanel,"", "Ups, Perdiste"
-				,JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.INFORMATION_MESSAGE,gameOver,new Object[] { "MENU", "SALIR"},"opcion1"); 
+				,JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.PLAIN_MESSAGE,gameOver,new Object[] { "MENU", "SALIR"},"opcion1"); 
 		if(seleccionPerdiste == JOptionPane.CLOSED_OPTION || seleccionPerdiste == 1) {
 			System.exit(0);
 		}
@@ -486,6 +473,7 @@ public final class mainGUI extends JFrame implements Runnable {
 	private void iniciarNuevoJuego() {
 		newMapPanel();
 		matrizGrafica = new Celda[cantFilas][cantColumnas];
+		miLogica = null;
 		miLogica = Logica.getInstancia(seleccionNivel, seleccionModo);
 		menuPanel.setVisible(false);
 		inGamePanel.setVisible(true);
@@ -499,7 +487,6 @@ public final class mainGUI extends JFrame implements Runnable {
 		else
 			lblImageMap.setIcon(dayMap);
 		pintarMatriz();
-		mapPanel.repaint();
 	}
 	
 	public void nuevoNivel() {
