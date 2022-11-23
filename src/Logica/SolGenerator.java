@@ -8,20 +8,21 @@ public class SolGenerator implements Runnable {
 	protected boolean gameStart;
 	protected int velocidadDeRefresco;
 	protected int velocidadDeAparicion;
-
+	private boolean girasol;
 	protected Sol miSol;
 	protected mainGUI miG;
 	protected Logica miL;
 	protected int contador;
 	protected boolean parar;
 	
-	public SolGenerator(Logica l) {
+	public SolGenerator() {
 
 		miG = mainGUI.getInstancia();
-		miL = l;
-		miSol = new Sol(miG);
+		miL = Logica.getInstancia(0);
+		miSol = new Sol();
 		hiloSol = new Thread (this);
 		hiloSol.start();
+		girasol = false;
 		velocidadDeRefresco = 200;
 		velocidadDeAparicion = 20;
 		gameStart = true;
@@ -35,6 +36,8 @@ public class SolGenerator implements Runnable {
 				if(miSol.getToco()) {
 					parar = miSol.getToco();
 					miSol.removerSol();
+					if(girasol)
+						miL.aumentarSoles();
 					miL.aumentarSoles();
 				}
 				miSol.setToco(false);
@@ -42,7 +45,7 @@ public class SolGenerator implements Runnable {
 					contador++;
 				
 				if(contador == velocidadDeAparicion && parar) {
-					miSol = new Sol(miG);
+					miSol = new Sol();
 					miSol.colocarSol();
 					contador = 0;
 					miSol.setToco(false);
@@ -58,16 +61,17 @@ public class SolGenerator implements Runnable {
 		return velocidadDeAparicion;
 	}
 	public void aumentarVelocidadDeAparicion() {
-		velocidadDeAparicion = 10;
+		girasol = true;
 	}
 	
 	public void normalizar() {
-		velocidadDeAparicion = velocidadDeAparicion+5;
+		girasol = false;
 	}
 	
 	public void detener() {
 		gameStart = false;
 	}
+	
 
 	
 	

@@ -40,7 +40,6 @@ public final class mainGUI extends JFrame implements Runnable {
 	protected JLabel lblCantSoles;
 	protected JLabel lblSol;
 	protected JLabel lblImageMap;
-	protected JLabel lblZombiesMuertos;
 	protected ImageIcon nightMap,dayMap;
 	public Thread hiloJuego;
 	private AudioPlayer ap;
@@ -229,16 +228,6 @@ public final class mainGUI extends JFrame implements Runnable {
 		lblPlantsHolder.setBounds(10, 11, 900, 105);
 		inGamePanel.add(lblPlantsHolder);
 		lblPlantsHolder.setIcon(new ImageIcon(this.getClass().getResource("/Images/PlantHandler.png")));
-		
-		JLabel lblNewLabel = new JLabel("ZOMBIES MUERTOS: ");
-		lblNewLabel.setBounds(920, 11, 130, 34);
-		inGamePanel.add(lblNewLabel);
-		
-		lblZombiesMuertos = new JLabel("0");
-		lblZombiesMuertos.setHorizontalAlignment(SwingConstants.CENTER);
-		lblZombiesMuertos.setFont(new Font("Tahoma", Font.PLAIN, 65));
-		lblZombiesMuertos.setBounds(920, 40, 103, 80);
-		inGamePanel.add(lblZombiesMuertos);
 
 
 		//BOTONES DE MENU
@@ -458,10 +447,6 @@ public final class mainGUI extends JFrame implements Runnable {
 		removerLabel(lblNuevaHorda);
 	}
 	
-	public void zombieMuerto(int c) {
-		lblZombiesMuertos.setText("" + c);
-	}
-
 	public void gameOver() {
 		gameStart = false;
 		ImageIcon gameOver = new ImageIcon(this.getClass().getResource("/Images/gameOver.png"));
@@ -481,6 +466,7 @@ public final class mainGUI extends JFrame implements Runnable {
 		matrizGrafica = new Celda[cantFilas][cantColumnas];
 		miLogica = null;
 		miLogica = Logica.getInstancia(seleccionModo);
+		miLogica.inicializarHilos();
 		menuPanel.setVisible(false);
 		inGamePanel.setVisible(true);
 		lblCantSoles.setText("" + miLogica.getSoles());

@@ -24,7 +24,7 @@ public final class Logica {
 	private String grass;
 	private String grassVariante;
 	private String obstaculo;
-	private final int limiteZombies = 1;
+	private final int limiteZombies = 10;
 	protected AbstractFactory miFactoria;
 	protected Fila[] misFilas;
 	protected Planta entidadSeleccionada;
@@ -56,7 +56,6 @@ public final class Logica {
 		if(modo == 0) {
 			miFactoria = new FactoryDay();
 			this.setDayState();
-			misSoles = new SolGenerator(this);
 			obstaculo = "PastoDiaObs.png";
 		}
 		else {
@@ -66,16 +65,20 @@ public final class Logica {
 			soles = 475;
 			obstaculo = "nightGrassObs.png";
 		}
-		miGeneradorZombie = new TimerZombie(modo,this);
-		miControladorDeDisparo = new TimerShoot(modo,this);
+
 		cargarMapa();
+	}
+	
+	public void inicializarHilos() {
+		misSoles = new SolGenerator();
+		miGeneradorZombie = new TimerZombie();
+		miControladorDeDisparo = new TimerShoot();
 	}
 	
 	public static Logica getInstancia(int modo) {
 		if(miLogica == null) {
 			miLogica = new Logica(modo);
 		}
-
 		return miLogica;
 	}
 	public void setDayState() {
@@ -125,7 +128,7 @@ public final class Logica {
 	}
 
 	public void aumentarSoles() {
-		this.soles=soles+50;
+		this.soles=soles+25;
 	}
 	
 	public void disminuirSoles(int d) {
@@ -309,7 +312,6 @@ public final class Logica {
 						z.getMiEntidadGrafica().getMiLabel().repaint();
 						misFilas[i].getMisZombies().remove(z);
 						checkNivel(zombiesMuertos++);
-						miGUI.zombieMuerto(zombiesMuertos);
 						break;
 					}
 				}
@@ -326,7 +328,7 @@ public final class Logica {
 			if(misSoles != null){
 				misSoles.detener();
 				misSoles = null;
-				misSoles = new SolGenerator(this);
+				misSoles = new SolGenerator();
 				soles = 0;
 			}
 			for(int i=0; i<6; i++) {

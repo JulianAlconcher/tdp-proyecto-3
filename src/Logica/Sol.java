@@ -2,15 +2,9 @@ package Logica;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.File;
-import java.io.IOException;
 import java.util.concurrent.ThreadLocalRandom;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
@@ -23,8 +17,8 @@ public class Sol {
 	protected boolean toco;
 	protected Clip clip;
 	
-	public Sol(mainGUI g) {
-		miGUI = g;
+	public Sol() {
+		miGUI = mainGUI.getInstancia();
 		miLabel = new JLabel();
 		im = new ImageIcon(this.getClass().getResource("/Images/sun.png"));
 		miLabel.setIcon(im);
