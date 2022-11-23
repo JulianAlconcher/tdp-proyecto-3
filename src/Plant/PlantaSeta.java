@@ -10,8 +10,10 @@ public class PlantaSeta extends Planta{
 	public PlantaSeta(int x,int y) {
 		super(x,y);
 		imgPath = "seta.gif";
-		costo = 0;
+		costo = 25;
+		vida = 50;
 		disparadora = true;
+		alcance = 300;
 		miRectangulo = new Rectangle(x,y,20,100);
 		miEntidadGrafica = new EntidadGrafica(imgPath);
 	}

@@ -12,16 +12,12 @@ public abstract class Proyectil extends Entidad implements VisitorProyectil{
 	public Proyectil(int x, int y) {
 		super(x, y);
 		miRectangulo = new Rectangle(x,y,30,100);
-		danio = 25;
+		danio = 10;
 	}
 
-	protected int cantidadDanio = 2;
-	int aumento = miX;
-	
 	public void moverProyectil() {
 		miX+=15;
 		this.miRectangulo.setBounds(miX, miY, 30, 100);
-
 		miGUI.moverProyectil(miEntidadGrafica.getMiLabel(), miX, miY);
 	}
 	

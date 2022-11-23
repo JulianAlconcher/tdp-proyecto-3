@@ -13,7 +13,7 @@ public class PlantaGirasol extends Planta{
 		costo = 50;
 		imgPath = "Girasol.gif";
 		miEntidadGrafica = new EntidadGrafica(imgPath);
-		miL = Logica.getInstancia(0,0);
+		miL = Logica.getInstancia(0);
 		miL.aumentarVelocidadDeAparicion();
 
 	}

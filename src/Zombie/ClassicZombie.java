@@ -16,7 +16,7 @@ public class ClassicZombie extends Entidad implements VisitorZombie{
 		miEntidadGrafica = new EntidadGrafica(imgPath);
 		state= new WalkState(this);
 		this.vida = 75;
-		this.velocidad = 2;
+		this.velocidad = 3;
 	}
 
 	public void mover() {
@@ -34,7 +34,7 @@ public class ClassicZombie extends Entidad implements VisitorZombie{
 	}
 	
 	public void recibirDanio(int d) {
-		this.vida -= 25;
+		this.vida -= d;
 	}
 
 	public void setVida(int vida) {

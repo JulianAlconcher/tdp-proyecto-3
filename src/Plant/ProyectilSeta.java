@@ -9,6 +9,7 @@ public class ProyectilSeta extends Proyectil{
 		super(x, y);
 		imgPath = "ProyectilSeta.gif";
 		miEntidadGrafica = new EntidadGrafica(imgPath);
+		danio = 10;
 	}
 
 	@Override

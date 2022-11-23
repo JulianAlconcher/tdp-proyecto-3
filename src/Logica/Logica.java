@@ -23,8 +23,8 @@ public final class Logica {
 	private int soles;
 	private String grass;
 	private String grassVariante;
-	private final String obstaculo = "sand.png";
-	private final int limiteZombies = 20;
+	private String obstaculo;
+	private final int limiteZombies = 1;
 	protected AbstractFactory miFactoria;
 	protected Fila[] misFilas;
 	protected Planta entidadSeleccionada;
@@ -37,9 +37,9 @@ public final class Logica {
 	private Celda tablero[][];
 	private int zombiesMuertos;
 
-	private Logica(int n,int modo) {
+	private Logica(int modo) {
 		miGUI = mainGUI.getInstancia();
-		nivelActual = getNivel(n);
+		nivelActual = getNivel(0);
 	    state= new DayState(this);
 	    grass= "PastoDia.png";
 	    grassVariante = "PastoDiaOsc.png";
@@ -57,22 +57,23 @@ public final class Logica {
 			miFactoria = new FactoryDay();
 			this.setDayState();
 			misSoles = new SolGenerator(this);
+			obstaculo = "PastoDiaObs.png";
 		}
 		else {
 			miFactoria = new FactoryNight();
 			this.setNightState();
 			misSoles = null;
 			soles = 475;
+			obstaculo = "nightGrassObs.png";
 		}
-		miGeneradorZombie = new TimerZombie(n,modo,this);
-		miControladorDeDisparo = new TimerShoot(n,modo,this);
+		miGeneradorZombie = new TimerZombie(modo,this);
+		miControladorDeDisparo = new TimerShoot(modo,this);
 		cargarMapa();
 	}
 	
-	public static Logica getInstancia(int n, int modo) {
+	public static Logica getInstancia(int modo) {
 		if(miLogica == null) {
-			miLogica = new Logica(n,modo);
-			System.out.println("Nivel es:: " + n);
+			miLogica = new Logica(modo);
 		}
 
 		return miLogica;
@@ -321,13 +322,18 @@ public final class Logica {
 			nivelActual = getNivel(1);
 			cargarMapa();
 			miGUI.nuevoNivel();
+
 			if(misSoles != null){
+				misSoles.detener();
 				misSoles = null;
 				misSoles = new SolGenerator(this);
+				soles = 0;
 			}
 			for(int i=0; i<6; i++) {
 				while(!misFilas[i].getMisPlantas().isEmpty())
 					misFilas[i].getMisPlantas().remove();
+				while(!misFilas[i].getMisZombies().isEmpty())
+					misFilas[i].getMisZombies().remove();
 			}
 		}
 	}

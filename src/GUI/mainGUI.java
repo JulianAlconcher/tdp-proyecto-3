@@ -45,7 +45,7 @@ public final class mainGUI extends JFrame implements Runnable {
 	public Thread hiloJuego;
 	private AudioPlayer ap;
 	private Thread hiloMusica;
-	protected int velocidad = 100;
+	protected int velocidad = 120;
 	protected boolean gameStart = false;
 	protected JButton btnPlanta1;
 	protected JButton btnPlanta2;
@@ -56,7 +56,7 @@ public final class mainGUI extends JFrame implements Runnable {
 	protected JButton btnPlanta7;
 	protected JButton btnPlanta8;
 	protected JToggleButton btnAudio;
-	protected int seleccionNivel,seleccionModo;
+	protected int seleccionModo;
 	protected int opcion = 0;
 	protected JLabel lblNuevaHorda;
 	protected JLabel lblNuevoNivel;
@@ -251,12 +251,9 @@ public final class mainGUI extends JFrame implements Runnable {
 		btnJugar.setOpaque(false);
 		btnJugar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
-				seleccionNivel = JOptionPane.showOptionDialog(menuPanel,"Seleccione el nivel de dificultad", ""
-						,JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.PLAIN_MESSAGE,null,new Object[] { "NIVEL 1", "NIVEL 2"},"opcion1"); 
 				seleccionModo = JOptionPane.showOptionDialog(menuPanel,"Seleccione el modo de juego", ""
 						,JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.PLAIN_MESSAGE,null,new Object[] { "MODO DIA", "MODO NOCHE"},"opcion1"); 
-				if(seleccionNivel != JOptionPane.CLOSED_OPTION && seleccionModo != JOptionPane.CLOSED_OPTION) {
+				if(seleccionModo != JOptionPane.CLOSED_OPTION) {
 					iniciarNuevoJuego();	
 				}
 
@@ -315,7 +312,6 @@ public final class mainGUI extends JFrame implements Runnable {
 		mapPanel.setOpaque(false);
 		inGamePanel.add(mapPanel);
 		mapPanel.setLayout(null);
-		inGamePanel.setComponentZOrder(mapPanel, 0);
 		
 	}
 
@@ -324,8 +320,8 @@ public final class mainGUI extends JFrame implements Runnable {
 		menuPanel.setVisible(true);
 		inGamePanel.setVisible(false);
 		gameStart = false;
-
-
+		mapPanel = null;
+		matrizGrafica = null;
 	}
 
 	private void pintarMatriz() {
@@ -407,6 +403,13 @@ public final class mainGUI extends JFrame implements Runnable {
 			btnPlanta8.setEnabled(false);
 			btnPlanta7.setEnabled(false);
 		}
+		if(miLogica.getSoles()>=25) {
+			if(miLogica.printGameState() == "NOCHE")
+				btnPlanta7.setEnabled(true);
+		}
+		else {
+			btnPlanta7.setEnabled(false);
+		}
 		if(miLogica.getSoles()>=50) {
 			btnPlanta2.setEnabled(true);
 			btnPlanta3.setEnabled(true);
@@ -477,7 +480,7 @@ public final class mainGUI extends JFrame implements Runnable {
 		newMapPanel();
 		matrizGrafica = new Celda[cantFilas][cantColumnas];
 		miLogica = null;
-		miLogica = Logica.getInstancia(seleccionNivel, seleccionModo);
+		miLogica = Logica.getInstancia(seleccionModo);
 		menuPanel.setVisible(false);
 		inGamePanel.setVisible(true);
 		lblCantSoles.setText("" + miLogica.getSoles());
@@ -496,15 +499,13 @@ public final class mainGUI extends JFrame implements Runnable {
 		ImageIcon imgNuevoNivel = new ImageIcon(this.getClass().getResource("/Images/CambioNivel.png"));
 		int seleccion;
 		seleccion = JOptionPane.showOptionDialog(menuPanel,"", "FELICITACIONES!"
-				,JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.PLAIN_MESSAGE,imgNuevoNivel,new Object[] { "SIGUIENTE NIVEL", "SALIR"},"opcion1"); 
+				,JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.PLAIN_MESSAGE,imgNuevoNivel,new Object[] { "SIGUIENTE NIVEL"},"opcion1"); 
 		if(seleccion == 0) {
 			mapPanel = null;
 			matrizGrafica = new Celda[cantFilas][cantColumnas];
 			newMapPanel();
+			inGamePanel.setComponentZOrder(mapPanel, 1);
 			pintarMatriz();
-		}
-		else {
-			backToMenu();
 		}
 	}
 

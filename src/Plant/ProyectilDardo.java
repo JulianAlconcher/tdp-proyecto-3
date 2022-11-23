@@ -8,7 +8,7 @@ public class ProyectilDardo extends Proyectil{
 	public ProyectilDardo(int x, int y) {
 		super(x, y);
 		imgPath = "stick.gif";
-		danio = 25;
+		danio = 5;
 		miEntidadGrafica = new EntidadGrafica(imgPath);
 	}
 

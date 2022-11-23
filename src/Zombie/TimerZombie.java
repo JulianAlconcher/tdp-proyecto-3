@@ -12,7 +12,7 @@ public class TimerZombie implements Runnable {
 	protected int velocidadDeAparicion;
 	protected final int limiteHordaZombie = 12;
 	
-	public TimerZombie(int n,int modo,Logica l) {
+	public TimerZombie(int modo,Logica l) {
 		miG = mainGUI.getInstancia();
 		miLogica = l;
 		hiloZombie = new Thread (this);
