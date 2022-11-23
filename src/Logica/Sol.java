@@ -52,6 +52,7 @@ public class Sol {
 		ThreadLocalRandom tlr = ThreadLocalRandom.current();
 		int randomFila = tlr.nextInt(min_val_fila, max_val_fila+1);
 		int randomCol = tlr.nextInt(min_val_col, max_val_col);
+		
 		miGUI.ubicar(miLabel,randomCol,randomFila);
 	}
 	

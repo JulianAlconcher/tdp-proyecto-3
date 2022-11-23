@@ -40,6 +40,7 @@ public final class mainGUI extends JFrame implements Runnable {
 	protected JLabel lblCantSoles;
 	protected JLabel lblSol;
 	protected JLabel lblImageMap;
+	protected JLabel lblZombiesMuertos;
 	protected ImageIcon nightMap,dayMap;
 	public Thread hiloJuego;
 	private AudioPlayer ap;
@@ -78,7 +79,7 @@ public final class mainGUI extends JFrame implements Runnable {
 		contentPane.setLayout(new CardLayout(0, 0));
 		Image imagenPrincipal = Toolkit.getDefaultToolkit().getImage(mainGUI.class.getResource("/Images/logoImage.png"));
 		setIconImage(imagenPrincipal);
-		setTitle("Plants vs Zombies: Beta Version");
+		setTitle("Plants vs Zombies 1.0v");
 
 
 		menuPanel = new JPanel();
@@ -224,21 +225,20 @@ public final class mainGUI extends JFrame implements Runnable {
 		inGamePanel.add(lblCantSoles);
 		lblCantSoles.setText("0");
 
-//		JButton btnPruebaAumentarSol = new JButton("");
-//		btnPruebaAumentarSol.setToolTipText("PARTY MODE: Dale alegria a tu juego!");
-//		btnPruebaAumentarSol.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				miLogica.aumentarSoles();
-//				lblCantSoles.setText("  " + miLogica.getSoles());
-//			}
-//		});
-//		btnPruebaAumentarSol.setBounds(1097, 68, 50, 48);
-//		inGamePanel.add(btnPruebaAumentarSol);
-
 		JLabel lblPlantsHolder = new JLabel("");
 		lblPlantsHolder.setBounds(10, 11, 900, 105);
 		inGamePanel.add(lblPlantsHolder);
 		lblPlantsHolder.setIcon(new ImageIcon(this.getClass().getResource("/Images/PlantHandler.png")));
+		
+		JLabel lblNewLabel = new JLabel("ZOMBIES MUERTOS: ");
+		lblNewLabel.setBounds(920, 11, 130, 34);
+		inGamePanel.add(lblNewLabel);
+		
+		lblZombiesMuertos = new JLabel("0");
+		lblZombiesMuertos.setHorizontalAlignment(SwingConstants.CENTER);
+		lblZombiesMuertos.setFont(new Font("Tahoma", Font.PLAIN, 65));
+		lblZombiesMuertos.setBounds(920, 40, 103, 80);
+		inGamePanel.add(lblZombiesMuertos);
 
 
 		//BOTONES DE MENU
@@ -315,6 +315,8 @@ public final class mainGUI extends JFrame implements Runnable {
 		mapPanel.setOpaque(false);
 		inGamePanel.add(mapPanel);
 		mapPanel.setLayout(null);
+		inGamePanel.setComponentZOrder(mapPanel, 0);
+		
 	}
 
 	public void backToMenu() {
@@ -338,7 +340,6 @@ public final class mainGUI extends JFrame implements Runnable {
 			}
 		}
 	}
-
 	private void onMouseClicked(MouseEvent e) {
 		for(int i=0;i<cantFilas;i++) {
 			for(int j=0;j<cantColumnas;j++) {
@@ -352,7 +353,6 @@ public final class mainGUI extends JFrame implements Runnable {
 			}
 		}
 	}
-
 
 	public void AudioPulsado() {
 		if (this.btnAudio.isSelected()) {
@@ -387,7 +387,6 @@ public final class mainGUI extends JFrame implements Runnable {
 		mapPanel.add(miLabel);
 		mapPanel.setComponentZOrder(miLabel, 0);
 		miLabel.setBounds(x*100, y*100, 100, 100);
-		System.out.println("Ubique JLabel en x:: "  + x*100 + " y:: " + y*100 + " URL:: " + miLabel.getIcon());
 	}
 
 	public void moverZombie(JLabel z,int x, int y) {
@@ -455,6 +454,10 @@ public final class mainGUI extends JFrame implements Runnable {
 	public void eliminarHorda() {
 		removerLabel(lblNuevaHorda);
 	}
+	
+	public void zombieMuerto(int c) {
+		lblZombiesMuertos.setText("" + c);
+	}
 
 	public void gameOver() {
 		gameStart = false;
@@ -491,13 +494,18 @@ public final class mainGUI extends JFrame implements Runnable {
 	
 	public void nuevoNivel() {
 		ImageIcon imgNuevoNivel = new ImageIcon(this.getClass().getResource("/Images/CambioNivel.png"));
-		lblNuevoNivel = new JLabel();
-		lblNuevoNivel.setIcon(imgNuevoNivel);
-		
-		mapPanel.add(lblNuevoNivel);
-		mapPanel.setComponentZOrder(lblNuevoNivel, 0);
-		lblNuevoNivel.setBounds(75, 200, 742, 130);
-		gameStart = false;
+		int seleccion;
+		seleccion = JOptionPane.showOptionDialog(menuPanel,"", "FELICITACIONES!"
+				,JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.PLAIN_MESSAGE,imgNuevoNivel,new Object[] { "SIGUIENTE NIVEL", "SALIR"},"opcion1"); 
+		if(seleccion == 0) {
+			mapPanel = null;
+			matrizGrafica = new Celda[cantFilas][cantColumnas];
+			newMapPanel();
+			pintarMatriz();
+		}
+		else {
+			backToMenu();
+		}
 	}
 
 	@Override
@@ -518,6 +526,4 @@ public final class mainGUI extends JFrame implements Runnable {
 		miLogica.controlDeColisones();
 		lblCantSoles.setText(""+miLogica.getSoles());
 	}
-
-
 }

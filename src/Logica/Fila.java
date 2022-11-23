@@ -23,7 +23,6 @@ public class Fila {
 	}
 	
 	public void insertarProyectil(Proyectil p) {
-		System.out.println("Inserte proyectil en la lista");
 		misProyectiles.add(p);
 	}
 	
@@ -40,7 +39,6 @@ public class Fila {
 	}
 	
 	public void eliminarProyectil(Proyectil p) {
-		System.out.println("elimine");
 		misProyectiles.remove(p);
 		
 	}

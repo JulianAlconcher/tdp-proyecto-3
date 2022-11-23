@@ -11,7 +11,6 @@ public class TimerZombie implements Runnable {
 	protected int contadorZombie;
 	protected int velocidadDeAparicion;
 	protected final int limiteHordaZombie = 12;
-	protected final int maxZombie = 20;
 	
 	public TimerZombie(int n,int modo,Logica l) {
 		miG = mainGUI.getInstancia();
@@ -34,8 +33,6 @@ public class TimerZombie implements Runnable {
 			if(contadorZombie > limiteHordaZombie)
 				eliminarLblHorda();
 			
-			if(contadorZombie == maxZombie)//--> Cuando llega a maxZombie zombies pasa de nivel
-				miLogica.nuevoNivel();
 		try {
 			Thread.sleep(velocidadDeAparicion);
 		} catch (InterruptedException e) {e.printStackTrace();}	

@@ -23,8 +23,8 @@ public final class Logica {
 	private int soles;
 	private String grass;
 	private String grassVariante;
-
 	private final String obstaculo = "sand.png";
+	private final int limiteZombies = 20;
 	protected AbstractFactory miFactoria;
 	protected Fila[] misFilas;
 	protected Planta entidadSeleccionada;
@@ -35,6 +35,7 @@ public final class Logica {
 	private String nivelActual;
 	private int mapaCeldasNumeros[][];
 	private Celda tablero[][];
+	private int zombiesMuertos;
 
 	private Logica(int n,int modo) {
 		miGUI = mainGUI.getInstancia();
@@ -44,6 +45,7 @@ public final class Logica {
 	    grassVariante = "PastoDiaOsc.png";
 		filas = 6;
 		columnas = 9;
+		zombiesMuertos = 0;
 		mapaCeldasNumeros = new int[filas][columnas];
 		tablero = new Celda [filas][columnas];
 		misFilas = new Fila[6];
@@ -54,7 +56,7 @@ public final class Logica {
 		if(modo == 0) {
 			miFactoria = new FactoryDay();
 			this.setDayState();
-			misSoles = new SolGenerator(n,modo,this);
+			misSoles = new SolGenerator(this);
 		}
 		else {
 			miFactoria = new FactoryNight();
@@ -70,28 +72,13 @@ public final class Logica {
 	public static Logica getInstancia(int n, int modo) {
 		if(miLogica == null) {
 			miLogica = new Logica(n,modo);
+			System.out.println("Nivel es:: " + n);
 		}
 
 		return miLogica;
 	}
 	public void setDayState() {
 		state.cambioDia();
-	}
-	
-	public void resetLogica() {
-		if(misSoles !=null) {
-			misSoles.detener();
-			misSoles = null;
-		}
-		if(miGeneradorZombie != null) {
-			miGeneradorZombie.detener();
-			miGeneradorZombie = null;
-		}
-		if(miControladorDeDisparo != null) {
-			miControladorDeDisparo.detener();
-			miControladorDeDisparo = null;
-		}
-		mapaCeldasNumeros = null;
 	}
 	
 	public Celda getCelda(int i,int j) {
@@ -137,7 +124,7 @@ public final class Logica {
 	}
 
 	public void aumentarSoles() {
-		this.soles=soles+25;
+		this.soles=soles+50;
 	}
 	
 	public void disminuirSoles(int d) {
@@ -320,9 +307,27 @@ public final class Logica {
 						miGUI.removerLabel(z.getMiEntidadGrafica().getMiLabel());
 						z.getMiEntidadGrafica().getMiLabel().repaint();
 						misFilas[i].getMisZombies().remove(z);
+						checkNivel(zombiesMuertos++);
+						miGUI.zombieMuerto(zombiesMuertos);
 						break;
 					}
 				}
+			}
+		}
+	}
+	
+	public void checkNivel(int n) {
+		if(zombiesMuertos == limiteZombies) {
+			nivelActual = getNivel(1);
+			cargarMapa();
+			miGUI.nuevoNivel();
+			if(misSoles != null){
+				misSoles = null;
+				misSoles = new SolGenerator(this);
+			}
+			for(int i=0; i<6; i++) {
+				while(!misFilas[i].getMisPlantas().isEmpty())
+					misFilas[i].getMisPlantas().remove();
 			}
 		}
 	}
@@ -412,7 +417,7 @@ public final class Logica {
 								tablero[fila][columna] = new Celda(grass);
 							else
 								tablero[fila][columna] = new Celda(grassVariante);
-							tablero[fila][columna].setOcupada(false);
+								tablero[fila][columna].setOcupada(false);
 							break;
 	
 						case 1 : {
@@ -436,11 +441,7 @@ public final class Logica {
 
 	}
 	
-	public void nuevoNivel() {
-		nivelActual = "Nivel2.txt";
-		cargarMapa();
-		miGUI.nuevoNivel();
-	}
+	
 	
 	public void aumentarVelocidadDeAparicion() {
 		misSoles.aumentarVelocidadDeAparicion();

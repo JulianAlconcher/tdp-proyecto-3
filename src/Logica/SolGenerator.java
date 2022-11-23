@@ -15,7 +15,7 @@ public class SolGenerator implements Runnable {
 	protected int contador;
 	protected boolean parar;
 	
-	public SolGenerator(int n,int modo,Logica l) {
+	public SolGenerator(Logica l) {
 
 		miG = mainGUI.getInstancia();
 		miL = l;
@@ -32,7 +32,6 @@ public class SolGenerator implements Runnable {
 	public void run() {
 
 		while(gameStart) {
-			System.out.println("VELOCIDAD APARICION ES:: " + velocidadDeAparicion);
 				if(miSol.getToco()) {
 					parar = miSol.getToco();
 					miSol.removerSol();
