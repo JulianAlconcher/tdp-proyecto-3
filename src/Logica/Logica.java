@@ -24,7 +24,8 @@ public final class Logica {
 	private String grass;
 	private String grassVariante;
 	private String obstaculo;
-	private final int limiteZombies = 2;
+	private final int limiteZombiesPorNivel = 1;
+	private final int maxZombies = limiteZombiesPorNivel*2;
 	protected AbstractFactory miFactoria;
 	protected Fila[] misFilas;
 	protected Planta entidadSeleccionada;
@@ -62,7 +63,7 @@ public final class Logica {
 		else {
 			miFactoria = new FactoryNight();
 			this.setNightState();
-			soles = 475;
+			soles = 600;
 			obstaculo = "nightGrassObs.png";
 		}
 		cargarMapa();
@@ -302,8 +303,7 @@ public final class Logica {
 	}
 	
 	public void checkNivel() {
-		if(zombiesMuertos == limiteZombies) {
-			zombiesMuertos = 0;
+		if(zombiesMuertos == limiteZombiesPorNivel && zombiesMuertos != maxZombies) {
 			nivelActual = getNivel(1);
 			cargarMapa();
 			miGUI.nuevoNivel();
@@ -314,6 +314,9 @@ public final class Logica {
 				misSoles = new SolGenerator();
 				soles = 0;
 			}
+			else {
+				soles = 600;
+			}
 			for(int i=0; i<6; i++) {
 				while(!misFilas[i].getMisPlantas().isEmpty())
 					misFilas[i].getMisPlantas().remove();
@@ -321,12 +324,15 @@ public final class Logica {
 					misFilas[i].getMisZombies().remove();
 			}
 		}
+		else {
+				miGUI.ganar();
+		}
 	}
 	
 	public void aparecerSol() {
 		soles++;
 	}
-	
+
 	public void controlarPlantas() {
 		for(int i=0; i<6; i++) {
 			for(Planta p : misFilas[i].getMisPlantas()) {
@@ -340,13 +346,6 @@ public final class Logica {
 								misFilas[p.getMiY()/100].insertarProyectil((Proyectil) aux);
 								miGUI.ubicar(aux.getMiEntidadGrafica().getMiLabel(),p.getMiX()/100, p.getMiY()/100);
 							}
-						}
-						if(p.getVida()<=0) {
-							p.morir();
-							miGUI.removerLabel(p.getMiEntidadGrafica().getMiLabel());
-							p.getMiEntidadGrafica().getMiLabel().repaint();
-							misFilas[i].getMisPlantas().remove(p);
-							break;
 						}
 					}
 				}
@@ -362,12 +361,9 @@ public final class Logica {
 					if(p.getMiX()>=900) {
 						misFilas[i].eliminarProyectil(p);
 						break;
-					}else {
+					}else 
 						p.moverProyectil();
-					}
-					
 				}
-
 			}
 		}
 	}

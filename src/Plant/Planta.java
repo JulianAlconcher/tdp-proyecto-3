@@ -23,7 +23,11 @@ public abstract class Planta extends Entidad{
 	
 	public abstract Proyectil disparar();
 	
-	public abstract void morir();
+	public void morir() {
+		miGUI.removerLabel(miEntidadGrafica.getMiLabel());
+		miEntidadGrafica.getMiLabel().repaint();
+		miFila.getMisPlantas().remove(this);
+	}
 	
 	public void accept(VisitorZombie v) {
 		v.visit(this);	

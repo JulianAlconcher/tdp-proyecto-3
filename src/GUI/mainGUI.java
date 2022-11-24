@@ -56,6 +56,7 @@ public final class mainGUI extends JFrame implements Runnable {
 	protected BotonPlanta btnPlanta6;
 	protected BotonPlanta btnPlanta7;
 	protected BotonPlanta btnPlanta8;
+	protected JButton btnJugar;
 	protected LinkedList<BotonPlanta> listaBotones;
 	protected JToggleButton btnAudio;
 	protected int seleccionModo;
@@ -239,7 +240,7 @@ public final class mainGUI extends JFrame implements Runnable {
 
 
 		//BOTONES DE MENU
-		JButton btnJugar = new JButton("");
+		btnJugar = new JButton("");
 		btnJugar.setFont(new Font("Kozuka Gothic Pro R", Font.BOLD, 17));
 		btnJugar.setBounds(465, 574, 350, 125);
 		menuPanel.add(btnJugar);
@@ -267,15 +268,20 @@ public final class mainGUI extends JFrame implements Runnable {
 				ImageIcon Manual = new ImageIcon(this.getClass().getResource("/Images/Manual.png"));
 				ImageIcon Plantas = new ImageIcon(this.getClass().getResource("/Images/Plantas.png"));
 				ImageIcon Zombies = new ImageIcon(this.getClass().getResource("/Images/zombies.png"));
+				ImageIcon Info = new ImageIcon(this.getClass().getResource("/Images/informacion.png"));
 				int eleccion;
 				do {
 					eleccion = JOptionPane.showOptionDialog(menuPanel,"", "Informate antes de seguir!"
-							,JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.PLAIN_MESSAGE,Manual,new Object[] { "ENTENDIDO!","PLANTAS","ZOMBIES"},"opcion1"); 
+							,JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.PLAIN_MESSAGE,Manual,new Object[] { "ENTENDIDO!","INFORMACION IMPORTANTE","PLANTAS","ZOMBIES"},"opcion1"); 
 					if(eleccion == 1) {
-						JOptionPane.showOptionDialog(menuPanel,"", "Plantas"
-								,JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.PLAIN_MESSAGE,Plantas,new Object[] { "ENTENDIDO!"},"opcion1"); 
+						JOptionPane.showOptionDialog(menuPanel,"", "Informacion Importante"
+								,JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.PLAIN_MESSAGE,Info,new Object[] { "ENTENDIDO!"},"opcion1"); 
 						}
 					else if(eleccion == 2) {
+						JOptionPane.showOptionDialog(menuPanel,"", "Plantas"
+								,JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.PLAIN_MESSAGE,Plantas,new Object[] { "ENTENDIDO!"},"opcion1"); 
+					}
+					else if(eleccion == 3) {
 						JOptionPane.showOptionDialog(menuPanel,"", "Zombies"
 								,JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.PLAIN_MESSAGE,Zombies,new Object[] { "ENTENDIDO!"},"opcion1"); 
 					}
@@ -320,8 +326,7 @@ public final class mainGUI extends JFrame implements Runnable {
 		menuPanel.setVisible(true);
 		inGamePanel.setVisible(false);
 		gameStart = false;
-		mapPanel = null;
-		matrizGrafica = null;
+		btnJugar.setEnabled(false);
 	}
 
 	private void pintarMatriz() {
@@ -494,6 +499,14 @@ public final class mainGUI extends JFrame implements Runnable {
 			inGamePanel.setComponentZOrder(mapPanel, 1);
 			pintarMatriz();
 		}
+	}
+	
+	public void ganar() {
+		ImageIcon ganaste = new ImageIcon(this.getClass().getResource("/Images/ganaste.png"));
+		gameStart = false;
+		JOptionPane.showOptionDialog(menuPanel,"", "FELICITACIONES!"
+				,JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.PLAIN_MESSAGE,ganaste,new Object[] { "SALIR"},"opcion1"); 
+		System.exit(0);
 	}
 
 	@Override

@@ -19,15 +19,4 @@ public class PlantaNuez extends Planta{
 		return null;
 	}
 
-
-	@Override
-	public void morir() {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-
-
-
 }

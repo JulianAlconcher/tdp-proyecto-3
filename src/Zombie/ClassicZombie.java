@@ -55,6 +55,9 @@ public class ClassicZombie extends Entidad implements VisitorZombie{
 
 	@Override
 	public void visit(Planta p) {
+		if(p.getVida()<=0) {
+			p.morir();
+		}
 		p.recibirDanio();
 		state.cambioAtacar();
 		if(p.getVida()<=0) {

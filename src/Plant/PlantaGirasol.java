@@ -26,6 +26,7 @@ public class PlantaGirasol extends Planta{
 
 	@Override
 	public void morir() {
+		super.morir();
 		miL.normalizarVelocidadAparicion();
 		
 	}

@@ -19,14 +19,4 @@ public class PlantaLanzaguisantes extends Planta{
 		ProyectilClasico aux = new ProyectilClasico(miX,miY,miFila);
 		return aux;
 	}
-	@Override
-	public void morir() {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-
-
-
 }

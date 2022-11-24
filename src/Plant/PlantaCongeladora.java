@@ -18,15 +18,5 @@ public class PlantaCongeladora extends Planta{
 	public ProyectilCongelante disparar() {
 		return new ProyectilCongelante(miX,miY,miFila);
 	}
-
-	@Override
-	public void morir() {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-
-
 	
 }

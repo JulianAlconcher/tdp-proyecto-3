@@ -19,12 +19,4 @@ public class PlantaGordaSeta extends Planta {
 		return new ProyectilSeta(miX,miY,miFila);
 	}
 
-
-	@Override
-	public void morir() {
-		// TODO Auto-generated method stub
-		
-	}
-
-
 }

@@ -19,11 +19,4 @@ public class PlantaCactus extends Planta{
 	public ProyectilDardo disparar() {
 		return new ProyectilDardo(miX,miY,miFila);
 	}
-
-	@Override
-	public void morir() {
-		// TODO Auto-generated method stub
-		
-	}
-
 }
