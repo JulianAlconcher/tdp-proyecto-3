@@ -12,5 +12,7 @@ public class AngryZombie extends ClassicZombie{
 		vida = 100;
 		velocidad = 4;
 	}
+	
+
 
 }

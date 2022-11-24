@@ -49,6 +49,7 @@ public final class Logica {
 		mapaCeldasNumeros = new int[filas][columnas];
 		tablero = new Celda [filas][columnas];
 		misFilas = new Fila[6];
+		soles=10000;
 		for(int i=0; i<6; i++) {
 			misFilas[i] = new Fila();
 		}
@@ -248,6 +249,7 @@ public final class Logica {
 		return entidadSeleccionada;
 	}
 	
+	
 	public void checkCollition(int fila) {
 		if(!misFilas[fila].getMisZombies().isEmpty()) {
 			for(ClassicZombie z : misFilas[fila].getMisZombies()) {
@@ -290,24 +292,16 @@ public final class Logica {
 		for(int i=0; i<6; i++) {
 			for(ClassicZombie z : misFilas[i].getMisZombies()) {
 				if(!misFilas[i].getMisZombies().isEmpty()) {
-					z.mover();
+					z.getState().accionar();
 					if(z.getMiX()<-4) {
 						miGUI.gameOver();
-					}
-					//todo esto va en lo que desencadena el visitor
-					if(z.getVida()<=0) {
-						miGUI.removerLabel(z.getMiEntidadGrafica().getMiLabel());
-						z.getMiEntidadGrafica().getMiLabel().repaint();
-						misFilas[i].getMisZombies().remove(z);
-						checkNivel(zombiesMuertos++);
-						break;
 					}
 				}
 			}
 		}
 	}
 	
-	public void checkNivel(int n) {
+	public void checkNivel() {
 		if(zombiesMuertos == limiteZombies) {
 			zombiesMuertos = 0;
 			nivelActual = getNivel(1);
@@ -438,7 +432,9 @@ public final class Logica {
 
 	}
 	
-	
+	public  void zombieMuerto() {
+		zombiesMuertos++;
+	}
 	
 	public void aumentarVelocidadDeAparicion() {
 		misSoles.aumentarVelocidadDeAparicion();

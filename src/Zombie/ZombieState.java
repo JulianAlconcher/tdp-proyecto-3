@@ -10,6 +10,7 @@ public abstract class ZombieState {
 	
 	public abstract void cambioAtacar();
 	public abstract void cambioCaminar();
+	public abstract void accionar();
 	public abstract String printState();
 	
 }

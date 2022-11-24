@@ -4,6 +4,7 @@ import java.awt.Rectangle;
 
 import Logica.Entidad;
 import Logica.Fila;
+import Zombie.ClassicZombie;
 
 public abstract class Proyectil extends Entidad implements VisitorProyectil{
 	
@@ -30,6 +31,17 @@ public abstract class Proyectil extends Entidad implements VisitorProyectil{
 		miEntidadGrafica.getMiLabel().repaint();
 	}
 	
+	public void visit(ClassicZombie z) {
+		remover();
+		z.recibirDanio(danio);
+		if(z.getVida()<=0) {
+			miGUI.removerLabel(z.getMiEntidadGrafica().getMiLabel());
+			z.getMiEntidadGrafica().getMiLabel().repaint();
+			miFila.getMisZombies().remove(z);
+			miLogica.zombieMuerto();
+			miLogica.checkNivel();
+	}
+	}
 	
 
 }

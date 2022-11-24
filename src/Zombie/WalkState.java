@@ -9,7 +9,6 @@ public class WalkState extends ZombieState {
 	@Override
 	public void cambioAtacar() {
 		z.setState(new AttackState(z));
-		z.setVelocidad(0);
 		z.getMiEntidadGrafica().getMiLabel().repaint();
 		
 	}
@@ -22,6 +21,11 @@ public class WalkState extends ZombieState {
 	public String printState() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void accionar() {
+		z.mover();
 	}
 
 	

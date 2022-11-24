@@ -12,6 +12,7 @@ public abstract class Entidad{
 	protected int costo;
 	protected Rectangle miRectangulo;
 	protected mainGUI miGUI;
+	protected Logica miLogica;
 	protected EntidadGrafica miEntidadGrafica;
 	protected Fila miFila;
 
@@ -22,6 +23,7 @@ public abstract class Entidad{
 		miEntidadGrafica = null;
 		miFila = f;
 		miGUI = mainGUI.getInstancia();
+		miLogica= Logica.getInstancia(0);
 	}
 	
 	public int getCosto() {

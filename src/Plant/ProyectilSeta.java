@@ -13,12 +13,7 @@ public class ProyectilSeta extends Proyectil{
 		danio = 10;
 	}
 
-	@Override
-	public void visit(ClassicZombie z) {
-		remover();
-		z.recibirDanio(danio);
-		
-	}
+
 
 
 }

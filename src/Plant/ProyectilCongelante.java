@@ -14,8 +14,7 @@ public class ProyectilCongelante extends Proyectil{
 
 	@Override
 	public void visit(ClassicZombie z) {
-		remover();
-		z.recibirDanio(danio);
+		super.visit(z);
 		z.setVelocidad(1);
 	}
 

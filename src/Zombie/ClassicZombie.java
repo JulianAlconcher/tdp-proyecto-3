@@ -57,7 +57,6 @@ public class ClassicZombie extends Entidad implements VisitorZombie{
 	public void visit(Planta p) {
 		p.recibirDanio();
 		state.cambioAtacar();
-		
 		if(p.getVida()<=0) {
 			state.cambioCaminar();
 		}
@@ -67,6 +66,10 @@ public class ClassicZombie extends Entidad implements VisitorZombie{
 		v.visit(this);
 	}
 
+	public ZombieState getState() {
+		return state;
+	}
+	
 	public void setState(ZombieState s) {
 	   this.state=s;
 	}

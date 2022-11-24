@@ -13,11 +13,6 @@ public class ProyectilDardo extends Proyectil{
 		miEntidadGrafica = new EntidadGrafica(imgPath);
 	}
 
-	@Override
-	public void visit(ClassicZombie z) {
-		remover();
-		z.recibirDanio(danio);
-		
-	}
+
 
 }

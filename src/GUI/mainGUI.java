@@ -416,7 +416,6 @@ public final class mainGUI extends JFrame implements Runnable {
 		}
 		
 		if(seleccionModo == 1) {
-			System.out.println("GOLA");
 			listaBotones.add(btnPlanta7);
 			listaBotones.add(btnPlanta8);
 			btnPlanta7.setEnabled(true);

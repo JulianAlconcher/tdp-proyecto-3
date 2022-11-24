@@ -24,7 +24,8 @@ public class TimerZombie implements Runnable {
 	
 	public void run() {
 		while(gameStart) {
-			
+
+	
 			generarZombie();
 			
 			if(contadorZombie == limiteHordaZombie) { //--> Cuando llega a limiteHordaZombie zombies empieza la horda
