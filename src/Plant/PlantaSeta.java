@@ -3,11 +3,12 @@ package Plant;
 import java.awt.Rectangle;
 
 import Logica.EntidadGrafica;
+import Logica.Fila;
 
 public class PlantaSeta extends Planta{
 
-	public PlantaSeta(int x,int y) {
-		super(x,y);
+	public PlantaSeta(int x,int y,Fila f) {
+		super(x,y,f);
 		imgPath = "seta.gif";
 		costo = 25;
 		vida = 50;
@@ -18,7 +19,7 @@ public class PlantaSeta extends Planta{
 	}
 
 	public ProyectilSeta disparar() {
-		return new ProyectilSeta(miX,miY);
+		return new ProyectilSeta(miX,miY,miFila);
 	}
 
 	@Override

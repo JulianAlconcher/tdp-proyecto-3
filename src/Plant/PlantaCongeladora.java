@@ -1,12 +1,13 @@
 package Plant;
 
 import Logica.EntidadGrafica;
+import Logica.Fila;
 
 public class PlantaCongeladora extends Planta{
 
 
-	public PlantaCongeladora(int x, int y) {
-		super(x, y);
+	public PlantaCongeladora(int x, int y, Fila f) {
+		super(x, y, f);
 		costo = 175;
 		vida = 200;
 		imgPath = "plantaCongeladora.gif";
@@ -15,7 +16,7 @@ public class PlantaCongeladora extends Planta{
 	}
 
 	public ProyectilCongelante disparar() {
-		return new ProyectilCongelante(miX,miY);
+		return new ProyectilCongelante(miX,miY,miFila);
 	}
 
 	@Override

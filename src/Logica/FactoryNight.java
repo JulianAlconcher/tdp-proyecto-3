@@ -7,78 +7,78 @@ public class FactoryNight implements AbstractFactory {
 
 
 	@Override
-	public PlantaCongeladora crearPlantaCongeladora(int x, int y) {
-		return new PlantaCongeladora(x,y);
+	public PlantaCongeladora crearPlantaCongeladora(int x, int y,Fila f) {
+		return new PlantaCongeladora(x,y,f);
 	}
 
 	@Override
-	public PlantaGirasol crearPlantaGirasol(int x, int y) {
-		return new PlantaGirasol(x, y);
+	public PlantaGirasol crearPlantaGirasol(int x, int y,Fila f) {
+		return null;
 	}
 
 	@Override
-	public PlantaLanzaguisantes crearLanzaguisantes(int x, int y) {
-		return new PlantaLanzaguisantes(x,y);
+	public PlantaLanzaguisantes crearLanzaguisantes(int x, int y,Fila f) {
+		return new PlantaLanzaguisantes(x,y,f);
 	}
 
 	@Override
-	public PlantaMina crearPlantaMina(int x, int y) {
-		return new PlantaMina(x,y);
+	public PlantaMina crearPlantaMina(int x, int y,Fila f) {
+		return new PlantaMina(x,y,f);
 	}
 
 	@Override
-	public PlantaNuez crearPlantaNuez(int x, int y) {
-		return new PlantaNuez(x,y);
+	public PlantaNuez crearPlantaNuez(int x, int y,Fila f) {
+		return new PlantaNuez(x,y,f);
 	}
 
 	@Override
-	public PlantaNuezAlta crearPlantaNuezAlta(int x, int y) {
-		return new PlantaNuezAlta(x,y);
+	public PlantaNuezAlta crearPlantaNuezAlta(int x, int y,Fila f) {
+		return new PlantaNuezAlta(x,y,f);
 	}
 
 	@Override
-	public PlantaSeta crearPlantaSeta(int x, int y) {
-		return new PlantaSeta(x,y);
+	public PlantaSeta crearPlantaSeta(int x, int y,Fila f) {
+		return new PlantaSeta(x,y,f);
 	}
 
 	@Override
-	public AngryZombie crearAngryZombie(int x, int y) {
-		return new AngryZombie(x,y);
+	public AngryZombie crearAngryZombie(int x, int y,Fila f) {
+		return new AngryZombie(x,y,f);
 	}
 
 	@Override
-	public BucketZombie crearBucketZombie(int x, int y) {
-		return new BucketZombie(x,y);
+	public BucketZombie crearBucketZombie(int x, int y,Fila f) {
+		return new BucketZombie(x,y,f);
 	}
 
 	@Override
-	public ClassicZombie crearClassicZombie(int x, int y) {
-		return new ClassicZombie(x,y);
+	public ClassicZombie crearClassicZombie(int x, int y,Fila f) {
+		return new ClassicZombie(x,y,f);
 	}
 
 	@Override
-	public ConeZombie crearConeZombie(int x, int y) {
-		return new ConeZombie(x,y);
+	public ConeZombie crearConeZombie(int x, int y,Fila f) {
+		return new ConeZombie(x,y,f);
 	}
 
 	@Override
-	public NewsZombie crearNewsZombie(int x, int y) {
-		return new NewsZombie(x,y);
+	public NewsZombie crearNewsZombie(int x, int y,Fila f) {
+		return new NewsZombie(x,y,f);
 	}
 
 	@Override
-	public HolderZombie crearHolderZombie(int x, int y) {
-		return new HolderZombie(x,y);
+	public HolderZombie crearHolderZombie(int x, int y,Fila f) {
+		return new HolderZombie(x,y,f);
 	}
 
 	@Override
-	public PlantaGordaSeta crearPlantaGordaSeta(int x, int y) {
-		return new PlantaGordaSeta(x,y);
+	public PlantaGordaSeta crearPlantaGordaSeta(int x, int y,Fila f) {
+		return new PlantaGordaSeta(x,y,f);
 	}
 
 	@Override
-	public PlantaCactus crearPlantaCactus(int x, int y) {
-		return new PlantaCactus(x,y);
+	public PlantaCactus crearPlantaCactus(int x, int y,Fila f) {
+		return new PlantaCactus(x,y,f);
 	}
 
 

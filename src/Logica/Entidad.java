@@ -13,12 +13,14 @@ public abstract class Entidad{
 	protected Rectangle miRectangulo;
 	protected mainGUI miGUI;
 	protected EntidadGrafica miEntidadGrafica;
+	protected Fila miFila;
 
-	public Entidad(int x,int y) {
+	public Entidad(int x,int y,Fila f) {
 		miX = x;
 		miY = y;
 		miRectangulo = new Rectangle(miX,miY,100,100);
 		miEntidadGrafica = null;
+		miFila = f;
 		miGUI = mainGUI.getInstancia();
 	}
 	

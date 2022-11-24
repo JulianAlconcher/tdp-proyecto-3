@@ -1,12 +1,13 @@
 package Plant;
 
 import Logica.EntidadGrafica;
+import Logica.Fila;
 import Zombie.ClassicZombie;
 
 public class ProyectilSeta extends Proyectil{
 
-	public ProyectilSeta(int x, int y) {
-		super(x, y);
+	public ProyectilSeta(int x, int y,Fila f) {
+		super(x, y, f);
 		imgPath = "ProyectilSeta.gif";
 		miEntidadGrafica = new EntidadGrafica(imgPath);
 		danio = 10;
@@ -14,28 +15,10 @@ public class ProyectilSeta extends Proyectil{
 
 	@Override
 	public void visit(ClassicZombie z) {
+		remover();
 		z.recibirDanio(danio);
 		
 	}
-
-	@Override
-	public void accept(VisitorProyectil v) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void visit(ProyectilClasico proyectilClasico) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void visit(ProyectilCongelante proyectilCongelante) {
-		// TODO Auto-generated method stub
-		
-	}
-
 
 
 }

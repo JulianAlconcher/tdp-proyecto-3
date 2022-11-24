@@ -2,16 +2,18 @@ package Zombie;
 
 import Logica.Entidad;
 import Logica.EntidadGrafica;
+import Logica.Fila;
 import Plant.Planta;
 import Plant.PlantaMina;
+import Plant.VisitorProyectil;
 
 public class ClassicZombie extends Entidad implements VisitorZombie{
 	protected int vida;
 	protected int velocidad;
 	protected ZombieState state;
 
-	public ClassicZombie(int x,int y) {
-		super(x,y);
+	public ClassicZombie(int x,int y,Fila f) {
+		super(x,y, f);
 		imgPath = "Zombie_Normal.gif";
 		miEntidadGrafica = new EntidadGrafica(imgPath);
 		state= new WalkState(this);
@@ -34,6 +36,8 @@ public class ClassicZombie extends Entidad implements VisitorZombie{
 	}
 	
 	public void recibirDanio(int d) {
+		//aca pregunto si la vida es menor o igual a 0 y lo mato
+		
 		this.vida -= d;
 	}
 
@@ -53,24 +57,17 @@ public class ClassicZombie extends Entidad implements VisitorZombie{
 	public void visit(Planta p) {
 		p.recibirDanio();
 		state.cambioAtacar();
+		
 		if(p.getVida()<=0) {
 			state.cambioCaminar();
 		}
 	}
 	
-	@Override
-	public void accept(VisitorZombie v) {
-		// TODO Auto-generated method stub
-		
+	public void accept(VisitorProyectil v) {
+		v.visit(this);
 	}
 
 	public void setState(ZombieState s) {
 	   this.state=s;
 	}
-
-	@Override
-	public void visit(PlantaMina pm) {
-		
-	}
-
 }

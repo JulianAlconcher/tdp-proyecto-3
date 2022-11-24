@@ -1,13 +1,14 @@
 package Plant;
 
 import Logica.EntidadGrafica;
+import Logica.Fila;
 
 public class PlantaLanzaguisantes extends Planta{
 	
 	
 	
-	public PlantaLanzaguisantes(int x, int y) {
-		super(x,y);
+	public PlantaLanzaguisantes(int x, int y, Fila f) {
+		super(x,y,f);
 		imgPath = "plantaComun.gif";
 		costo = 100;
 		miEntidadGrafica = new EntidadGrafica(imgPath);
@@ -15,7 +16,7 @@ public class PlantaLanzaguisantes extends Planta{
 	}
 
 	public ProyectilClasico disparar() {
-		ProyectilClasico aux = new ProyectilClasico(miX,miY);
+		ProyectilClasico aux = new ProyectilClasico(miX,miY,miFila);
 		return aux;
 	}
 	@Override
