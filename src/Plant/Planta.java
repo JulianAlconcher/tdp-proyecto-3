@@ -4,7 +4,7 @@ import java.awt.Rectangle;
 
 import Logica.Entidad;
 
-public abstract class Planta extends Entidad implements VisitorPlantaMina{
+public abstract class Planta extends Entidad{
 
 	protected int vida = 100;
 	protected boolean disparadora;

@@ -1,7 +1,6 @@
 package Plant;
 
 import Logica.EntidadGrafica;
-import Zombie.ClassicZombie;
 
 public class PlantaLanzaguisantes extends Planta{
 	
@@ -17,17 +16,8 @@ public class PlantaLanzaguisantes extends Planta{
 
 	public ProyectilClasico disparar() {
 		ProyectilClasico aux = new ProyectilClasico(miX,miY);
-//		aux.setMiX(miX+50);
-//		aux.setMiY(miY-20);
 		return aux;
 	}
-
-	@Override
-	public void visit(ClassicZombie z) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	@Override
 	public void morir() {
 		// TODO Auto-generated method stub

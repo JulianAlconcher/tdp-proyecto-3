@@ -97,7 +97,6 @@ public final class mainGUI extends JFrame implements Runnable {
 		dayMap = new ImageIcon(this.getClass().getResource("/Images/Map.png"));
 		inGamePanel.setVisible(false);
 
-		//Seteo GUI en el medio de la pantalla.
 		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
 		int x = (int) ((dimension.getWidth() - getWidth()) / 2);
 		int y = (int) ((dimension.getHeight() - getHeight()) / 2);

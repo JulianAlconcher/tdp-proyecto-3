@@ -64,19 +64,6 @@ public class ClassicZombie extends Entidad implements VisitorZombie{
 		
 	}
 
-	
-	public void setGraficaAtacando() {
-		System.out.println("CAMBIE");
-		imgPath="pea.png";
-		miEntidadGrafica.setImgPath(imgPath);
-	}
-	
-	public void setGraficaCaminar() {
-		imgPath="WalkClassic.gif ";
-		miEntidadGrafica= new EntidadGrafica(imgPath);
-		miEntidadGrafica.getMiLabel().repaint();
-	}
-
 	public void setState(ZombieState s) {
 	   this.state=s;
 	}

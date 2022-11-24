@@ -20,7 +20,7 @@ public interface AbstractFactory  {
 	public BucketZombie crearBucketZombie(int x,int y);
 	public ClassicZombie crearClassicZombie(int x,int y);
 	public ConeZombie crearConeZombie(int x,int y);
-	public FlagZombie crearFlagZombie(int x,int y);
+	public NewsZombie crearNewsZombie(int x,int y);
 	public HolderZombie crearHolderZombie(int x,int y);
 
 }

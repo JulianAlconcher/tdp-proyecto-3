@@ -24,7 +24,7 @@ public final class Logica {
 	private String grass;
 	private String grassVariante;
 	private String obstaculo;
-	private final int limiteZombies = 10;
+	private final int limiteZombies = 2;
 	protected AbstractFactory miFactoria;
 	protected Fila[] misFilas;
 	protected Planta entidadSeleccionada;
@@ -39,8 +39,8 @@ public final class Logica {
 
 	private Logica(int modo) {
 		miGUI = mainGUI.getInstancia();
-		nivelActual = getNivel(0);
-	    state= new DayState(this);
+		nivelActual = "nivel1.txt";
+		state= new DayState(this);
 	    grass= "PastoDia.png";
 	    grassVariante = "PastoDiaOsc.png";
 		filas = 6;
@@ -52,6 +52,7 @@ public final class Logica {
 		for(int i=0; i<6; i++) {
 			misFilas[i] = new Fila();
 		}
+		soles = 10000;
 		entidadSeleccionada = null;
 		if(modo == 0) {
 			miFactoria = new FactoryDay();
@@ -61,16 +62,17 @@ public final class Logica {
 		else {
 			miFactoria = new FactoryNight();
 			this.setNightState();
-			misSoles = null;
 			soles = 475;
 			obstaculo = "nightGrassObs.png";
 		}
-
 		cargarMapa();
 	}
 	
 	public void inicializarHilos() {
-		misSoles = new SolGenerator();
+		if(state.printState() == "DIA")
+			misSoles = new SolGenerator();
+		else 
+			misSoles = null;
 		miGeneradorZombie = new TimerZombie();
 		miControladorDeDisparo = new TimerShoot();
 	}
@@ -237,7 +239,7 @@ public final class Logica {
 		}
 		break;
 		case 12:{
-			aux = miFactoria.crearFlagZombie(x,y);
+			aux = miFactoria.crearNewsZombie(x,y);
 			misFilas[y/100].insertarZombie((ClassicZombie) aux);
 		}
 		break;
@@ -263,7 +265,6 @@ public final class Logica {
 				for(Planta p : misFilas[fila].getMisPlantas()) {
 					if(z.getMiRectangulo().intersects(p.getMiRectangulo())) {
 						z.visit(p);	
-						p.visit(z);
 					}
 					if(!misFilas[fila].getMisProyectiles().isEmpty()) {
 						for(Proyectil pr :misFilas[fila].getMisProyectiles()) {
@@ -321,6 +322,7 @@ public final class Logica {
 	
 	public void checkNivel(int n) {
 		if(zombiesMuertos == limiteZombies) {
+			zombiesMuertos = 0;
 			nivelActual = getNivel(1);
 			cargarMapa();
 			miGUI.nuevoNivel();

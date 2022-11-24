@@ -62,8 +62,8 @@ public class FactoryNight implements AbstractFactory {
 	}
 
 	@Override
-	public FlagZombie crearFlagZombie(int x, int y) {
-		return new FlagZombie(x,y);
+	public NewsZombie crearNewsZombie(int x, int y) {
+		return new NewsZombie(x,y);
 	}
 
 	@Override

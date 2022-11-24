@@ -10,7 +10,6 @@ public class WalkState extends ZombieState {
 	public void cambioAtacar() {
 		z.setState(new AttackState(z));
 		z.setVelocidad(0);
-		z.setGraficaAtacando();
 		z.getMiEntidadGrafica().getMiLabel().repaint();
 		
 	}
