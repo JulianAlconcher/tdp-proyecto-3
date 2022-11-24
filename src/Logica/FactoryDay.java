@@ -19,12 +19,6 @@ public class FactoryDay implements AbstractFactory{
 	public PlantaLanzaguisantes crearLanzaguisantes(int x, int y,Fila f) {
 		return new PlantaLanzaguisantes(x,y,f);
 	}
-
-	@Override
-	public PlantaMina crearPlantaMina(int x, int y,Fila f) {
-		return new PlantaMina(x,y,f);
-	}
-
 	@Override
 	public PlantaNuez crearPlantaNuez(int x, int y,Fila f) {
 		return new PlantaNuez(x,y,f);

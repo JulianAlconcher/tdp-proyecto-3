@@ -28,7 +28,7 @@ public class TimerZombie implements Runnable {
 	
 			generarZombie();
 			
-			if(contadorZombie == limiteHordaZombie) { //--> Cuando llega a limiteHordaZombie zombies empieza la horda
+			if(contadorZombie == limiteHordaZombie) {
 				horda();
 			}
 			if(contadorZombie > limiteHordaZombie)

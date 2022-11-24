@@ -1,7 +1,5 @@
 package Logica;
 
-import GUI.mainGUI;
-
 public class SolGenerator implements Runnable {
 	
 	public Thread hiloSol;
@@ -10,14 +8,11 @@ public class SolGenerator implements Runnable {
 	protected int velocidadDeAparicion;
 	private boolean girasol;
 	protected Sol miSol;
-	protected mainGUI miG;
 	protected Logica miL;
 	protected int contador;
 	protected boolean parar;
 	
 	public SolGenerator() {
-
-		miG = mainGUI.getInstancia();
 		miL = Logica.getInstancia(0);
 		miSol = new Sol();
 		hiloSol = new Thread (this);

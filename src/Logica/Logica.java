@@ -50,7 +50,7 @@ public final class Logica {
 		mapaCeldasNumeros = new int[filas][columnas];
 		tablero = new Celda [filas][columnas];
 		misFilas = new Fila[6];
-		soles=10000;
+		soles=0;
 		for(int i=0; i<6; i++) {
 			misFilas[i] = new Fila();
 		}
@@ -63,7 +63,7 @@ public final class Logica {
 		else {
 			miFactoria = new FactoryNight();
 			this.setNightState();
-			soles = 600;
+			soles = 1000;
 			obstaculo = "nightGrassObs.png";
 		}
 		cargarMapa();
@@ -316,7 +316,7 @@ public final class Logica {
 				soles = 0;
 			}
 			else {
-				soles = 600;
+				soles = 1000;
 			}
 			for(int i=0; i<6; i++) 
 				removerEntidades(i);

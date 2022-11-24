@@ -9454,19 +9454,6 @@
 							"templateParameterCompartment": {
 								"$ref": "AAAAAAGEeRUygLEncHo="
 							}
-						},
-						{
-							"_type": "UMLTextBoxView",
-							"_id": "AAAAAAGEeRuVZ7HI5jg=",
-							"_parent": {
-								"$ref": "AAAAAAFF+qBtyKM79qY="
-							},
-							"font": "Arial;13;0",
-							"left": 720,
-							"top": 1264,
-							"width": 393,
-							"height": 97,
-							"text": "1. como le asignamos a cada Planta disparadora su tipo de proyectil sin crearlo                                                                             2.Singleton, no podemos implementarlo, nos dio errores                 3.Nos da error al cambiar el gif del zombie con su estado(atacar)   4.Como generamos Soles con la planta girasol?"
 						}
 					]
 				},
@@ -10307,7 +10294,8 @@
 									"_parent": {
 										"$ref": "AAAAAAGEclTOpCDEVFM="
 									},
-									"name": "int fila"
+									"name": "int fila",
+									"type": ""
 								}
 							]
 						},

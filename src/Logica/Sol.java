@@ -4,7 +4,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.concurrent.ThreadLocalRandom;
 
-import javax.sound.sampled.Clip;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
@@ -15,7 +14,6 @@ public class Sol {
 	protected ImageIcon im;
 	protected mainGUI miGUI;
 	protected boolean toco;
-	protected Clip clip;
 	
 	public Sol() {
 		miGUI = mainGUI.getInstancia();
