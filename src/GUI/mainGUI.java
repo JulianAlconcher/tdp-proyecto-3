@@ -489,16 +489,13 @@ public final class mainGUI extends JFrame implements Runnable {
 	
 	public void nuevoNivel() {
 		ImageIcon imgNuevoNivel = new ImageIcon(this.getClass().getResource("/Images/CambioNivel.png"));
-		int seleccion;
-		seleccion = JOptionPane.showOptionDialog(menuPanel,"", "FELICITACIONES!"
+		JOptionPane.showOptionDialog(menuPanel,"", "FELICITACIONES!"
 				,JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.PLAIN_MESSAGE,imgNuevoNivel,new Object[] { "SIGUIENTE NIVEL"},"opcion1"); 
-		if(seleccion == 0) {
 			mapPanel = null;
 			matrizGrafica = new Celda[cantFilas][cantColumnas];
 			newMapPanel();
 			inGamePanel.setComponentZOrder(mapPanel, 1);
 			pintarMatriz();
-		}
 	}
 	
 	public void ganar() {

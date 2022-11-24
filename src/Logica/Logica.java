@@ -24,7 +24,7 @@ public final class Logica {
 	private String grass;
 	private String grassVariante;
 	private String obstaculo;
-	private final int limiteZombiesPorNivel = 1;
+	private final int limiteZombiesPorNivel = 15;
 	private final int maxZombies = limiteZombiesPorNivel*2;
 	protected AbstractFactory miFactoria;
 	protected Fila[] misFilas;
@@ -307,6 +307,7 @@ public final class Logica {
 			nivelActual = getNivel(1);
 			cargarMapa();
 			miGUI.nuevoNivel();
+			miGeneradorZombie.resetVelocidad();
 
 			if(misSoles != null){
 				misSoles.detener();
@@ -317,16 +318,23 @@ public final class Logica {
 			else {
 				soles = 600;
 			}
-			for(int i=0; i<6; i++) {
-				while(!misFilas[i].getMisPlantas().isEmpty())
-					misFilas[i].getMisPlantas().remove();
-				while(!misFilas[i].getMisZombies().isEmpty())
-					misFilas[i].getMisZombies().remove();
-			}
+			for(int i=0; i<6; i++) 
+				removerEntidades(i);
+			
 		}
 		else {
+			if(zombiesMuertos == maxZombies)
 				miGUI.ganar();
 		}
+	}
+	
+	public void removerEntidades(int i) {
+		while(!misFilas[i].getMisPlantas().isEmpty())
+			misFilas[i].getMisPlantas().remove();
+		while(!misFilas[i].getMisZombies().isEmpty())
+			misFilas[i].getMisZombies().remove();
+		while(!misFilas[i].getMisProyectiles().isEmpty())
+			misFilas[i].getMisProyectiles().remove();
 	}
 	
 	public void aparecerSol() {

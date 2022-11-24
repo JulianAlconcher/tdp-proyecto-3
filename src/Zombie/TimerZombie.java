@@ -10,7 +10,7 @@ public class TimerZombie implements Runnable {
 	protected boolean gameStart;
 	protected int contadorZombie;
 	protected int velocidadDeAparicion;
-	protected final int limiteHordaZombie = 5;
+	protected final int limiteHordaZombie = 8;
 	
 	public TimerZombie() {
 		miG = mainGUI.getInstancia();
@@ -48,7 +48,7 @@ public class TimerZombie implements Runnable {
 	}
 	
 	public void horda() {
-		velocidadDeAparicion = 10000;
+		velocidadDeAparicion = 8000;
 		miG.nuevaHorda(); 
 	}
 	
@@ -60,6 +60,10 @@ public class TimerZombie implements Runnable {
 	
 	public void detener() {
 		gameStart = false;
+	}
+	
+	public void resetVelocidad() {
+		velocidadDeAparicion = 20000;
 	}
 	
 
