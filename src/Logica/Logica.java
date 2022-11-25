@@ -262,7 +262,6 @@ public final class Logica {
 					if(!misFilas[fila].getMisProyectiles().isEmpty()) {
 						for(Proyectil pr :misFilas[fila].getMisProyectiles()) {
 							if(z.getMiRectangulo().intersects(pr.getMiRectangulo())) {
-								System.out.println("vida::" + z.getVida());
 								z.accept(pr);
 								break;
 						}
@@ -314,7 +313,6 @@ public final class Logica {
 	
 	public void checkNivel() {
 		if(zombiesMuertos == limiteZombiesPorNivel && zombiesMuertos != maxZombies) {
-			System.out.println("ENTRO");
 			nivelActual = getNivel(1);
 			cargarMapa();
 			miGUI.nuevoNivel();
