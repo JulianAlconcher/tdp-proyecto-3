@@ -9,7 +9,7 @@ public class PlantaNuezAlta extends Planta{
 		super(x,y,f);
 		vida=2500;
 		imgPath = "nuezAlta.gif";
-		costo = 120;
+		costo = 125;
 		miEntidadGrafica = new EntidadGrafica(imgPath);
 	}
 

@@ -2,7 +2,6 @@ package Plant;
 
 import Logica.EntidadGrafica;
 import Logica.Fila;
-import Zombie.ClassicZombie;
 
 public class ProyectilClasico extends Proyectil {
 	
@@ -12,9 +11,6 @@ public class ProyectilClasico extends Proyectil {
 		miEntidadGrafica = new EntidadGrafica(imgPath);
 	}
 
-	
-
-
 
 }
-;
+

@@ -4,7 +4,6 @@ import Logica.Entidad;
 import Logica.EntidadGrafica;
 import Logica.Fila;
 import Plant.Planta;
-import Plant.PlantaMina;
 import Plant.VisitorProyectil;
 
 public class ClassicZombie extends Entidad implements VisitorZombie{
@@ -35,10 +34,9 @@ public class ClassicZombie extends Entidad implements VisitorZombie{
 		return vida;
 	}
 	
-	public void recibirDanio(int d) {
-		//aca pregunto si la vida es menor o igual a 0 y lo mato
-		
+	public void recibirDanio(int d) {			
 		this.vida -= d;
+
 	}
 
 	public void setVida(int vida) {
@@ -56,13 +54,14 @@ public class ClassicZombie extends Entidad implements VisitorZombie{
 	@Override
 	public void visit(Planta p) {
 		if(p.getVida()<=0) {
+			state.cambioCaminar();
 			p.morir();
 		}
-		p.recibirDanio();
-		state.cambioAtacar();
-		if(p.getVida()<=0) {
-			state.cambioCaminar();
+		else {
+			p.recibirDanio();
+			state.cambioAtacar();
 		}
+
 	}
 	
 	public void accept(VisitorProyectil v) {

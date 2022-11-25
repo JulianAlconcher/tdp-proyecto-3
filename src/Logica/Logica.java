@@ -63,7 +63,7 @@ public final class Logica {
 		else {
 			miFactoria = new FactoryNight();
 			this.setNightState();
-			soles = 1000;
+			soles = 2000;
 			obstaculo = "nightGrassObs.png";
 		}
 		cargarMapa();
@@ -252,6 +252,7 @@ public final class Logica {
 	
 	
 	public void checkCollition(int fila) {
+
 		if(!misFilas[fila].getMisZombies().isEmpty()) {
 			for(ClassicZombie z : misFilas[fila].getMisZombies()) {
 				for(Planta p : misFilas[fila].getMisPlantas()) {
@@ -261,6 +262,7 @@ public final class Logica {
 					if(!misFilas[fila].getMisProyectiles().isEmpty()) {
 						for(Proyectil pr :misFilas[fila].getMisProyectiles()) {
 							if(z.getMiRectangulo().intersects(pr.getMiRectangulo())) {
+								System.out.println("vida::" + z.getVida());
 								z.accept(pr);
 								break;
 						}
@@ -268,7 +270,6 @@ public final class Logica {
 						}	
 					}
 				}
-
 			}
 		}		
 	}
@@ -296,6 +297,15 @@ public final class Logica {
 					z.getState().accionar();
 					if(z.getMiX()<-4) {
 						miGUI.gameOver();
+					
+					}
+					if(z.getVida()<=0) {
+						miGUI.removerLabel(z.getMiEntidadGrafica().getMiLabel());
+						z.getMiEntidadGrafica().getMiLabel().repaint();
+						misFilas[i].getMisZombies().remove(z);
+						zombiesMuertos++;
+						checkNivel();
+						break;
 					}
 				}
 			}
@@ -304,6 +314,7 @@ public final class Logica {
 	
 	public void checkNivel() {
 		if(zombiesMuertos == limiteZombiesPorNivel && zombiesMuertos != maxZombies) {
+			System.out.println("ENTRO");
 			nivelActual = getNivel(1);
 			cargarMapa();
 			miGUI.nuevoNivel();
@@ -316,7 +327,7 @@ public final class Logica {
 				soles = 0;
 			}
 			else {
-				soles = 1000;
+				soles = 2000;
 			}
 			for(int i=0; i<6; i++) 
 				removerEntidades(i);
@@ -342,6 +353,7 @@ public final class Logica {
 	}
 
 	public void controlarPlantas() {
+
 		for(int i=0; i<6; i++) {
 			for(Planta p : misFilas[i].getMisPlantas()) {
 				if(!misFilas[i].getMisZombies().isEmpty()) {
@@ -354,6 +366,7 @@ public final class Logica {
 								misFilas[p.getMiY()/100].insertarProyectil((Proyectil) aux);
 								miGUI.ubicar(aux.getMiEntidadGrafica().getMiLabel(),p.getMiX()/100, p.getMiY()/100);
 							}
+
 						}
 					}
 				}

@@ -2,7 +2,6 @@ package Plant;
 
 import Logica.EntidadGrafica;
 import Logica.Fila;
-import Zombie.ClassicZombie;
 
 public class ProyectilSeta extends Proyectil{
 

@@ -4,7 +4,6 @@ import java.util.LinkedList;
 
 import Plant.Planta;
 import Plant.Proyectil;
-import Plant.ProyectilClasico;
 import Zombie.ClassicZombie;
 
 public class Fila {
