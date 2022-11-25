@@ -1,2 +1,0 @@
--El Controlar Zombies lo continua llamando el run del hiloJuego, ya que nos daba problemas el hilo de TimerZombie, por que tenian tiempos de sleep diferentes.
- Igualmente con el check collision usamos un hilo aparte para que el chequeo de colisiones sea de forma correcta
